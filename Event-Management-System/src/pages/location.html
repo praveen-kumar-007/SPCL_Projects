@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locations - EventMaster</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/location.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <h1><span>Event</span>Master</h1>
+          </div>
+          <nav class="navbar">
+            <ul class="nav-menu">
+              <li class="nav-item"><a href="../../index.html" class="nav-link">Home</a></li>
+              <li class="nav-item"><a href="events.html" class="nav-link">Events</a></li>
+              <li class="nav-item"><a href="booking.html" class="nav-link">Book Now</a></li>
+              <li class="nav-item"><a href="past-events.html" class="nav-link">Past Events</a></li>
+              <li class="nav-item"><a href="location.html" class="nav-link active">Locations</a></li>
+              <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="banner-content">
+          <h1 class="animated-title">Our Event Venues</h1>
+          <p class="animated-subtitle">Discover the perfect setting for your next event</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+      <div class="container">
+        <div class="map-container">
+          <div id="venue-map" class="venue-map"></div>
+          <div class="map-sidebar">
+            <h2>Event Venues</h2>
+            <p>Select a venue on the map or from the list below to view details</p>
+            <div class="venue-filter">
+              <select id="city-filter">
+                <option value="all">All Cities</option>
+                <option value="new-york">New York</option>
+                <option value="san-francisco">San Francisco</option>
+                <option value="chicago">Chicago</option>
+                <option value="los-angeles">Los Angeles</option>
+                <option value="boston">Boston</option>
+              </select>
+            </div>
+            <div class="venue-list" id="venue-list">
+              <!-- Venue items will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venue Details Section -->
+    <section class="venue-details-section" id="venue-details-section">
+      <div class="container">
+        <div class="venue-details-wrapper">
+          <div class="venue-details" id="venue-details">
+            <h2 id="venue-name">Select a Venue</h2>
+            <div class="venue-info-grid">
+              <div class="venue-info">
+                <div class="venue-meta">
+                  <p><i class="fas fa-map-marker-alt"></i> <span id="venue-address">Address will display here</span></p>
+                  <p><i class="fas fa-phone"></i> <span id="venue-phone">Phone will display here</span></p>
+                  <p><i class="fas fa-globe"></i> <a href="#" id="venue-website" target="_blank">Website will display here</a></p>
+                  <p><i class="fas fa-user-friends"></i> <span id="venue-capacity">Capacity will display here</span></p>
+                </div>
+                <div class="venue-description" id="venue-description">
+                  <p>Select a venue from the map or list to view details.</p>
+                </div>
+                <div class="venue-amenities">
+                  <h3>Amenities</h3>
+                  <ul class="amenities-list" id="venue-amenities">
+                    <!-- Amenities will be dynamically added here -->
+                  </ul>
+                </div>
+                <div class="venue-actions">
+                  <a href="#" class="btn primary-btn" id="venue-book">Book This Venue</a>
+                  <a href="#" class="btn outline-btn" id="venue-directions">Get Directions</a>
+                </div>
+              </div>
+              <div class="venue-gallery" id="venue-gallery">
+                <!-- Venue images will be dynamically added here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Cities Section -->
+    <section class="popular-cities">
+      <div class="container">
+        <h2 class="section-title">Popular Cities</h2>
+        <div class="cities-grid">
+          <div class="city-card" data-city="new-york" data-aos="fade-up">
+            <div class="city-image">
+              <img src="../assets/new-york.png" alt="New York">
+              <div class="city-overlay">
+                <h3>New York</h3>
+                <p>15 Venues</p>
+                <button class="btn city-btn">View Venues</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="city-card" data-city="san-francisco" data-aos="fade-up" data-aos-delay="100">
+            <div class="city-image">
+              <img src="../assets/sanfrancisco.png" alt="San Francisco">
+              <div class="city-overlay">
+                <h3>San Francisco</h3>
+                <p>8 Venues</p>
+                <button class="btn city-btn">View Venues</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="city-card" data-city="chicago" data-aos="fade-up" data-aos-delay="200">
+            <div class="city-image">
+              <img src="../assets/cicago.png" alt="Chicago">
+              <div class="city-overlay">
+                <h3>Chicago</h3>
+                <p>10 Venues</p>
+                <button class="btn city-btn">View Venues</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="city-card" data-city="los-angeles" data-aos="fade-up" data-aos-delay="300">
+            <div class="city-image">
+              <img src="../assets/lossangelus.png" alt="Los Angeles">
+              <div class="city-overlay">
+                <h3>Los Angeles</h3>
+                <p>12 Venues</p>
+                <button class="btn city-btn">View Venues</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Venue -->
+    <section class="featured-venue">
+      <div class="container">
+        <div class="featured-venue-content">
+          <div class="featured-venue-image">
+            <img src="../assets/grandhall.png" alt="Grand Hall Convention Center">
+            <div class="featured-tag">Featured Venue</div>
+          </div>
+          <div class="featured-venue-details">
+            <h2>Grand Hall Convention Center</h2>
+            <p class="featured-venue-location"><i class="fas fa-map-marker-alt"></i> 123 Main St, New York, NY 10001</p>
+            <div class="featured-venue-badges">
+              <span class="venue-badge"><i class="fas fa-star"></i> 4.8/5 Rating</span>
+              <span class="venue-badge"><i class="fas fa-users"></i> Up to 2000 Guests</span>
+              <span class="venue-badge"><i class="fas fa-parking"></i> Free Parking</span>
+              <span class="venue-badge"><i class="fas fa-wifi"></i> Free Wi-Fi</span>
+            </div>
+            <p class="featured-venue-description">Experience the grandeur of our most prestigious venue. The Grand Hall Convention Center offers state-of-the-art facilities for conferences, galas, weddings, and corporate events. With customizable spaces and premium amenities, it's the perfect choice for your next event.</p>
+            <div class="featured-venue-highlights">
+              <div class="highlight-item">
+                <i class="fas fa-vector-square"></i>
+                <h4>50,000 sq ft</h4>
+                <p>Total Space</p>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-door-open"></i>
+                <h4>12 Rooms</h4>
+                <p>Flexible Spaces</p>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-utensils"></i>
+                <h4>In-house Catering</h4>
+                <p>Premium Options</p>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-hotel"></i>
+                <h4>Hotel Access</h4>
+                <p>Connected Building</p>
+              </div>
+            </div>
+            <div class="featured-venue-actions">
+              <a href="booking.html?venue=grand-hall" class="btn primary-btn">Book This Venue</a>
+              <a href="#venue-details-section" class="btn secondary-btn venue-details-btn" data-venue="grand-hall">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Events at Venues -->
+    <section class="upcoming-events">
+      <div class="container">
+        <h2 class="section-title">Upcoming Events at Our Venues</h2>
+        <div class="events-slider" id="events-slider">
+          <div class="event-slide">
+            <div class="event-slide-image">
+              <img src="../assets/summer-festival.png" alt="Summer Music Festival">
+              <div class="event-date">
+                <span class="day">15</span>
+                <span class="month">JUN</span>
+              </div>
+            </div>
+            <div class="event-slide-details">
+              <h3>Summer Music Festival</h3>
+              <p class="event-slide-location"><i class="fas fa-map-marker-alt"></i> Central Park, New York</p>
+              <a href="booking.html?event=summer-music-festival" class="btn book-btn">Book Now</a>
+            </div>
+          </div>
+
+          <div class="event-slide">
+            <div class="event-slide-image">
+              <img src="../assets/Tech Innovation Summit.png" alt="Tech Innovation Summit">
+              <div class="event-date">
+                <span class="day">22</span>
+                <span class="month">JUN</span>
+              </div>
+            </div>
+            <div class="event-slide-details">
+              <h3>Tech Innovation Summit</h3>
+              <p class="event-slide-location"><i class="fas fa-map-marker-alt"></i> Convention Center, San Francisco</p>
+              <a href="booking.html?event=tech-innovation-summit" class="btn book-btn">Book Now</a>
+            </div>
+          </div>
+
+          <div class="event-slide">
+            <div class="event-slide-image">
+              <img src="../assets/inter-food-fest.png" alt="International Food Festival">
+              <div class="event-date">
+                <span class="day">30</span>
+                <span class="month">JUN</span>
+              </div>
+            </div>
+            <div class="event-slide-details">
+              <h3>International Food Festival</h3>
+              <p class="event-slide-location"><i class="fas fa-map-marker-alt"></i> Waterfront Plaza, Chicago</p>
+              <a href="booking.html?event=food-festival" class="btn book-btn">Book Now</a>
+            </div>
+          </div>
+
+          <div class="event-slide">
+            <div class="event-slide-image">
+              <img src="../assets/modern-ar.png" alt="Modern Art Exhibition">
+              <div class="event-date">
+                <span class="day">05</span>
+                <span class="month">JUL</span>
+              </div>
+            </div>
+            <div class="event-slide-details">
+              <h3>Modern Art Exhibition</h3>
+              <p class="event-slide-location"><i class="fas fa-map-marker-alt"></i> Metropolitan Museum, New York</p>
+              <a href="booking.html?event=art-exhibition" class="btn book-btn">Book Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="slider-controls">
+          <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
+          <div class="slider-dots">
+            <span class="slider-dot active"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+          </div>
+          <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Host Your Event CTA -->
+    <section class="host-cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Host Your Event With Us</h2>
+          <p>Looking for the perfect venue for your next event? We offer a wide range of venues to suit all types of events, from small gatherings to large conferences.</p>
+          <div class="cta-buttons">
+            <a href="booking.html" class="btn primary-btn">Book a Venue</a>
+            <a href="contact.html" class="btn outline-btn">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+      <div class="container">
+        <div class="newsletter-content">
+          <div class="newsletter-text">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to get the latest events and exclusive offers</p>
+          </div>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn subscribe-btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <h3>EventMaster</h3>
+            <p>Your one-stop solution for discovering and booking amazing events for every occasion.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="../../index.html">Home</a></li>
+              <li><a href="events.html">Events</a></li>
+              <li><a href="booking.html">Book Now</a></li>
+              <li><a href="past-events.html">Past Events</a></li>
+              <li><a href="location.html">Locations</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-map-marker-alt"></i>New Station Railway Coloney Dhanbad , 826001</p>
+            <p><i class="fas fa-phone"></i>+91 9504904499</p>
+            <p><i class="fas fa-envelope"></i>praveen.pr105@gmail.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 EventMaster. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/location.js"></script>
+</body>
+</html>

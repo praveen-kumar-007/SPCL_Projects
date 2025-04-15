@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Past Events - EventMaster</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/past-events.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <h1><span>Event</span>Master</h1>
+          </div>
+          <nav class="navbar">
+            <ul class="nav-menu">
+              <li class="nav-item"><a href="../../index.html" class="nav-link">Home</a></li>
+              <li class="nav-item"><a href="events.html" class="nav-link">Events</a></li>
+              <li class="nav-item"><a href="booking.html" class="nav-link">Book Now</a></li>
+              <li class="nav-item"><a href="past-events.html" class="nav-link active">Past Events</a></li>
+              <li class="nav-item"><a href="location.html" class="nav-link">Locations</a></li>
+              <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="banner-content">
+          <h1 class="animated-title">Our Past Events</h1>
+          <p class="animated-subtitle">Relive the unforgettable moments from our previous events</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Categories Filter -->
+    <section class="event-categories">
+      <div class="container">
+        <div class="filter-container">
+          <div class="filter-label">Filter by Category:</div>
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="music">Music</button>
+            <button class="filter-btn" data-category="tech">Technology</button>
+            <button class="filter-btn" data-category="food">Food</button>
+            <button class="filter-btn" data-category="arts">Arts</button>
+            <button class="filter-btn" data-category="sports">Sports</button>
+            <button class="filter-btn" data-category="business">Business</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events Gallery Section -->
+    <section class="events-gallery">
+      <div class="container">
+        <div class="gallery-grid">
+          <!-- Music Events -->
+          <div class="gallery-item" data-category="music" data-aos="fade-up">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event1.jpg" alt="Summer Rock Festival 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Summer Rock Festival 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> June 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Central Park, New York</p>
+                  <button class="gallery-btn" data-gallery="gallery1">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="music" data-aos="fade-up" data-aos-delay="100">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event2.jpg" alt="Jazz Night 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Jazz Night 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> April 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Blue Note, New York</p>
+                  <button class="gallery-btn" data-gallery="gallery2">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tech Events -->
+          <div class="gallery-item" data-category="tech" data-aos="fade-up" data-aos-delay="200">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event3.jpg" alt="Tech Conference 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Tech Conference 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> March 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Convention Center, San Francisco</p>
+                  <button class="gallery-btn" data-gallery="gallery3">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="tech" data-aos="fade-up">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event4.jpg" alt="Hackathon 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Hackathon 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> February 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Tech Hub, Austin</p>
+                  <button class="gallery-btn" data-gallery="gallery4">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Food Events -->
+          <div class="gallery-item" data-category="food" data-aos="fade-up" data-aos-delay="100">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event5.jpg" alt="Food Festival 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Food Festival 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> May 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Waterfront, Chicago</p>
+                  <button class="gallery-btn" data-gallery="gallery5">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="food" data-aos="fade-up" data-aos-delay="200">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event6.jpg" alt="Wine Tasting 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Wine Tasting 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> January 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Napa Valley, California</p>
+                  <button class="gallery-btn" data-gallery="gallery6">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arts Events -->
+          <div class="gallery-item" data-category="arts" data-aos="fade-up">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event7.jpg" alt="Art Exhibition 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Art Exhibition 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> April 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Metropolitan Museum, New York</p>
+                  <button class="gallery-btn" data-gallery="gallery7">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="arts" data-aos="fade-up" data-aos-delay="100">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event8.jpg" alt="Theater Performance 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Theater Performance 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> March 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Broadway Theater, New York</p>
+                  <button class="gallery-btn" data-gallery="gallery8">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sports Events -->
+          <div class="gallery-item" data-category="sports" data-aos="fade-up" data-aos-delay="200">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event9.jpg" alt="Marathon 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Marathon 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> February 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Downtown, Boston</p>
+                  <button class="gallery-btn" data-gallery="gallery9">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="sports" data-aos="fade-up">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event10.jpg" alt="Basketball Tournament 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Basketball Tournament 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> January 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Sports Arena, Los Angeles</p>
+                  <button class="gallery-btn" data-gallery="gallery10">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business Events -->
+          <div class="gallery-item" data-category="business" data-aos="fade-up" data-aos-delay="100">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event11.jpg" alt="Business Conference 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Business Conference 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> May 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Business Center, Chicago</p>
+                  <button class="gallery-btn" data-gallery="gallery11">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="business" data-aos="fade-up" data-aos-delay="200">
+            <div class="gallery-image">
+              <img src="../assets/images/past-event12.jpg" alt="Networking Event 2024">
+              <div class="gallery-overlay">
+                <div class="gallery-content">
+                  <h3>Networking Event 2024</h3>
+                  <p><i class="fas fa-calendar-alt"></i> March 2024</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Innovation Hub, New York</p>
+                  <button class="gallery-btn" data-gallery="gallery12">View Gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="no-results-message" style="display: none;">
+          <i class="fas fa-search"></i>
+          <h3>No Events Found</h3>
+          <p>There are no past events matching your selected category.</p>
+          <button class="filter-btn reset-btn" data-category="all">View All Events</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Gallery -->
+    <div class="lightbox" id="lightbox">
+      <div class="lightbox-content">
+        <div class="lightbox-header">
+          <h3 id="lightbox-title">Event Gallery</h3>
+          <button class="close-lightbox">&times;</button>
+        </div>
+        <div class="lightbox-body">
+          <div class="lightbox-slider" id="lightbox-slider">
+            <!-- Gallery images will be dynamically added here -->
+          </div>
+          <div class="lightbox-controls">
+            <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+            <div class="lightbox-counter">
+              <span id="current-slide">1</span>/<span id="total-slides">6</span>
+            </div>
+            <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="lightbox-thumbnails" id="lightbox-thumbnails">
+          <!-- Thumbnails will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Highlights Section -->
+    <section class="event-highlights">
+      <div class="container">
+        <h2 class="section-title">Event Highlights</h2>
+        <div class="highlights-content">
+          <div class="highlights-video">
+            <video poster="../assets/images/video-poster.jpg" controls>
+              <source src="../assets/videos/event-highlights.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="highlights-text">
+            <h3>2024 Event Highlights</h3>
+            <p>Relive the most memorable moments from our events in 2024. From electrifying music festivals to groundbreaking tech conferences, our events brought together thousands of people for unforgettable experiences.</p>
+            <ul class="highlights-list">
+              <li><i class="fas fa-check-circle"></i> 45+ successful events organized</li>
+              <li><i class="fas fa-check-circle"></i> 25,000+ attendees across all events</li>
+              <li><i class="fas fa-check-circle"></i> 10+ cities across the country</li>
+              <li><i class="fas fa-check-circle"></i> 95% attendee satisfaction rate</li>
+            </ul>
+            <p>Stay tuned for our upcoming events in 2025. Follow us on social media for the latest updates and announcements.</p>
+            <div class="highlights-social">
+              <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="container">
+        <h2 class="section-title">What Our Attendees Say</h2>
+        <div class="testimonials-slider">
+          <div class="testimonial-card active">
+            <div class="testimonial-content">
+              <p>"The Summer Rock Festival was absolutely incredible! The organization was perfect, and the lineup was stellar. I can't wait for next year's festival!"</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="../assets/images/testimonial1.jpg" alt="James Wilson">
+              <div class="author-info">
+                <h4>James Wilson</h4>
+                <p>Summer Rock Festival Attendee</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>"The Tech Conference provided invaluable insights and networking opportunities. I made important connections that have helped grow my business."</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="../assets/images/testimonial2.jpg" alt="Sophia Lee">
+              <div class="author-info">
+                <h4>Sophia Lee</h4>
+                <p>Tech Conference Attendee</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>"The Food Festival was a culinary delight! I got to taste amazing dishes from around the world. The cooking demonstrations were also very informative."</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="../assets/images/testimonial3.jpg" alt="Michael Johnson">
+              <div class="author-info">
+                <h4>Michael Johnson</h4>
+                <p>Food Festival Attendee</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-controls">
+          <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+          <div class="testimonial-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Don't Miss Our Next Events</h2>
+          <p>Stay updated with our upcoming events and be the first to book your tickets</p>
+          <div class="cta-buttons">
+            <a href="events.html" class="btn primary-btn">Upcoming Events</a>
+            <a href="booking.html" class="btn secondary-btn">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+      <div class="container">
+        <div class="newsletter-content">
+          <div class="newsletter-text">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to get the latest events and exclusive offers</p>
+          </div>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn subscribe-btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <h3>EventMaster</h3>
+            <p>Your one-stop solution for discovering and booking amazing events for every occasion.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="../../index.html">Home</a></li>
+              <li><a href="events.html">Events</a></li>
+              <li><a href="booking.html">Book Now</a></li>
+              <li><a href="past-events.html">Past Events</a></li>
+              <li><a href="location.html">Locations</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-map-marker-alt"></i>New Station Railway Coloney Dhanbad , 826001</p>
+            <p><i class="fas fa-phone"></i>+91 9504904499</p>
+            <p><i class="fas fa-envelope"></i>praveen.pr105@gmail.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 EventMaster. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/past-events.js"></script>
+</body>
+</html>

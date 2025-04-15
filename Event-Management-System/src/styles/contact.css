@@ -1,0 +1,217 @@
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+.header {
+    background-color: #4A90E2;
+    padding: 20px 0;
+}
+
+.header .logo h1 {
+    color: #fff;
+    font-size: 2em;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-item {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #fff;
+}
+
+/* Page Banner Styles */
+.page-banner {
+    position: relative;
+    background: url('../assets/images/banner.jpg') no-repeat center center/cover;
+    height: 300px;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.animated-title {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.animated-subtitle {
+    font-size: 1.2em;
+}
+
+/* Contact Info Section */
+.contact-info {
+    padding: 50px 0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.info-card {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.info-icon {
+    font-size: 2em;
+    color: #4A90E2;
+}
+
+/* Contact Form Section */
+.contact-form-section {
+    padding: 50px 0;
+}
+
+.contact-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.form-group:last-child {
+    margin-right: 0;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.primary-btn {
+    background-color: #4A90E2;
+    color: #fff;
+}
+
+.outline-btn {
+    background-color: transparent;
+    border: 2px solid #4A90E2;
+    color: #4A90E2;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 50px 0;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq-answer {
+    display: none;
+    padding: 10px 0;
+}
+
+/* Map Section */
+.map-section {
+    padding: 50px 0;
+}
+
+/* Call to Action Section */
+.cta-section {
+    background-color: #4A90E2;
+    color: #fff;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.cta-buttons a {
+    margin: 0 10px;
+}
+
+/* Newsletter Section */
+.newsletter {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+}
+
+.newsletter-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-about, .footer-links, .footer-contact {
+    flex: 1;
+    margin: 0 20px;
+}

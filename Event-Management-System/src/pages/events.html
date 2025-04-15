@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events - EventMaster</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/events.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <h1><span>Event</span>Master</h1>
+          </div>
+          <nav class="navbar">
+            <ul class="nav-menu">
+              <li class="nav-item"><a href="../../index.html" class="nav-link">Home</a></li>
+              <li class="nav-item"><a href="events.html" class="nav-link active">Events</a></li>
+              <li class="nav-item"><a href="booking.html" class="nav-link">Book Now</a></li>
+              <li class="nav-item"><a href="past-events.html" class="nav-link">Past Events</a></li>
+              <li class="nav-item"><a href="location.html" class="nav-link">Locations</a></li>
+              <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="banner-content">
+          <h1 class="animated-title">Discover Upcoming Events</h1>
+          <p class="animated-subtitle">Find and book amazing events happening near you</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="search-filter">
+      <div class="container">
+        <div class="search-bar">
+          <input type="text" placeholder="Search events..." id="search-input">
+          <button type="button" id="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="filters">
+          <div class="filter-group">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="all">All Categories</option>
+              <option value="music">Music</option>
+              <option value="tech">Technology</option>
+              <option value="food">Food & Drink</option>
+              <option value="arts">Arts & Culture</option>
+              <option value="sports">Sports</option>
+              <option value="business">Business</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="location">Location</label>
+            <select id="location">
+              <option value="all">All Locations</option>
+              <option value="newyork">New York</option>
+              <option value="losangeles">Los Angeles</option>
+              <option value="chicago">Chicago</option>
+              <option value="sanfrancisco">San Francisco</option>
+              <option value="miami">Miami</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="date">Date</label>
+            <select id="date">
+              <option value="all">Any Date</option>
+              <option value="today">Today</option>
+              <option value="tomorrow">Tomorrow</option>
+              <option value="thisweek">This Week</option>
+              <option value="thismonth">This Month</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="price">Price</label>
+            <select id="price">
+              <option value="all">Any Price</option>
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+              <option value="premium">Premium</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+      <div class="container">
+        <div class="categories-grid">
+          <div class="category-card" data-category="music">
+            <div class="category-icon">
+              <i class="fas fa-music"></i>
+            </div>
+            <h3>Music</h3>
+            <p>Concerts, Festivals, Live Shows</p>
+          </div>
+          <div class="category-card" data-category="tech">
+            <div class="category-icon">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3>Technology</h3>
+            <p>Conferences, Workshops, Hackathons</p>
+          </div>
+          <div class="category-card" data-category="food">
+            <div class="category-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <h3>Food & Drink</h3>
+            <p>Food Festivals, Wine Tastings, Cooking Classes</p>
+          </div>
+          <div class="category-card" data-category="arts">
+            <div class="category-icon">
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <h3>Arts & Culture</h3>
+            <p>Exhibitions, Theater, Museums</p>
+          </div>
+          <div class="category-card" data-category="sports">
+            <div class="category-icon">
+              <i class="fas fa-running"></i>
+            </div>
+            <h3>Sports</h3>
+            <p>Games, Tournaments, Marathons</p>
+          </div>
+          <div class="category-card" data-category="business">
+            <div class="category-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <h3>Business</h3>
+            <p>Networking, Seminars, Expos</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events List Section -->
+    <section class="events-list">
+      <div class="container">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="events-grid" id="events-container">
+          <!-- Music Events -->
+          <div class="event-card" data-category="music" data-aos="fade-up">
+            <div class="event-image">
+              <img src="../assets/summer-festival.png" alt="Summer Music Festival">
+              <div class="event-date">
+                <span class="day">15</span>
+                <span class="month">JUN</span>
+              </div>
+              <div class="event-category music">Music</div>
+            </div>
+            <div class="event-details">
+              <h3>Summer Music Festival</h3>
+              <p class="event-location"><i class="fas fa-map-marker-alt"></i> Central Park, New York</p>
+              <p class="event-time"><i class="far fa-clock"></i> 4:00 PM - 11:00 PM</p>
+              <div class="event-price">
+                <span class="price">$49.99</span>
+                <a href="booking.html?event=summer-music-festival" class="btn book-btn">Book Now</a>
+              </div>
+            </div>
+            <div class="event-hover">
+              <div class="event-description">
+                <p>Experience the ultimate summer music festival featuring top artists from around the world. Enjoy food, drinks, and great music in the heart of Central Park.</p>
+              </div>
+              <div class="event-actions">
+                <button class="btn-favorite"><i class="far fa-heart"></i></button>
+                <button class="btn-share"><i class="fas fa-share-alt"></i></button>
+                <a href="booking.html?event=summer-music-festival" class="btn book-btn-alt">Book Now</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tech Events -->
+          <div class="event-card" data-category="tech" data-aos="fade-up" data-aos-delay="100">
+            <div class="event-image">
+              <img src="../assets/Tech Innovation Summit.png" alt="Tech Innovation Summit">
+              <div class="event-date">
+                <span class="day">22</span>
+                <span class="month">JUN</span>
+              </div>
+              <div class="event-category tech">Tech</div>
+            </div>
+            <div class="event-details">
+              <h3>Tech Innovation Summit</h3>
+              <p class="event-location"><i class="fas fa-map-marker-alt"></i> Convention Center, San Francisco</p>
+              <p class="event-time"><i class="far fa-clock"></i> 9:00 AM - 6:00 PM</p>
+              <div class="event-price">
+                <span class="price">$149.99</span>
+                <a href="booking.html?event=tech-innovation-summit" class="btn book-btn">Book Now</a>
+              </div>
+            </div>
+            <div class="event-hover">
+              <div class="event-description">
+                <p>Join tech leaders and innovators at the year's biggest tech conference. Network with industry pioneers and discover the latest technological advancements.</p>
+              </div>
+              <div class="event-actions">
+                <button class="btn-favorite"><i class="far fa-heart"></i></button>
+                <button class="btn-share"><i class="fas fa-share-alt"></i></button>
+                <a href="booking.html?event=tech-innovation-summit" class="btn book-btn-alt">Book Now</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Food Events -->
+          <div class="event-card" data-category="food" data-aos="fade-up" data-aos-delay="200">
+            <div class="event-image">
+              <img src="../assets/inter-food-fest.png" alt="International Food Festival">
+              <div class="event-date">
+                <span class="day">30</span>
+                <span class="month">JUN</span>
+              </div>
+              <div class="event-category food">Food</div>
+            </div>
+            <div class="event-details">
+              <h3>International Food Festival</h3>
+              <p class="event-location"><i class="fas fa-map-marker-alt"></i> Waterfront Plaza, Chicago</p>
+              <p class="event-time"><i class="far fa-clock"></i> 11:00 AM - 9:00 PM</p>
+              <div class="event-price">
+                <span class="price">$29.99</span>
+                <a href="booking.html?event=food-festival" class="btn book-btn">Book Now</a>
+              </div>
+            </div>
+            <div class="event-hover">
+              <div class="event-description">
+                <p>Savor culinary delights from around the world at this international food festival. Meet celebrity chefs, enjoy live cooking demonstrations, and taste exotic cuisines.</p>
+              </div>
+              <div class="event-actions">
+                <button class="btn-favorite"><i class="far fa-heart"></i></button>
+                <button class="btn-share"><i class="fas fa-share-alt"></i></button>
+                <a href="booking.html?event=food-festival" class="btn book-btn-alt">Book Now</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arts Events -->
+          <div class="event-card" data-category="arts" data-aos="fade-up">
+            <div class="event-image">
+              <img src="../assets/modern-ar.png" alt="Modern Art Exhibition">
+              <div class="event-date">
+                <span class="day">05</span>
+                <span class="month">JUL</span>
+              </div>
+              <div class="event-category arts">Arts</div>
+            </div>
+            <div class="event-details">
+              <h3>Modern Art Exhibition</h3>
+              <p class="event-location"><i class="fas fa-map-marker-alt"></i> Metropolitan Museum, New York</p>
+              <p class="event-time"><i class="far fa-clock"></i> 10:00 AM - 8:00 PM</p>
+              <div class="event-price">
+                <span class="price">$19.99</span>
+                <a href="booking.html?event=art-exhibition" class="btn book-btn">Book Now</a>
+              </div>
+            </div>
+            <div class="event-hover">
+              <div class="event-description">
+                <p>Experience a groundbreaking exhibition featuring works from contemporary artists around the globe. Guided tours and interactive installations available.</p>
+              </div>
+              <div class="event-actions">
+                <button class="btn-favorite"><i class="far fa-heart"></i></button>
+                <button class="btn-share"><i class="fas fa-share-alt"></i></button>
+                <a href="booking.html?event=art-exhibition" class="btn book-btn-alt">Book Now</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sports Events -->
+          <div class="event-card" data-category="sports" data-aos="fade-up" data-aos-delay="100">
+            <div class="event-image">
+              <img src="../assets/city-marathon.png" alt="City Marathon">
+              <div class="event-date">
+                <span class="day">12</span>
+                <span class="month">JUL</span>
+              </div>
+              <div class="event-category sports">Sports</div>
+            </div>
+            <div class="event-details">
+              <h3>City Marathon</h3>
+              <p class="event-location"><i class="fas fa-map-marker-alt"></i> Downtown, Boston</p>
+              <p class="event-time"><i class="far fa-clock"></i> 7:00 AM - 2:00 PM</p>
+              <div class="event-price">
+                <span class="price">$39.99</span>
+                <a href="booking.html?event=city-marathon" class="btn book-btn">Book Now</a>
+              </div>
+            </div>
+            <div class="event-hover">
+              <div class="event-description">
+                <p>Join thousands of runners in the annual city marathon. The scenic route takes you through historic landmarks. All fitness levels welcome.</p>
+              </div>
+              <div class="event-actions">
+                <button class="btn-favorite"><i class="far fa-heart"></i></button>
+                <button class="btn-share"><i class="fas fa-share-alt"></i></button>
+                <a href="booking.html?event=city-marathon" class="btn book-btn-alt">Book Now</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business Events -->
+          <div class="event-card" data-category="business" data-aos="fade-up" data-aos-delay="200">
+            <div class="event-image">
+              <img src="../assets/startup-network.png" alt="Startup Networking Event">
+              <div class="event-date">
+                <span class="day">18</span>
+                <span class="month">JUL</span>
+              </div>
+              <div class="event-category business">Business</div>
+            </div>
+            <div class="event-details">
+              <h3>Startup Networking Event</h3>
+              <p class="event-location"><i class="fas fa-map-marker-alt"></i> Innovation Hub, Austin</p>
+              <p class="event-time"><i class="far fa-clock"></i> 6:00 PM - 9:00 PM</p>
+              <div class="event-price">
+                <span class="price">Free</span>
+                <a href="booking.html?event=startup-networking" class="btn book-btn">Book Now</a>
+              </div>
+            </div>
+            <div class="event-hover">
+              <div class="event-description">
+                <p>Connect with fellow entrepreneurs, investors, and industry experts. Perfect for startups looking to grow their network and find potential partners.</p>
+              </div>
+              <div class="event-actions">
+                <button class="btn-favorite"><i class="far fa-heart"></i></button>
+                <button class="btn-share"><i class="fas fa-share-alt"></i></button>
+                <a href="booking.html?event=startup-networking" class="btn book-btn-alt">Book Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="load-more-container">
+          <button class="btn load-more-btn">Load More <i class="fas fa-spinner"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Featured Event -->
+    <section class="featured-event">
+      <div class="container">
+        <div class="featured-event-content">
+          <div class="featured-event-image">
+            <img src="../assets/anual-tech-conf.png" alt="Annual Tech Conference">
+            <div class="countdown-timer" id="countdown">
+              <div class="countdown-item">
+                <span class="countdown-number" id="countdown-days">00</span>
+                <span class="countdown-label">Days</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="countdown-hours">00</span>
+                <span class="countdown-label">Hours</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="countdown-minutes">00</span>
+                <span class="countdown-label">Minutes</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="countdown-seconds">00</span>
+                <span class="countdown-label">Seconds</span>
+              </div>
+            </div>
+          </div>
+          <div class="featured-event-details">
+            <div class="featured-label">Featured Event</div>
+            <h2>Annual Tech Conference 2025</h2>
+            <p class="featured-date"><i class="far fa-calendar-alt"></i> August 15-17, 2025</p>
+            <p class="featured-location"><i class="fas fa-map-marker-alt"></i> Tech Center, Silicon Valley</p>
+            <p class="featured-description">The biggest tech event of the year! Join industry leaders, innovators, and tech enthusiasts for three days of inspiring talks, workshops, and networking opportunities. Early bird tickets available now!</p>
+            <div class="featured-actions">
+              <a href="booking.html?event=annual-tech-conference" class="btn primary-btn">Book Early Bird Tickets</a>
+              <button class="btn outline-btn">Add to Calendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+      <div class="container">
+        <div class="newsletter-content">
+          <div class="newsletter-text">
+            <h2>Never Miss an Event</h2>
+            <p>Subscribe to our newsletter to get updates on upcoming events and exclusive offers</p>
+          </div>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn subscribe-btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <h3>EventMaster</h3>
+            <p>Your one-stop solution for discovering and booking amazing events for every occasion.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="../../index.html">Home</a></li>
+              <li><a href="events.html">Events</a></li>
+              <li><a href="booking.html">Book Now</a></li>
+              <li><a href="past-events.html">Past Events</a></li>
+              <li><a href="location.html">Locations</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-map-marker-alt"></i>New Station Railway Coloney Dhanbad , 826001</p>
+            <p><i class="fas fa-phone"></i>+91 9504904499</p>
+            <p><i class="fas fa-envelope"></i>praveen.pr105@gmail.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 EventMaster. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/events.js"></script>
+</body>
+</html>

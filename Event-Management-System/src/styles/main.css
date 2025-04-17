@@ -9,16 +9,16 @@
 
 :root {
   /* Color Palette */
-  --primary-color: #6c63ff;
-  --secondary-color: #ff6b6b;
-  --accent-color: #5ce1e6;
+  --primary-color: #06024d;
+  --secondary-color: #620238;
+  --accent-color: #4b0366;
   --dark-color: #2a2a2a;
   --light-color: #ffffff;
   --grey-color: #f5f5f5;
-  --text-color: #333;
-  --text-light: #777;
-  --success-color: #28a745;
-  --error-color: #dc3545;
+  --text-color: #8b006a;
+  --text-light: #d60261;
+  --success-color: #87e800;
+  --error-color: #db091e;
   --warning-color: #ffc107;
 
   /* Typography */
@@ -610,3 +610,131 @@ section {
     padding: 0.6rem 1.25rem;
   }
 }
+
+
+/* ======================================== */
+/* === Newsletter Section Styles (Enhanced) === */
+/* ======================================== */
+
+/* Assuming .newsletter section has padding and background set elsewhere */
+
+.newsletter-content {
+    text-align: center; /* Center heading/text above the form */
+    /* Add padding if needed */
+    /* padding-bottom: var(--spacing-lg); */
+}
+
+/* Style heading/text if they exist within newsletter-content */
+.newsletter-content h3 {
+    font-size: clamp(1.6rem, 4vw, 2rem);
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+}
+.newsletter-content p {
+    color: var(--text-light);
+    margin-bottom: var(--spacing-lg);
+    font-size: 1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.newsletter-form {
+  display: flex;
+  /* Use flex-wrap for responsiveness built-in */
+  flex-wrap: wrap;
+  gap: var(--spacing-sm); /* Gap between input and button */
+  max-width: 650px; /* Adjust max width */
+  margin: 0 auto; /* Center the form */
+  position: relative; /* For potential feedback messages */
+  align-items: stretch; /* Make items same height by default */
+  justify-content: center; /* Center items if they don't fill max-width */
+}
+
+.newsletter-form input[type="email"] {
+  flex-grow: 1; /* Allows input to take available space */
+  min-width: 250px; /* Minimum width before wrapping */
+  padding: 14px 18px; /* Comfortable padding */
+  font-size: 1rem; /* Slightly larger font */
+  font-family: var(--font-family);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--light-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  appearance: none; /* Remove default browser styling */
+  box-sizing: border-box;
+  height: 50px; /* Explicit height for better alignment */
+}
+
+/* Placeholder Styling */
+.newsletter-form input[type="email"]::placeholder {
+  color: var(--text-light);
+  opacity: 0.8; /* Make placeholder slightly less prominent */
+}
+
+/* Input Focus State */
+.newsletter-form input[type="email"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2); /* Focus ring */
+}
+
+/* Input Validation Styles (Add/Remove 'invalid' class with JS) */
+.newsletter-form input[type="email"].invalid {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(var(--error-color-rgb), 0.15);
+}
+.newsletter-form input[type="email"].invalid:focus {
+     box-shadow: 0 0 0 3px rgba(var(--error-color-rgb), 0.25);
+}
+
+
+/* Button Styling */
+.subscribe-btn {
+  /* Inherits from .btn */
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  flex-shrink: 0; /* Prevent button from shrinking */
+  padding: 0 28px; /* Adjust padding for button text */
+  font-weight: 600;
+  height: 50px; /* Match input height */
+  /* Add icon possibility */
+  /* display: inline-flex; */
+  /* align-items: center; */
+  /* gap: var(--spacing-sm); */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.subscribe-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px) scale(1.02); /* Lift and slightly enlarge */
+  box-shadow: var(--shadow-md);
+}
+
+.subscribe-btn:active {
+  transform: translateY(-1px) scale(0.99); /* Press down effect */
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- Responsive Adjustments --- */
+@media screen and (max-width: 576px) {
+  .newsletter-form {
+    /* Already wraps due to flex-wrap, but can force column if preferred */
+    /* flex-direction: column; */
+    gap: var(--spacing-md); /* Increase gap when stacked */
+  }
+
+  .newsletter-form input[type="email"] {
+    min-width: 100%; /* Make input full width when stacked */
+    flex-basis: 100%; /* Ensure it takes full line */
+  }
+
+  .subscribe-btn {
+    width: 100%; /* Make button full width when stacked */
+     flex-basis: 100%; /* Ensure it takes full line */
+  }
+}
+

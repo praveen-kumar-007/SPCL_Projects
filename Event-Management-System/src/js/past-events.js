@@ -1,470 +1,446 @@
-// Past Events Page JavaScript
+// Past Events Page JavaScript (Combined)
 
 // Wait for DOM to be loaded
 document.addEventListener('DOMContentLoaded', function() {
-  initializePastEventsPage();
+    initializePastEventsPage();
 });
 
 // Initialize all past events page functionality
 function initializePastEventsPage() {
-  initializeFilters();
-  initializeLightbox();
-  initializeTestimonialSlider();
-  animateGalleryItems();
+    initializeFilters();
+    initializeLightbox();
+    initializeTestimonialSlider(); // Uses the translateX logic now
+    animateGalleryItems();
+    lazyLoadImages();
+    addSmoothScrolling();
 }
 
 // Initialize category filters
 function initializeFilters() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  const noResultsMessage = document.querySelector('.no-results-message');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const noResultsMessage = document.querySelector('.no-results-message');
 
-  if (!filterButtons.length || !galleryItems.length) return;
+    // Check if elements exist to avoid errors if they are not on the page
+    if (!filterButtons.length || !galleryItems.length) {
+        // console.log("Filter elements not found, skipping filter initialization.");
+        return;
+    }
 
-  // Add click event to filter buttons
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Remove active class from all buttons
-      filterButtons.forEach(btn => btn.classList.remove('active'));
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            const selectedCategory = this.getAttribute('data-category');
+            let visibleCount = 0;
 
-      // Add active class to clicked button
-      this.classList.add('active');
+            galleryItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                const shouldShow = selectedCategory === 'all' || selectedCategory === itemCategory;
 
-      // Get selected category
-      const selectedCategory = this.getAttribute('data-category');
+                // Apply initial state for animation if hiding/showing
+                if (!shouldShow) {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    // Use timeout to allow animation before setting display none
+                    setTimeout(() => {
+                         if (item.style.opacity === '0') { // Check if still hidden
+                           item.style.display = 'none';
+                         }
+                    }, 300); // Match this with CSS transition duration
+                } else {
+                    // Reset styles before showing for animation trigger
+                    item.style.display = 'block'; // Make it block first
+                    item.style.opacity = '0';     // Ensure it's hidden initially
+                    item.style.transform = 'translateY(20px)';
 
-      // Filter gallery items
-      let visibleCount = 0;
+                    // Stagger animation for appearing items
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, visibleCount * 80 + 50); // Stagger delay + initial delay
+                    visibleCount++;
+                }
+            });
 
-      galleryItems.forEach(item => {
-        // Hide the item first
-        item.style.display = 'none';
-
-        // Check if item matches the selected category or if "all" is selected
-        const itemCategory = item.getAttribute('data-category');
-        if (selectedCategory === 'all' || selectedCategory === itemCategory) {
-          // Show the item with a delay for animation
-          setTimeout(() => {
-            item.style.display = 'block';
-            // Trigger fade in animation
-            setTimeout(() => {
-              item.style.opacity = '1';
-              item.style.transform = 'translateY(0)';
-            }, 50);
-          }, visibleCount * 100);
-
-          visibleCount++;
-        }
-      });
-
-      // Show/hide no results message
-      if (visibleCount === 0 && noResultsMessage) {
-        noResultsMessage.style.display = 'block';
-      } else if (noResultsMessage) {
-        noResultsMessage.style.display = 'none';
-      }
+            if (noResultsMessage) {
+                noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+        });
     });
-  });
 
-  // Reset button in no results message
-  const resetButton = document.querySelector('.reset-btn');
-  if (resetButton) {
-    resetButton.addEventListener('click', function() {
-      // Trigger click on "All" button
-      const allButton = document.querySelector('.filter-btn[data-category="all"]');
-      if (allButton) {
-        allButton.click();
-      }
-    });
-  }
+    const resetButton = document.querySelector('.reset-btn');
+    if (resetButton) {
+        resetButton.addEventListener('click', function() {
+            const allButton = document.querySelector('.filter-btn[data-category="all"]');
+            if (allButton) {
+                allButton.click();
+            }
+        });
+    }
 }
+
 
 // Initialize lightbox gallery
 function initializeLightbox() {
-  const galleryButtons = document.querySelectorAll('.gallery-btn');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxSlider = document.getElementById('lightbox-slider');
-  const lightboxThumbnails = document.getElementById('lightbox-thumbnails');
-  const lightboxTitle = document.getElementById('lightbox-title');
-  const closeLightbox = document.querySelector('.close-lightbox');
-  const prevButton = document.querySelector('.lightbox-prev');
-  const nextButton = document.querySelector('.lightbox-next');
-  const currentSlideElement = document.getElementById('current-slide');
-  const totalSlidesElement = document.getElementById('total-slides');
+    const galleryButtons = document.querySelectorAll('.gallery-btn');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxSlider = document.getElementById('lightbox-slider');
+    const lightboxThumbnails = document.getElementById('lightbox-thumbnails');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const closeLightbox = document.querySelector('.close-lightbox');
+    const prevButton = document.querySelector('.lightbox-prev');
+    const nextButton = document.querySelector('.lightbox-next');
+    const currentSlideElement = document.getElementById('current-slide');
+    const totalSlidesElement = document.getElementById('total-slides');
 
-  if (!galleryButtons.length || !lightbox || !lightboxSlider) return;
-
-  // Gallery data for demo purposes
-  const galleries = {
-    gallery1: {
-      title: 'Summer Rock Festival 2024',
-      images: [
-        { src: '../assets/images/gallery/rock1.jpg', thumb: '../assets/images/gallery/thumb-rock1.jpg' },
-        { src: '../assets/images/gallery/rock2.jpg', thumb: '../assets/images/gallery/thumb-rock2.jpg' },
-        { src: '../assets/images/gallery/rock3.jpg', thumb: '../assets/images/gallery/thumb-rock3.jpg' },
-        { src: '../assets/images/gallery/rock4.jpg', thumb: '../assets/images/gallery/thumb-rock4.jpg' },
-        { src: '../assets/images/gallery/rock5.jpg', thumb: '../assets/images/gallery/thumb-rock5.jpg' },
-        { src: '../assets/images/gallery/rock6.jpg', thumb: '../assets/images/gallery/thumb-rock6.jpg' }
-      ]
-    },
-    gallery2: {
-      title: 'Jazz Night 2024',
-      images: [
-        { src: '../assets/images/gallery/jazz1.jpg', thumb: '../assets/images/gallery/thumb-jazz1.jpg' },
-        { src: '../assets/images/gallery/jazz2.jpg', thumb: '../assets/images/gallery/thumb-jazz2.jpg' },
-        { src: '../assets/images/gallery/jazz3.jpg', thumb: '../assets/images/gallery/thumb-jazz3.jpg' },
-        { src: '../assets/images/gallery/jazz4.jpg', thumb: '../assets/images/gallery/thumb-jazz4.jpg' }
-      ]
-    },
-    gallery3: {
-      title: 'Tech Conference 2024',
-      images: [
-        { src: '../assets/images/gallery/tech1.jpg', thumb: '../assets/images/gallery/thumb-tech1.jpg' },
-        { src: '../assets/images/gallery/tech2.jpg', thumb: '../assets/images/gallery/thumb-tech2.jpg' },
-        { src: '../assets/images/gallery/tech3.jpg', thumb: '../assets/images/gallery/thumb-tech3.jpg' },
-        { src: '../assets/images/gallery/tech4.jpg', thumb: '../assets/images/gallery/thumb-tech4.jpg' },
-        { src: '../assets/images/gallery/tech5.jpg', thumb: '../assets/images/gallery/thumb-tech5.jpg' }
-      ]
+    // Only proceed if essential lightbox elements exist
+    if (!galleryButtons.length || !lightbox || !lightboxSlider || !closeLightbox || !prevButton || !nextButton) {
+        // console.log("Lightbox elements not found, skipping lightbox initialization.");
+        return;
     }
-  };
 
-  // For other galleries, use the same images from different categories for demo
-  galleries.gallery4 = { title: 'Hackathon 2024', images: galleries.gallery3.images };
-  galleries.gallery5 = { title: 'Food Festival 2024', images: galleries.gallery1.images };
-  galleries.gallery6 = { title: 'Wine Tasting 2024', images: galleries.gallery2.images };
-  galleries.gallery7 = { title: 'Art Exhibition 2024', images: galleries.gallery3.images };
-  galleries.gallery8 = { title: 'Theater Performance 2024', images: galleries.gallery1.images };
-  galleries.gallery9 = { title: 'Marathon 2024', images: galleries.gallery2.images };
-  galleries.gallery10 = { title: 'Basketball Tournament 2024', images: galleries.gallery3.images };
-  galleries.gallery11 = { title: 'Business Conference 2024', images: galleries.gallery1.images };
-  galleries.gallery12 = { title: 'Networking Event 2024', images: galleries.gallery2.images };
+    // --- Gallery data (Keep this as is or load dynamically) ---
+    const galleries = {
+        gallery1: { /* ... data ... */ },
+        gallery2: { /* ... data ... */ },
+        gallery3: { /* ... data ... */ },
+        // ... other galleries ...
+    };
+    // --- TEMPORARY Placeholder Data if galleries object is empty ---
+    if (Object.keys(galleries).length === 1 && !galleries.gallery1) { // Basic check if empty
+         galleries.gallery1 = { title: 'Sample Gallery 1', images: [{ src: '#', thumb: '#' }] };
+         galleries.gallery2 = { title: 'Sample Gallery 2', images: [{ src: '#', thumb: '#' }] };
+         galleries.gallery3 = { title: 'Sample Gallery 3', images: [{ src: '#', thumb: '#' }] };
+        // Add more samples as needed based on your data-gallery attributes
+        console.warn("Using placeholder gallery data. Update the 'galleries' object in initializeLightbox.");
+    }
+    // Ensure fallback for missing galleries (copying data like before)
+    galleries.gallery4 = galleries.gallery4 || { title: 'Placeholder 4', images: galleries.gallery3?.images || galleries.gallery1?.images || [] };
+    galleries.gallery5 = galleries.gallery5 || { title: 'Placeholder 5', images: galleries.gallery1?.images || [] };
+    galleries.gallery6 = galleries.gallery6 || { title: 'Placeholder 6', images: galleries.gallery2?.images || galleries.gallery1?.images || [] };
+    // ... add fallbacks for gallery7 to gallery12 as needed ...
 
-  let currentGallery = null;
-  let currentSlideIndex = 0;
 
-  // Open lightbox when a gallery button is clicked
-  galleryButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent propagation to parent elements
+    let currentGallery = null;
+    let currentSlideIndex = 0;
 
-      // Get gallery ID
-      const galleryId = this.getAttribute('data-gallery');
-
-      // Open lightbox with selected gallery
-      if (galleries[galleryId]) {
-        openLightbox(galleryId);
-      }
+    galleryButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const galleryId = this.getAttribute('data-gallery');
+            if (galleries[galleryId] && galleries[galleryId].images.length > 0) {
+                openLightbox(galleryId);
+            } else {
+                console.warn(`Gallery data not found or empty for ID: ${galleryId}`);
+            }
+        });
     });
-  });
 
-  // Close lightbox when close button is clicked
-  if (closeLightbox) {
     closeLightbox.addEventListener('click', function() {
-      lightbox.classList.remove('show');
-
-      // Clear lightbox content after transition
-      setTimeout(() => {
-        lightboxSlider.innerHTML = '';
-        lightboxThumbnails.innerHTML = '';
-        currentGallery = null;
-      }, 500);
+        lightbox.classList.remove('show');
+        // Optional: Clear content after transition for memory
+        setTimeout(() => {
+            if (!lightbox.classList.contains('show')) { // Check if still closed
+                lightboxSlider.innerHTML = '';
+                if (lightboxThumbnails) lightboxThumbnails.innerHTML = '';
+                currentGallery = null;
+            }
+        }, 500); // Match CSS transition duration
     });
-  }
 
-  // Close lightbox when clicking outside of content
-  lightbox.addEventListener('click', function(e) {
-    if (e.target === lightbox) {
-      closeLightbox.click();
-    }
-  });
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox.click();
+        }
+    });
 
-  // Previous slide button
-  if (prevButton) {
     prevButton.addEventListener('click', function() {
-      if (!currentGallery) return;
-
-      currentSlideIndex--;
-      if (currentSlideIndex < 0) {
-        currentSlideIndex = galleries[currentGallery].images.length - 1;
-      }
-
-      updateLightboxSlide();
-    });
-  }
-
-  // Next slide button
-  if (nextButton) {
-    nextButton.addEventListener('click', function() {
-      if (!currentGallery) return;
-
-      currentSlideIndex++;
-      if (currentSlideIndex >= galleries[currentGallery].images.length) {
-        currentSlideIndex = 0;
-      }
-
-      updateLightboxSlide();
-    });
-  }
-
-  // Keyboard navigation for lightbox
-  document.addEventListener('keydown', function(e) {
-    if (!lightbox.classList.contains('show')) return;
-
-    if (e.key === 'Escape') {
-      closeLightbox.click();
-    } else if (e.key === 'ArrowLeft') {
-      prevButton.click();
-    } else if (e.key === 'ArrowRight') {
-      nextButton.click();
-    }
-  });
-
-  // Open lightbox with specified gallery
-  function openLightbox(galleryId) {
-    currentGallery = galleryId;
-    currentSlideIndex = 0;
-
-    // Update lightbox title
-    if (lightboxTitle) {
-      lightboxTitle.textContent = galleries[galleryId].title;
-    }
-
-    // Create slides
-    createLightboxSlides(galleryId);
-
-    // Create thumbnails
-    createLightboxThumbnails(galleryId);
-
-    // Show lightbox
-    lightbox.classList.add('show');
-
-    // Update slide
-    updateLightboxSlide();
-  }
-
-  // Create lightbox slides
-  function createLightboxSlides(galleryId) {
-    lightboxSlider.innerHTML = '';
-
-    galleries[galleryId].images.forEach((image, index) => {
-      const slide = document.createElement('div');
-      slide.className = 'lightbox-slide';
-      slide.innerHTML = `<img src="${image.src}" alt="Gallery image ${index + 1}">`;
-      lightboxSlider.appendChild(slide);
-    });
-
-    // Update total slides count
-    if (totalSlidesElement) {
-      totalSlidesElement.textContent = galleries[galleryId].images.length;
-    }
-  }
-
-  // Create lightbox thumbnails
-  function createLightboxThumbnails(galleryId) {
-    lightboxThumbnails.innerHTML = '';
-
-    galleries[galleryId].images.forEach((image, index) => {
-      const thumbnail = document.createElement('div');
-      thumbnail.className = 'thumbnail';
-      thumbnail.innerHTML = `<img src="${image.thumb || image.src}" alt="Thumbnail ${index + 1}">`;
-
-      // Add click event to thumbnail
-      thumbnail.addEventListener('click', function() {
-        currentSlideIndex = index;
+        if (!currentGallery) return;
+        currentSlideIndex = (currentSlideIndex - 1 + galleries[currentGallery].images.length) % galleries[currentGallery].images.length;
         updateLightboxSlide();
-      });
-
-      lightboxThumbnails.appendChild(thumbnail);
-    });
-  }
-
-  // Update lightbox slide
-  function updateLightboxSlide() {
-    // Get all slides
-    const slides = lightboxSlider.querySelectorAll('.lightbox-slide');
-
-    // Reset all slides
-    slides.forEach((slide, index) => {
-      slide.classList.remove('active', 'prev');
-      if (index === currentSlideIndex) {
-        slide.classList.add('active');
-      } else if (index === currentSlideIndex - 1 || (currentSlideIndex === 0 && index === slides.length - 1)) {
-        slide.classList.add('prev');
-      }
     });
 
-    // Update thumbnails
-    const thumbnails = lightboxThumbnails.querySelectorAll('.thumbnail');
-    thumbnails.forEach((thumbnail, index) => {
-      thumbnail.classList.toggle('active', index === currentSlideIndex);
+    nextButton.addEventListener('click', function() {
+        if (!currentGallery) return;
+        currentSlideIndex = (currentSlideIndex + 1) % galleries[currentGallery].images.length;
+        updateLightboxSlide();
     });
 
-    // Update current slide number
-    if (currentSlideElement) {
-      currentSlideElement.textContent = currentSlideIndex + 1;
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('show')) return;
+        if (e.key === 'Escape') closeLightbox.click();
+        else if (e.key === 'ArrowLeft') prevButton.click();
+        else if (e.key === 'ArrowRight') nextButton.click();
+    });
+
+    function openLightbox(galleryId) {
+        currentGallery = galleryId;
+        currentSlideIndex = 0;
+        const galleryData = galleries[galleryId];
+
+        if (lightboxTitle) lightboxTitle.textContent = galleryData.title;
+
+        createLightboxSlides(galleryData.images);
+        if (lightboxThumbnails) createLightboxThumbnails(galleryData.images);
+
+        lightbox.classList.add('show');
+        updateLightboxSlide(); // Initial slide update
     }
-  }
+
+    function createLightboxSlides(images) {
+        lightboxSlider.innerHTML = '';
+        images.forEach((image, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'lightbox-slide';
+            // Add loading="lazy" for potential performance benefit
+            slide.innerHTML = `<img src="${image.src}" alt="Gallery image ${index + 1}" loading="lazy">`;
+            lightboxSlider.appendChild(slide);
+        });
+        if (totalSlidesElement) totalSlidesElement.textContent = images.length;
+    }
+
+    function createLightboxThumbnails(images) {
+        lightboxThumbnails.innerHTML = '';
+        images.forEach((image, index) => {
+            const thumbnail = document.createElement('div');
+            thumbnail.className = 'thumbnail';
+            // Use thumb if available, else fallback to src
+            thumbnail.innerHTML = `<img src="${image.thumb || image.src}" alt="Thumbnail ${index + 1}" loading="lazy">`;
+            thumbnail.addEventListener('click', function() {
+                currentSlideIndex = index;
+                updateLightboxSlide();
+            });
+            lightboxThumbnails.appendChild(thumbnail);
+        });
+    }
+
+    function updateLightboxSlide() {
+        const slides = lightboxSlider.querySelectorAll('.lightbox-slide');
+        const thumbnails = lightboxThumbnails ? lightboxThumbnails.querySelectorAll('.thumbnail') : [];
+        const totalImages = galleries[currentGallery]?.images.length || 0;
+
+        if (!slides.length || totalImages === 0) return;
+
+        // Update main slides transform for sliding effect
+        const offset = -currentSlideIndex * 100;
+        lightboxSlider.style.transform = `translateX(${offset}%)`; // Assuming CSS handles the flex layout correctly
+
+        // Update active class on slides (useful for potential CSS effects)
+        slides.forEach((slide, index) => {
+             slide.classList.toggle('active', index === currentSlideIndex);
+        });
+
+
+        if (thumbnails.length) {
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.classList.toggle('active', index === currentSlideIndex);
+                 // Scroll thumbnail into view if needed
+                if (index === currentSlideIndex && thumbnail.scrollIntoView) {
+                    thumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+        }
+
+        if (currentSlideElement) currentSlideElement.textContent = currentSlideIndex + 1;
+
+         // Update prev/next button states if not looping indefinitely (optional)
+         // prevButton.disabled = currentSlideIndex === 0;
+         // nextBtn.disabled = currentSlideIndex === totalImages - 1;
+    }
 }
 
-// Initialize testimonial slider
+
+// Initialize testimonial slider (using translateX logic)
 function initializeTestimonialSlider() {
-  const testimonialCards = document.querySelectorAll('.testimonial-card');
-  const dots = document.querySelectorAll('.dot');
-  const prevBtn = document.querySelector('.prev-btn');
-  const nextBtn = document.querySelector('.next-btn');
+    // Selectors based on the second script block
+    const slider = document.querySelector('.testimonials-slider');
+    const cards = document.querySelectorAll('.testimonial-card');
+    const dots = document.querySelectorAll('.testimonial-dots .dot');
+    const prevBtn = document.querySelector('.testimonial-controls .prev-btn');
+    const nextBtn = document.querySelector('.testimonial-controls .next-btn');
+    const sliderContainer = document.querySelector('.testimonials-slider-container'); // For hover pause
 
-  if (!testimonialCards.length || !dots.length) return;
-
-  let currentIndex = 0;
-  let interval;
-
-  // Function to show a specific testimonial
-  function showTestimonial(index) {
-    // Update currentIndex
-    currentIndex = index;
-
-    // Handle index bounds
-    if (currentIndex < 0) {
-      currentIndex = testimonialCards.length - 1;
-    } else if (currentIndex >= testimonialCards.length) {
-      currentIndex = 0;
+    // Check if essential testimonial elements exist
+    if (!slider || !cards.length || !dots.length || !prevBtn || !nextBtn) {
+        // console.log("Testimonial slider elements not found, skipping initialization.");
+        return;
     }
 
-    // Hide all testimonials
-    testimonialCards.forEach(card => {
-      card.classList.remove('active');
-    });
+    let currentIndex = 0;
+    const totalSlides = cards.length;
+    let autoPlayInterval = null; // Variable for auto-play interval
 
-    // Show current testimonial
-    testimonialCards[currentIndex].classList.add('active');
+    // --- Function to update slider ---
+    function goToSlide(index) {
+        // Handle looping
+        const newIndex = (index + totalSlides) % totalSlides;
 
-    // Update dots
-    dots.forEach((dot, dotIndex) => {
-      dot.classList.toggle('active', dotIndex === currentIndex);
-    });
+        // Calculate offset for transform
+        const offset = -newIndex * 100;
+        slider.style.transform = `translateX(${offset}%)`;
 
-    // Reset interval
-    resetInterval();
-  }
+        // Update active classes for cards and dots
+        cards.forEach((card, i) => {
+            card.classList.toggle('active', i === newIndex);
+        });
 
-  // Function to show next testimonial
-  function showNextTestimonial() {
-    showTestimonial(currentIndex + 1);
-  }
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === newIndex);
+        });
 
-  // Function to show previous testimonial
-  function showPrevTestimonial() {
-    showTestimonial(currentIndex - 1);
-  }
+        // Update current index state
+        currentIndex = newIndex;
 
-  // Function to reset interval
-  function resetInterval() {
-    if (interval) {
-      clearInterval(interval);
+        // Reset auto-play timer whenever slide changes manually or automatically
+        resetInterval();
     }
 
-    // Auto-slide every 5 seconds
-    interval = setInterval(showNextTestimonial, 5000);
-  }
+     // --- Auto-play functions ---
+    function startInterval() {
+        // Clear existing interval before starting a new one
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(() => {
+            goToSlide(currentIndex + 1);
+        }, 5000); // Change slide every 5 seconds
+    }
 
-  // Event listeners for buttons
-  if (prevBtn) {
-    prevBtn.addEventListener('click', showPrevTestimonial);
-  }
+    function resetInterval() {
+        clearInterval(autoPlayInterval);
+        startInterval();
+    }
 
-  if (nextBtn) {
-    nextBtn.addEventListener('click', showNextTestimonial);
-  }
-
-  // Event listeners for dots
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      showTestimonial(index);
+    // --- Event Listeners ---
+    nextBtn.addEventListener('click', () => {
+        goToSlide(currentIndex + 1);
     });
-  });
 
-  // Initial setup
-  resetInterval();
+    prevBtn.addEventListener('click', () => {
+        goToSlide(currentIndex - 1);
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            goToSlide(index);
+        });
+    });
+
+    // --- Pause auto-play on hover ---
+    if (sliderContainer) { // Check if the container element exists
+         sliderContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+         });
+         sliderContainer.addEventListener('mouseleave', () => {
+            startInterval(); // Restart interval when mouse leaves
+         });
+    } else { // Fallback if specific container isn't found, use the main slider
+         slider.addEventListener('mouseenter', () => {
+             clearInterval(autoPlayInterval);
+         });
+         slider.addEventListener('mouseleave', () => {
+             startInterval();
+         });
+    }
+
+
+    // --- Initial Setup ---
+    goToSlide(0); // Set the initial slide and start the auto-play timer via resetInterval
 }
+
 
 // Animate gallery items on scroll
 function animateGalleryItems() {
-  const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    if (!galleryItems.length) return;
 
-  // Function to check if an element is in the viewport
-  function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.9 &&
-      rect.bottom >= 0
-    );
-  }
-
-  // Function to animate elements in viewport
-  function animateElementsInViewport() {
-    galleryItems.forEach((item, index) => {
-      if (isInViewport(item)) {
-        setTimeout(() => {
-          item.style.opacity = '1';
-          item.style.transform = 'translateY(0)';
-        }, index % 3 * 100); // Stagger effect based on column position
-      }
+    // Initial state for animation (if not handled by filter)
+    galleryItems.forEach(item => {
+        if (item.style.display !== 'none') { // Only apply to initially visible items
+           item.style.opacity = '0';
+           item.style.transform = 'translateY(30px)';
+           item.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        }
     });
-  }
 
-  // Add scroll event listener
-  window.addEventListener('scroll', animateElementsInViewport);
 
-  // Initial check on page load
-  setTimeout(animateElementsInViewport, 500);
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                const item = entry.target;
+                 // Stagger the animation slightly based on index or position
+                 // Calculate a delay, ensuring it doesn't grow too large
+                const delay = (Array.from(galleryItems).indexOf(item) % 9) * 80; // Example stagger
+
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, delay);
+                observer.unobserve(item); // Animate only once
+            }
+        });
+    }, { threshold: 0.1 }); // Trigger when 10% visible
+
+    galleryItems.forEach(item => {
+        observer.observe(item);
+    });
 }
+
 
 // Lazy load images for performance
 function lazyLoadImages() {
-  const images = document.querySelectorAll('img[data-src]');
+    // Select images with data-src and also images inside lightbox/galleries that might be loaded later
+    // Note: IntersectionObserver might need re-initialization if lightbox content is dynamically added
+    const images = document.querySelectorAll('img[data-src]');
+    if (!images.length) return;
 
-  if (!images.length) return;
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const src = img.getAttribute('data-src');
+                if (src) {
+                    img.src = src;
+                    img.removeAttribute('data-src'); // Remove data-src once loaded
+                     // Optional: Add a 'loaded' class for styling fade-in
+                    img.classList.add('lazy-loaded');
+                }
+                observer.unobserve(img); // Stop observing once loaded
+            }
+        });
+    }, { rootMargin: "0px 0px 100px 0px" }); // Load images 100px before they enter viewport
 
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.getAttribute('data-src');
-        img.removeAttribute('data-src');
-        imageObserver.unobserve(img);
-      }
+    images.forEach(img => {
+        imageObserver.observe(img);
     });
-  });
-
-  images.forEach(img => {
-    imageObserver.observe(img);
-  });
 }
+
 
 // Add smooth scrolling for page links
 function addSmoothScrolling() {
-  const links = document.querySelectorAll('a[href^="#"]');
+    const links = document.querySelectorAll('a[href^="#"]');
 
-  links.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            // Ignore simple hash links or links meant for other interactions (like tabs)
+            if (targetId === '#' || targetId.length <= 1) return;
 
-      if (targetId === '#') return;
-
-      e.preventDefault();
-
-      const targetElement = document.querySelector(targetId);
-
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 100,
-          behavior: 'smooth'
+            try {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    const offsetTop = targetElement.offsetTop;
+                    // Adjust offset if you have a fixed header (e.g., subtract header height)
+                    const headerOffset = 80; // Example: Adjust this value based on your fixed header height
+                    window.scrollTo({
+                        top: offsetTop - headerOffset,
+                        behavior: 'smooth'
+                    });
+                }
+            } catch (error) {
+                console.error("Error finding element for smooth scroll:", targetId, error);
+                // Allow default behavior if querySelector fails (e.g., invalid selector)
+            }
         });
-      }
     });
-  });
 }
-
-// Call additional initialization functions
-lazyLoadImages();
-addSmoothScrolling();

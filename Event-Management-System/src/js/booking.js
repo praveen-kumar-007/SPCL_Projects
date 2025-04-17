@@ -287,7 +287,7 @@ function initEventSelector() {
         time: '4:00 PM - 11:00 PM',
         price: '$49.99',
         availableSeats: 245,
-        image: '../assets/images/event1.jpg',
+        image: '../assets/summer-festival.png',
         description: 'Experience the ultimate summer music festival featuring top artists from around the world. Enjoy food, drinks, and great music in the heart of Central Park. This all-day event includes access to multiple stages, food vendors, and exclusive merchandise. Don\'t miss the opportunity to see your favorite artists live in concert!'
       },
       'tech-innovation-summit': {
@@ -297,7 +297,7 @@ function initEventSelector() {
         time: '9:00 AM - 6:00 PM',
         price: '$149.99',
         availableSeats: 120,
-        image: '../assets/images/event2.jpg',
+        image: '../assets/Tech Innovation Summit.png',
         description: 'Join tech leaders and innovators at the year\'s biggest tech conference. Network with industry pioneers and discover the latest technological advancements. Featuring keynote speakers, workshops, and product demonstrations, this summit is perfect for entrepreneurs, developers, and tech enthusiasts.'
       },
       'food-festival': {
@@ -307,7 +307,7 @@ function initEventSelector() {
         time: '11:00 AM - 9:00 PM',
         price: '$29.99',
         availableSeats: 500,
-        image: '../assets/images/event3.jpg',
+        image: '../assets/inter-food-fest.png',
         description: 'Savor culinary delights from around the world at this international food festival. Meet celebrity chefs, enjoy live cooking demonstrations, and taste exotic cuisines. With over 50 food stalls representing 30+ countries, this is a paradise for food lovers.'
       },
       'art-exhibition': {
@@ -317,7 +317,7 @@ function initEventSelector() {
         time: '10:00 AM - 8:00 PM',
         price: '$19.99',
         availableSeats: 300,
-        image: '../assets/images/event4.jpg',
+        image: '../assets/modern-ar.png',
         description: 'Experience a groundbreaking exhibition featuring works from contemporary artists around the globe. Guided tours and interactive installations available. The exhibition explores themes of technology, nature, and human connection in the modern era.'
       },
       'city-marathon': {
@@ -327,7 +327,7 @@ function initEventSelector() {
         time: '7:00 AM - 2:00 PM',
         price: '$39.99',
         availableSeats: 2000,
-        image: '../assets/images/event5.jpg',
+        image: '../assets/city-marathon.png',
         description: 'Join thousands of runners in the annual city marathon. The scenic route takes you through historic landmarks. All fitness levels welcome. The marathon includes hydration stations, medical support, and post-race celebrations with live music and refreshments.'
       },
       'startup-networking': {
@@ -337,7 +337,7 @@ function initEventSelector() {
         time: '6:00 PM - 9:00 PM',
         price: 'Free',
         availableSeats: 100,
-        image: '../assets/images/event6.jpg',
+        image: '../assets/startup-network.png',
         description: 'Connect with fellow entrepreneurs, investors, and industry experts. Perfect for startups looking to grow their network and find potential partners. The event includes pitching sessions, panel discussions, and casual networking opportunities in a relaxed atmosphere.'
       }
     };

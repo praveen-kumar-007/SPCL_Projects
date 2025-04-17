@@ -33,7 +33,7 @@ function initMap() {
       description: 'Experience the grandeur of our most prestigious venue. The Grand Hall Convention Center offers state-of-the-art facilities for conferences, galas, weddings, and corporate events. With customizable spaces and premium amenities, it\'s the perfect choice for your next event.',
       amenities: ['Free WiFi', 'AV Equipment', 'Catering Services', 'Free Parking', 'Wheelchair Accessible', 'Air Conditioning', 'Stage', 'Dressing Rooms'],
       images: [
-        { src: '../assets/images/venues/grand-hall-1.jpg', main: true },
+        { src: '../assets/grandhall.png', main: true },
         { src: '../assets/images/venues/grand-hall-2.jpg' },
         { src: '../assets/images/venues/grand-hall-3.jpg' },
         { src: '../assets/images/venues/grand-hall-4.jpg' }

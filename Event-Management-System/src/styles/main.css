@@ -12,10 +12,10 @@
   --primary-color: #06024d;
   --secondary-color: #620238;
   --accent-color: #4b0366;
-  --dark-color: #2a2a2a;
+  --dark-color: #1c0247;
   --light-color: #ffffff;
   --grey-color: #f5f5f5;
-  --text-color: #8b006a;
+  --text-color: #3e0230;
   --text-light: #d60261;
   --success-color: #87e800;
   --error-color: #db091e;
@@ -738,3 +738,12 @@ section {
   }
 }
 
+
+
+.animated-title {
+    color: rgb(255, 79, 3);
+}
+
+.animated-subtitle {
+    color: rgb(255, 255, 255);
+}

@@ -4,7 +4,7 @@
 .page-banner {
   height: 50vh;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  background-image: url('../assets/booking-banner-bookingpage.png');
+  background-image: url('../assets/Back_Ground/upcome.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

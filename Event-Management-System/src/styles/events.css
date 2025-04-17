@@ -3,8 +3,8 @@
 /* Page Banner */
 .page-banner {
   height: 50vh;
-  background: linear-gradient(135deg, #6c63ff, #ff6b6b);
-  background-image: url('../assets/events-banner.png');
+  background: linear-gradient(135deg, #655212, #190101);
+  background-image: url('../assets/Back_Ground/events.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

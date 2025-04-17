@@ -1,112 +1,10 @@
-/* ======================================== */
-/* === Global Styles & CSS Variables === */
-/* ======================================== */
+/* Past Events Page Styles */
 
-:root {
-  /* Colors */
-  --primary-color: #6c63ff;
-  --primary-dark: #5a52e0; /* Darker shade for hover */
-  --secondary-color: #ff6b6b;
-  --light-color: #ffffff;
-  --dark-color: #333333;
-  --grey-color: #f8f9fa; /* Light grey background */
-  --medium-grey-color: #e9ecef; /* For borders/subtle backgrounds */
-  --dark-grey-color: #cccccc; /* For inactive dots etc */
-  --text-color: #555555;
-  --text-light: #777777;
-  --success-color: #28a745;
-  --error-color: #dc3545;
-  --border-color: #dddddd;
-
-  /* Spacing */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 48px;
-  --spacing-xxl: 64px;
-
-  /* Borders */
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 12px;
-  --border-radius-round: 50%;
-
-  /* Shadows (Subtler) */
-  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
-
-  /* Fonts */
-  --font-family: 'Poppins', sans-serif; /* Example: Add your preferred font */
-  --font-body: 16px; /* Base font size */
-}
-
-/* --- General Body & Container --- */
-body {
-  font-family: var(--font-family);
-  font-size: var(--font-body);
-  margin: 0;
-  background-color: var(--light-color); /* Default light background */
-  color: var(--text-color);
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 1140px; /* Standard container width */
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
-}
-
-/* Button Base Style */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: var(--border-radius-md);
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  font-family: var(--font-family);
-  font-size: 0.95rem;
-  text-decoration: none; /* Remove underline from links styled as buttons */
-}
-
-.btn-primary {
-  background-color: var(--primary-color);
-  color: var(--light-color);
-  box-shadow: var(--shadow-sm);
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-secondary {
-  background-color: var(--light-color);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-}
-
-.btn-secondary:hover {
-  background-color: var(--primary-color);
-  color: var(--light-color);
-  transform: translateY(-2px);
-}
-
-/* ======================================== */
-/* === Past Events Page Specific Styles === */
-/* ======================================== */
-
-/* --- Page Banner --- */
+/* Page Banner */
 .page-banner {
-  height: 50vh; /* Adjust as needed */
-  min-height: 350px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Fallback gradient */
-  background-image: url('../assets/images/past-events-banner.jpg'); /* Your image */
+  height: 50vh;
+  background: linear-gradient(135deg, #6c63ff, #ff0606);
+  background-image: url('../assets/Back_Ground/pastevent.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -114,17 +12,11 @@ body {
   display: flex;
   align-items: center;
   color: var(--light-color);
-  margin-bottom: 0; /* Remove bottom margin if filters are directly below */
+  margin-bottom: 0;
 }
 
 .page-banner .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
-  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .banner-content {
@@ -137,25 +29,24 @@ body {
 }
 
 .animated-title {
-  font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
+  font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: var(--spacing-md);
-  animation: slideInDown 1s ease-out forwards; /* Changed animation */
+  animation: slideInTop 1s ease forwards;
 }
 
 .animated-subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-size: 1.2rem;
   opacity: 0;
   animation: fadeIn 1s ease 0.5s forwards;
 }
 
-/* --- Event Categories Filter --- */
+/* Event Categories Filter */
 .event-categories {
   background-color: var(--primary-color);
   padding: var(--spacing-md) 0;
-  position: relative; /* Can stick if needed */
+  position: relative;
   z-index: 10;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow below banner */
 }
 
 .filter-container {
@@ -169,7 +60,6 @@ body {
   color: var(--light-color);
   font-weight: 600;
   font-size: 1.1rem;
-  margin-right: var(--spacing-sm);
 }
 
 .filter-buttons {
@@ -179,21 +69,19 @@ body {
 }
 
 .filter-btn {
-  padding: 8px 18px; /* Slightly more padding */
-  background-color: rgba(255, 255, 255, 0.15);
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.2);
   color: var(--light-color);
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
-  border-radius: var(--border-radius-round); /* Pill shape */
+  border: none;
+  border-radius: var(--border-radius-md);
   font-family: var(--font-family);
   font-size: 0.9rem;
-  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .filter-btn:hover {
   background-color: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
 }
 
@@ -201,158 +89,128 @@ body {
   background-color: var(--light-color);
   color: var(--primary-color);
   box-shadow: var(--shadow-sm);
-  font-weight: 600;
-  border-color: var(--light-color);
 }
 
-/* --- Events Gallery Section --- */
+/* Events Gallery Section */
 .events-gallery {
   padding: var(--spacing-xl) 0;
-  background-color: var(--grey-color); /* Use grey variable */
+  background-color: var(--grey-color);
 }
 
-/* Default Section Title Style */
-.section-title {
-  text-align: center;
-  margin-bottom: var(--spacing-xl); /* More space after title */
-  position: relative;
-  display: inline-block; /* Needed for transform/positioning */
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  font-weight: 600;
-  color: var(--dark-color);
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -12px; /* Space between title and underline */
-  transform: translateX(-50%);
-  width: 60px; /* Underline width */
-  height: 4px; /* Underline thickness */
-  background: var(--primary-color);
-  border-radius: var(--border-radius-sm);
-}
-
-/* Grid Layout */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Slightly smaller min */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: var(--spacing-lg);
 }
 
-/* Individual Item Styling */
 .gallery-item {
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  background-color: var(--light-color); /* Background for content area */
-  /* opacity: 0; Initial state for JS animation - handled by observer now */
-  /* transform: translateY(30px); */
-  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smooth transitions */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
   cursor: pointer;
   position: relative;
-  display: flex; /* Use flex for better content alignment */
-  flex-direction: column;
 }
 
-.gallery-item:hover {
-  transform: translateY(-8px); /* Lift effect */
-  box-shadow: var(--shadow-lg); /* Enhanced shadow on hover */
-}
-
-/* Image Container */
 .gallery-image {
   position: relative;
-  height: 250px; /* Consistent image height */
+  height: 250px;
   overflow: hidden;
 }
 
 .gallery-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Cover ensures image fills space */
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth zoom */
+  object-fit: cover;
+  transition: all 0.5s ease;
 }
 
-.gallery-item:hover .gallery-image img {
-  transform: scale(1.08); /* Slightly larger zoom on hover */
-}
-
-/* Content Overlay (Replaces gallery-overlay for better structure) */
-.gallery-item-content {
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.4), transparent);
+  display: flex;
+  align-items: flex-end;
   padding: var(--spacing-md);
-  flex-grow: 1; /* Allow content to take remaining space */
-  position: relative; /* For potentially absolute positioned elements inside */
+  color: var(--light-color);
+  opacity: 0;
+  transition: all 0.5s ease;
 }
 
-.gallery-item-content h3 {
-  color: var(--dark-color); /* Darker heading */
-  margin-top: 0;
-  margin-bottom: var(--spacing-sm);
+.gallery-content {
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.gallery-content h3 {
+  color: var(--light-color);
+  margin-bottom: 5px;
   font-size: 1.3rem;
-  font-weight: 600;
 }
 
-.gallery-item-content p {
+.gallery-content p {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 5px;
   font-size: 0.9rem;
-  color: var(--text-light);
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.gallery-item-content p i {
-  margin-right: var(--spacing-sm);
+.gallery-content p i {
+  margin-right: 10px;
   color: var(--primary-color);
-  width: 16px; /* Ensure icon alignment */
-  text-align: center;
 }
 
 .gallery-btn {
-  margin-top: var(--spacing-md); /* More space above button */
-  padding: 8px 18px;
+  margin-top: var(--spacing-sm);
+  padding: 8px 16px;
   background-color: var(--primary-color);
   color: var(--light-color);
   border: none;
   border-radius: var(--border-radius-md);
   font-family: var(--font-family);
   font-size: 0.9rem;
-  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: inline-block; /* Ensure it behaves like a button */
 }
 
 .gallery-btn:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--secondary-color);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
 }
 
-/* --- No Results Message --- */
+.gallery-item:hover .gallery-image img {
+  transform: scale(1.1);
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-item:hover .gallery-content {
+  transform: translateY(0);
+}
+
+/* No Results Message */
 .no-results-message {
   text-align: center;
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: var(--spacing-xl) 0;
   animation: fadeIn 0.5s ease;
-  display: none; /* Hidden by default, shown by JS */
-  background-color: var(--light-color); /* Match gallery background */
-  border-radius: var(--border-radius-lg);
-  margin-top: var(--spacing-lg);
 }
 
 .no-results-message i {
   font-size: 3rem;
   color: var(--primary-color);
   margin-bottom: var(--spacing-md);
-  display: block; /* Center icon */
 }
 
 .no-results-message h3 {
   font-size: 1.5rem;
-  color: var(--dark-color);
   margin-bottom: var(--spacing-sm);
 }
 
@@ -363,242 +221,228 @@ body {
 
 .reset-btn {
   margin-top: var(--spacing-sm);
-  /* Inherit .btn styles */
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--light-color);
 }
 
-/* --- Lightbox Gallery --- */
+/* Lightbox Gallery */
 .lightbox {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.85); /* Slightly less opaque */
-  backdrop-filter: blur(5px); /* Frosted glass effect (check browser support) */
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 1000;
-  display: flex; /* Use flex for centering */
-  align-items: center;
-  justify-content: center;
+  display: none;
   opacity: 0;
-  visibility: hidden; /* Use visibility for better accessibility */
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition: opacity 0.5s ease;
 }
 
 .lightbox.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 1;
-  visibility: visible;
 }
 
 .lightbox-content {
   background-color: var(--light-color);
   border-radius: var(--border-radius-lg);
   width: 90%;
-  max-width: 1100px; /* Larger max width */
+  max-width: 1000px;
   max-height: 90vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-lg);
-  /* Animation applied on show */
-  transform: scale(0.95);
-  opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-.lightbox.show .lightbox-content {
-   transform: scale(1);
-   opacity: 1;
+  animation: zoomIn 0.5s ease;
 }
 
 .lightbox-header {
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
-  flex-shrink: 0; /* Prevent header from shrinking */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .lightbox-header h3 {
-  margin: 0;
+  margin-bottom: 0;
   font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--dark-color);
 }
 
 .close-lightbox {
   background: none;
   border: none;
-  font-size: 1.8rem; /* Larger close icon */
+  font-size: 1.5rem;
   cursor: pointer;
   color: var(--text-light);
-  transition: color 0.3s ease, transform 0.3s ease;
-  line-height: 1; /* Ensure proper alignment */
+  transition: color 0.3s ease;
 }
 
 .close-lightbox:hover {
   color: var(--error-color);
-  transform: rotate(90deg);
 }
 
 .lightbox-body {
-  flex-grow: 1; /* Allow body to fill space */
+  padding: var(--spacing-md);
+  flex: 1;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden; /* Important for slider */
-  padding: var(--spacing-md); /* Add padding */
-}
-
-/* Slider containing the large images */
-.lightbox-image-container {
-  flex-grow: 1; /* Takes up available vertical space */
-  position: relative;
-  overflow: hidden; /* Clip the slides */
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--spacing-md);
-  background-color: #f0f0f0; /* Background while image loads */
+  overflow: hidden;
 }
 
 .lightbox-slider {
-  display: flex; /* Use flex for horizontal layout */
-  height: 100%;
-  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth slide */
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
 }
 
 .lightbox-slide {
-  flex: 0 0 100%; /* Each slide takes full width */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateX(100px);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Prevent image overflow if needed */
+}
+
+.lightbox-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 2;
+}
+
+.lightbox-slide.prev {
+  transform: translateX(-100px);
+  z-index: 1;
 }
 
 .lightbox-slide img {
-  display: block; /* Remove extra space below image */
   max-width: 100%;
-  max-height: 100%; /* Ensure image fits within slide area */
-  object-fit: contain; /* Contain preserves aspect ratio */
-  border-radius: var(--border-radius-sm); /* Slight rounding */
+  max-height: 450px;
+  object-fit: contain;
 }
 
-/* Lightbox Controls (Prev/Next Buttons and Counter) */
-.lightbox-controls-container {
-  position: absolute; /* Position over the image */
-  top: 50%;
-  left: 0;
-  width: 100%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
-  padding: 0 var(--spacing-md);
-  box-sizing: border-box;
-  pointer-events: none; /* Allow clicks through container */
-  z-index: 10; /* Above slides */
-}
-
-
-.lightbox-prev, .lightbox-next {
-  width: 45px; /* Slightly larger */
-  height: 45px;
+.lightbox-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  margin-top: var(--spacing-sm);
+}
+
+.lightbox-prev, .lightbox-next {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light-color);
   border: none;
   border-radius: var(--border-radius-round);
-  color: var(--light-color);
-  font-size: 1.3rem;
+  color: var(--primary-color);
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: var(--shadow-sm);
-  pointer-events: all; /* Make buttons clickable */
 }
 
 .lightbox-prev:hover, .lightbox-next:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-  transform: scale(1.1);
+  background-color: var(--primary-color);
+  color: var(--light-color);
 }
 
 .lightbox-counter {
-  position: absolute;
-  bottom: 10px; /* Position at bottom */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.6);
-  color: var(--light-color);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: 0.85rem;
-  z-index: 10;
+  margin: 0 var(--spacing-md);
+  font-size: 0.9rem;
+  color: var(--text-light);
 }
 
-/* Thumbnails */
 .lightbox-thumbnails {
-  padding: var(--spacing-sm) var(--spacing-md); /* Less padding */
+  padding: var(--spacing-md);
   display: flex;
-  gap: 8px; /* Smaller gap */
+  flex-wrap: wrap;
+  gap: 10px;
   justify-content: center;
-  border-top: 1px solid var(--border-color);
-  overflow-x: auto; /* Allow horizontal scrolling if needed */
-  flex-shrink: 0; /* Prevent thumbnails from shrinking */
-  scrollbar-width: thin; /* Firefox scrollbar */
-  scrollbar-color: var(--primary-color) var(--medium-grey-color); /* Firefox scrollbar */
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-/* Webkit scrollbar styling */
-.lightbox-thumbnails::-webkit-scrollbar {
-  height: 6px;
-}
-.lightbox-thumbnails::-webkit-scrollbar-track {
-  background: var(--medium-grey-color);
-  border-radius: 3px;
-}
-.lightbox-thumbnails::-webkit-scrollbar-thumb {
-  background-color: var(--primary-color);
-  border-radius: 3px;
-}
-
 
 .thumbnail {
-  width: 75px; /* Slightly smaller */
-  height: 55px;
+  width: 80px;
+  height: 60px;
   border-radius: var(--border-radius-sm);
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  border: 2px solid transparent; /* Border placeholder */
-  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-.thumbnail.active {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 8px rgba(var(--primary-color-rgb, 108, 99, 255), 0.5); /* Glow effect */
+.thumbnail.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--primary-color);
+  border-radius: var(--border-radius-sm);
+  box-sizing: border-box;
 }
 
 .thumbnail:hover {
-  transform: scale(1.05);
-  border-color: var(--primary-dark);
+  transform: scale(1.1);
 }
 
-
-/* --- Event Highlights Section --- */
+/* Event Highlights Section */
 .event-highlights {
   padding: var(--spacing-xl) 0;
   background-color: var(--light-color);
 }
 
+.section-title {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Ensure section-title style doesn't conflict with testimonials title */
+  font-size: 2.2rem; /* Default size, adjust if needed */
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: var(--border-radius-sm);
+}
+
 .highlights-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  grid-template-columns: 1fr 1fr;
   gap: var(--spacing-lg);
   align-items: center;
 }
@@ -607,53 +451,48 @@ body {
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  position: relative; /* For potential play button overlay */
 }
 
 .highlights-video video {
   width: 100%;
   display: block;
-  border-radius: var(--border-radius-lg); /* Match container */
+  border-radius: var(--border-radius-lg);
 }
 
 .highlights-text h3 {
-  font-size: clamp(1.5rem, 3vw, 1.8rem);
+  font-size: 1.8rem;
   margin-bottom: var(--spacing-md);
   color: var(--dark-color);
-  font-weight: 600;
 }
 
 .highlights-text p {
   margin-bottom: var(--spacing-md);
   color: var(--text-light);
+  line-height: 1.6;
 }
 
 .highlights-list {
-  margin: var(--spacing-md) 0;
-  padding-left: 0; /* Remove default padding */
-  list-style: none; /* Remove default bullets */
+  margin-bottom: var(--spacing-md);
+  padding-left: 0; /* Reset default list padding */
+  list-style: none; /* Remove default list bullets */
 }
 
 .highlights-list li {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 10px;
   color: var(--text-color);
-  font-size: 0.95rem;
 }
 
 .highlights-list li i {
   color: var(--success-color);
-  margin-right: var(--spacing-sm);
+  margin-right: 10px;
   font-size: 1.2rem;
-  width: 20px; /* Align icons */
-  text-align: center;
 }
 
 .highlights-social {
   display: flex;
   gap: var(--spacing-sm);
-  margin-top: var(--spacing-lg);
 }
 
 .social-icon {
@@ -666,207 +505,29 @@ body {
   color: var(--light-color);
   border-radius: var(--border-radius-round);
   transition: all 0.3s ease;
-  font-size: 1.1rem;
-  text-decoration: none; /* For links */
+  text-decoration: none; /* If these are links */
+}
+
+.social-icon i {
+  font-size: 1.1rem; /* Adjust icon size if needed */
 }
 
 .social-icon:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: var(--shadow-md);
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
 }
 
-/* ======================================== */
-/* === Testimonials Section Styles      === */
-/* ======================================== */
-
+/* Testimonials Section */
 .testimonials {
-  padding: var(--spacing-xl) 0;
-  background-color: var(--grey-color); /* Consistent background */
-  overflow: hidden; /* Needed for slider */
+  padding: var(--spacing-xl) 0; /* Use variable for consistency */
+  background-color: var(--grey-color);
+  overflow: hidden; /* Prevent unexpected overflows */
 }
 
-/* Testimonial Section Title Override */
-.testimonials .section-title {
-  /* Inherits base .section-title styles */
-  position: static; /* Override positioning */
-  left: auto;
-  transform: none;
-  display: block; /* Ensure it takes full width for centering text */
-  text-align: center; /* Center text explicitly */
-  opacity: 0; /* Start hidden for animation */
-  animation: fadeInUp 0.8s ease-out forwards; /* Apply animation */
-  margin-bottom: var(--spacing-xl); /* Consistent margin */
-}
-/* Hide the default underline for testimonial title */
-.testimonials .section-title::after {
-  display: none;
-}
-
-/* Slider Container (for clipping) */
-.testimonials-slider-container {
-  overflow: hidden;
-  margin-bottom: var(--spacing-lg);
-  border-radius: var(--border-radius-lg); /* Match card radius */
-  position: relative; /* For potential absolute controls inside */
-}
-
-/* The Slider Wrapper (moves horizontally) */
-.testimonials-slider {
-  display: flex;
-  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-/* Individual Testimonial Card */
-.testimonial-card {
-  flex: 0 0 100%;
-  box-sizing: border-box;
-  padding: var(--spacing-lg) var(--spacing-lg); /* Use spacing variables */
-  background-color: var(--light-color); /* Use variable */
-  border-radius: var(--border-radius-lg); /* Use variable */
-  box-shadow: var(--shadow-md); /* Use variable */
-  text-align: center;
-  opacity: 0;
-  transform: scale(0.95); /* Slightly smaller when inactive */
-  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-  position: relative;
-  visibility: hidden;
-  /* Remove margin if container handles spacing/overflow */
-}
-
-/* Active Testimonial Card Styling & Animation */
-.testimonial-card.active {
-  opacity: 1;
-  transform: scale(1);
-  visibility: visible;
-  z-index: 1;
-}
-
-/* Content Animation (inside active card) */
-.testimonial-card.active .testimonial-content p,
-.testimonial-card.active .testimonial-author {
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInSlideUp 0.6s ease-out 0.3s forwards;
-}
-
-.testimonial-card.active .testimonial-author {
-  animation-delay: 0.45s; /* Stagger author */
-}
-
-
-.testimonial-content p {
-  font-size: 1.1rem; /* Adjust size */
-  line-height: 1.7;
-  color: var(--text-color); /* Use variable */
-  margin-bottom: var(--spacing-lg); /* Use variable */
-  font-style: italic;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-md); /* Use variable */
-  margin-top: var(--spacing-md);
-}
-
-.testimonial-author img {
-  width: 65px;
-  height: 65px;
-  border-radius: var(--border-radius-round); /* Use variable */
-  object-fit: cover;
-  border: 4px solid var(--medium-grey-color); /* Use variable */
-}
-
-.author-info {
-  text-align: left;
-}
-
-.author-info h4 {
-  margin: 0 0 var(--spacing-xs) 0; /* Use variable */
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--dark-color); /* Use variable */
-}
-
-.author-info p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-light); /* Use variable */
-  font-style: normal;
-}
-
-/* Controls Styling */
-.testimonial-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-lg); /* More space */
-  margin-top: var(--spacing-lg);
-}
-
-.testimonial-controls button {
-  background-color: var(--primary-color); /* Use variable */
-  color: var(--light-color); /* Use variable */
-  border: none;
-  border-radius: var(--border-radius-round); /* Use variable */
-  width: 45px;
-  height: 45px;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 3px 8px rgba(var(--primary-color-rgb, 108, 99, 255), 0.3); /* Use RGB if defined, else approximation */
-}
-
-.testimonial-controls button:hover {
-  background-color: var(--primary-dark); /* Use variable */
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 5px 12px rgba(var(--primary-color-rgb, 108, 99, 255), 0.4);
-}
-
-.testimonial-controls button:active {
-  transform: translateY(0) scale(0.95);
-  box-shadow: 0 2px 5px rgba(var(--primary-color-rgb, 108, 99, 255), 0.2);
-}
-
-/* Dots Styling */
-.testimonial-dots {
-  display: flex;
-  gap: var(--spacing-sm); /* Adjust gap */
-}
-
-.testimonial-dots .dot {
-  width: 12px;
-  height: 12px;
-  background-color: var(--dark-grey-color); /* Use variable */
-  border-radius: var(--border-radius-round); /* Use variable */
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.testimonial-dots .dot:hover {
-  background-color: var(--text-light); /* Use variable */
-  transform: scale(1.1);
-}
-
-.testimonial-dots .dot.active {
-  background-color: var(--primary-color); /* Use variable */
-  transform: scale(1.3);
-  box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb, 108, 99, 255), 0.3); /* Use RGB if defined */
-}
-
-
-/* ======================================== */
-/* === Call to Action Section Styles    === */
-/* ======================================== */
-
+/* Call to Action Section */
 .cta-section {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); /* Adjusted gradient */
-  padding: var(--spacing-xxl) 0; /* More padding */
+  background: linear-gradient(135deg, var(--primary-color), #6a3001);
+  padding: var(--spacing-xl) 0;
   color: var(--light-color);
   position: relative;
   overflow: hidden;
@@ -879,84 +540,353 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../assets/images/cta-bg-pattern.png'); /* Your pattern */
-  background-size: cover; /* Or 'contain' or size */
-  opacity: 0.08; /* Softer pattern */
-  pointer-events: none;
+  background-image: url('../assets/home-banner.png'); /* Ensure path is correct */
+  background-size: cover;
+  opacity: 0.1;
+  z-index: 0; /* Ensure it's behind content */
 }
 
 .cta-content {
   text-align: center;
   position: relative;
-  z-index: 1;
+  z-index: 1; /* Ensure content is above overlay */
+  max-width: 800px; /* Limit width for better readability */
+  margin: 0 auto; /* Center content */
+  padding: 0 var(--spacing-md); /* Add side padding */
 }
 
 .cta-content h2 {
-  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-size: 2.5rem;
   color: var(--light-color);
-  margin-bottom: var(--spacing-md); /* More space */
-  font-weight: 700;
-  /* animation: pulse 2.5s infinite ease-in-out; Optional subtle pulse */
+  margin-bottom: var(--spacing-sm);
+  animation: pulse 2s infinite;
 }
 
 .cta-content p {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: var(--spacing-lg);
-  max-width: 700px; /* Limit width */
+  max-width: 600px; /* Limit paragraph width */
   margin-left: auto;
   margin-right: auto;
 }
 
 .cta-buttons {
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping on small screens */
   justify-content: center;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
   gap: var(--spacing-md);
 }
 
+/* Assuming a general .btn class exists, adding specifics here */
 .cta-buttons .btn {
   min-width: 180px;
-  padding: 12px 28px; /* Adjust padding */
+  padding: 12px 24px;
   font-weight: 600;
-  font-size: 1rem; /* Slightly larger font */
+  border-radius: var(--border-radius-md); /* Use variable */
+  transition: all 0.3s ease; /* Smooth transitions */
+  text-decoration: none; /* Remove underline from links */
+  display: inline-block; /* Ensure proper layout */
+  border: none; /* Assuming default button style */
+  cursor: pointer;
 }
 
-/* Secondary button style defined globally */
+.secondary-btn {
+  background-color: var(--light-color);
+  color: var(--primary-color);
+}
+
+.secondary-btn:hover {
+  background-color: rgba(255, 255, 255, 0.85); /* Slightly darken */
+  color: var(--primary-color);
+  transform: translateY(-2px); /* Add subtle hover effect */
+}
+
+/* Ensure primary CTA button has hover effect too if not defined globally */
+.cta-buttons .btn.primary-btn { /* Example class name */
+  background-color: var(--primary-color); /* Or appropriate color */
+  color: var(--light-color);
+}
+.cta-buttons .btn.primary-btn:hover {
+  background-color: var(--secondary-color); /* Or darker primary */
+  color: var(--light-color);
+  transform: translateY(-2px);
+}
 
 
-/* ======================================== */
-/* === Animation Keyframes              === */
-/* ======================================== */
+/* Animation Keyframes */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
-@keyframes fadeIn {
+@keyframes slideInTop { /* Assuming this animation exists */
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn { /* Assuming this animation exists */
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes pulse { /* Add pulse animation */
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
 }
 
-@keyframes slideInDown { /* Replaced slideInTop */
+
+/* Animation for AOS-like functionality */
+/* Make sure elements using this are visible by default or handled by JS */
+[data-aos="fade-up"] {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+/* Example: Trigger animation when element becomes visible (requires JS intersection observer) */
+/* .aos-animate[data-aos="fade-up"] {
+  opacity: 1;
+  transform: translateY(0);
+} */
+
+
+/* --- General Styles --- */
+body {
+    /* font-family set by other styles - keeping consistency */
+    margin: 0;
+    background-color: var(--grey-color); /* Use CSS variable */
+}
+
+/* Using container class defined elsewhere, adjusting padding maybe */
+.container {
+    max-width: 1140px; /* Common container width */
+    margin: 0 auto;
+    padding: 0 var(--spacing-md); /* Use variable */
+}
+
+/* --- Testimonials Section Specific Styles --- */
+/* Styles for .testimonials already defined above */
+
+.testimonials .section-title {
+    text-align: center;
+    font-size: 2.5rem; /* Overrides the general .section-title size if needed */
+    margin-bottom: 40px; /* Or use var(--spacing-lg) */
+    font-weight: 700; /* Bolder */
+    color: var(--dark-color); /* Use variable */
+    opacity: 0; /* Start hidden for animation */
+    animation: fadeInUp 0.8s ease-out forwards;
+    position: relative; /* Needed for the pseudo-element */
+    display: inline-block; /* Fit content width */
+    left: 50%;
+    transform: translateX(-50%); /* Center */
+}
+
+.testimonials .section-title::after {
+  /* Inherit the line from the general .section-title or define specifically */
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px; /* Position below text */
+  transform: translateX(-50%);
+  width: 60px; /* Slightly wider for emphasis */
+  height: 4px; /* Slightly thicker */
+  background: var(--primary-color); /* Use variable */
+  border-radius: var(--border-radius-sm); /* Use variable */
+}
+
+
+/* Slider Container (for clipping) */
+.testimonials-slider-container {
+    overflow: hidden; /* Hides the non-visible cards */
+    margin-bottom: 30px; /* Or use var(--spacing-md) */
+    border-radius: var(--border-radius-lg); /* Optional: Rounded corners for the sliding area */
+    position: relative; /* Needed for absolute positioning of cards if used differently */
+}
+
+/* The Slider Wrapper (moves horizontally) */
+.testimonials-slider {
+    display: flex; /* Arrange cards side-by-side */
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth sliding effect */
+    /* Width calculated by JS */
+}
+
+/* Individual Testimonial Card */
+.testimonial-card {
+    flex: 0 0 100%; /* Each card takes full width of the container */
+    box-sizing: border-box;
+    padding: 35px 30px; /* Or use var(--spacing-lg) var(--spacing-md) */
+    background-color: var(--light-color); /* Use variable */
+    border-radius: var(--border-radius-lg); /* Use variable */
+    box-shadow: var(--shadow-md); /* Use variable */
+    text-align: center;
+    opacity: 0; /* Start all non-active as invisible */
+    transform: scale(0.95); /* Start slightly smaller for pop effect */
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    visibility: hidden; /* Hide non-active cards completely */
+    position: absolute; /* Position cards absolutely within the container */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensure it takes full width */
+}
+
+/* Active Testimonial Card Styling & Animation */
+.testimonial-card.active {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible; /* Make the active card visible */
+    position: relative; /* Change position to relative to take up space */
+    z-index: 1; /* Bring active card to front */
+}
+
+/* Content Animation (inside active card) */
+.testimonial-card.active .testimonial-content p,
+.testimonial-card.active .testimonial-author {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInSlideUp 0.6s ease-out 0.3s forwards; /* Apply animation only when active */
+}
+
+/* Stagger author animation slightly */
+.testimonial-card.active .testimonial-author {
+    animation-delay: 0.45s;
+}
+
+
+.testimonial-content p {
+    font-size: 1.15rem; /* Consider using rem or em */
+    line-height: 1.7;
+    color: var(--text-color); /* Use variable */
+    margin-bottom: 25px; /* Or use var(--spacing-md) */
+    font-style: italic;
+    max-width: 700px; /* Limit width for readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm); /* Use variable */
+    margin-top: 20px; /* Or use var(--spacing-md) */
+}
+
+.testimonial-author img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--grey-color); /* Use variable */
+}
+
+.author-info {
+    text-align: left;
+}
+
+.author-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--dark-color); /* Use variable */
+}
+
+.author-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-light); /* Use variable */
+    font-style: normal; /* Override italic from content */
+}
+
+/* Controls Styling */
+.testimonial-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Or use var(--spacing-md) */
+    margin-top: 30px; /* Space above controls */
+}
+
+.testimonial-controls button {
+    background-color: var(--primary-color); /* Use variable */
+    color: var(--light-color);
+    border: none;
+    border-radius: var(--border-radius-round); /* Use variable */
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem; /* Slightly larger icon */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease; /* Use consistent transition */
+    box-shadow: var(--shadow-sm); /* Use variable */
+}
+
+.testimonial-controls button:hover {
+    background-color: var(--secondary-color); /* Use variable */
+    transform: translateY(-2px) scale(1.05); /* Lift and slightly enlarge */
+    box-shadow: var(--shadow-md); /* Use variable */
+}
+
+.testimonial-controls button:active {
+    transform: translateY(0) scale(0.95); /* Press down effect */
+    box-shadow: none; /* Remove shadow on press */
+}
+
+/* Dots Styling */
+.testimonial-dots {
+    display: flex;
+    gap: 12px;
+}
+
+.testimonial-dots .dot {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc; /* Neutral color */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-dots .dot:hover {
+    background-color: #aaa;
+    transform: scale(1.1);
+}
+
+.testimonial-dots .dot.active {
+    background-color: var(--primary-color); /* Use variable */
+    transform: scale(1.3); /* Make active dot noticeably larger */
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.3); /* Use variable color with opacity */
+    /* Assumes --primary-rgb is defined like: --primary-rgb: 108, 99, 255; */
+}
+
+/* --- Keyframe Animations --- */
+@keyframes fadeInUp {
     from {
-        transform: translateY(-40px);
         opacity: 0;
+        transform: translate(-50%, 30px); /* Adjust for translateX */
     }
     to {
-        transform: translateY(0);
         opacity: 1;
+        transform: translateX(-50%); /* Adjust for translateX */
     }
 }
 
-@keyframes fadeInSlideUp { /* For testimonial content */
+
+@keyframes fadeInSlideUp {
     from {
         opacity: 0;
         transform: translateY(15px);
@@ -967,180 +897,243 @@ body {
     }
 }
 
-@keyframes zoomIn { /* For lightbox */
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 
-@keyframes pulse { /* Optional for CTA */
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
-}
+/* --- Responsive Styles --- */
 
-
-/* ======================================== */
-/* === Responsive Styles                === */
-/* ======================================== */
-
-/* Laptops / Desktops */
-@media screen and (max-width: 1200px) {
-    .container {
-        max-width: 960px;
-    }
-}
-
-/* Tablets */
+/* General Responsive Adjustments */
 @media screen and (max-width: 992px) {
-  .container {
-      max-width: 720px;
+  .animated-title {
+    font-size: 2.5rem;
   }
+
+  .animated-subtitle {
+    font-size: 1.1rem;
+  }
+
   .highlights-content {
-      grid-template-columns: 1fr; /* Stack highlights */
-      gap: var(--spacing-xl);
+    grid-template-columns: 1fr;
   }
+
+  .highlights-video {
+      margin-bottom: var(--spacing-md); /* Add space when stacked */
+  }
+
   .lightbox-content {
-    max-width: 90%; /* Adjust max width */
+    width: 95%;
   }
-   .gallery-grid {
+
+  .lightbox-slider {
+    height: 350px;
+  }
+
+  .gallery-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
-   .testimonial-content p {
-    font-size: 1.05rem;
+
+  .cta-content h2 {
+    font-size: 2.2rem;
+  }
+  .cta-content p {
+      font-size: 1.1rem;
+  }
+
+  .testimonials .section-title {
+      font-size: 2.2rem;
+  }
+  .testimonial-content p {
+      font-size: 1.1rem;
   }
 }
 
-/* Smaller Tablets / Large Mobiles */
 @media screen and (max-width: 768px) {
-  .container {
-      max-width: 540px;
-      padding: 0 var(--spacing-sm); /* Less padding */
-  }
   .page-banner {
-      height: 45vh;
-      min-height: 300px;
+      height: 45vh; /* Slightly reduce banner height */
   }
+
+  .animated-title {
+      font-size: 2.2rem;
+  }
+  .animated-subtitle {
+      font-size: 1rem;
+  }
+
   .filter-container {
     flex-direction: column;
-    align-items: stretch; /* Stretch items */
-    gap: var(--spacing-sm);
+    align-items: flex-start;
   }
-  .filter-label {
-      margin-bottom: var(--spacing-sm);
-      text-align: center;
-  }
+
   .filter-buttons {
-      justify-content: center;
+      justify-content: flex-start; /* Align buttons left */
   }
+
   .cta-buttons {
     flex-direction: column;
-    gap: var(--spacing-md);
-    align-items: center;
+    align-items: center; /* Center buttons when stacked */
+    gap: var(--spacing-sm);
   }
   .cta-buttons .btn {
-      width: 80%;
+      width: 80%; /* Make buttons wider */
       max-width: 300px;
+  }
+
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+  .cta-content p {
+      font-size: 1rem;
+  }
+
+  .lightbox-slider {
+    height: 300px; /* Adjust lightbox height */
   }
   .lightbox-body {
       padding: var(--spacing-sm);
   }
-  .lightbox-slider {
-    height: auto; /* Let aspect ratio determine height */
-    aspect-ratio: 16 / 10; /* Adjust aspect ratio as needed */
-    max-height: 60vh;
-  }
+
   .thumbnail {
-    width: 65px;
+    width: 70px;
     height: 50px;
   }
+
   .gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjust grid */
+    gap: var(--spacing-md);
   }
+
   .gallery-image {
     height: 220px;
   }
-  .section-title {
-      font-size: 2rem;
+
+  .gallery-content h3 {
+      font-size: 1.2rem;
   }
-  .testimonial-author {
-      flex-direction: column; /* Stack author info */
-      gap: var(--spacing-sm);
-   }
-   .author-info {
-        text-align: center;
-   }
-   .testimonial-controls {
-        gap: var(--spacing-md);
-   }
-   .testimonial-dots .dot {
+  .gallery-content p {
+      font-size: 0.85rem;
+  }
+
+  /* Testimonials Responsive */
+   .testimonials .section-title {
+        font-size: 2rem;
+    }
+    .testimonial-card {
+        padding: 25px 20px;
+    }
+    .testimonial-content p {
+        font-size: 1.05rem;
+    }
+    .testimonial-author img {
+        width: 60px;
+        height: 60px;
+    }
+    .testimonial-controls button {
+        width: 40px;
+        height: 40px;
+    }
+    .testimonial-dots .dot {
         width: 10px;
         height: 10px;
     }
 }
 
-/* Mobile Phones */
 @media screen and (max-width: 576px) {
-  body {
-      font-size: 15px; /* Slightly smaller base font */
-  }
-  .container {
-      padding: 0 var(--spacing-sm);
-  }
   .page-banner {
     height: 40vh;
-    min-height: 250px;
   }
+
   .animated-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
   .animated-subtitle {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+  }
+
+  .banner-content {
+      padding: 0 var(--spacing-sm);
+  }
+
+  .filter-label {
+      margin-bottom: var(--spacing-sm); /* Add space below label */
   }
   .filter-buttons {
-    gap: 8px;
+    width: 100%;
+    justify-content: center; /* Center filter buttons */
   }
   .filter-btn {
-      padding: 6px 14px;
-      font-size: 0.85rem;
+      flex-grow: 1; /* Allow buttons to grow */
+      text-align: center;
   }
-  .gallery-grid {
-    grid-template-columns: 1fr; /* Single column */
-    gap: var(--spacing-md);
-  }
-  .gallery-image {
-      height: 200px;
-  }
+
+
   .lightbox-header h3 {
       font-size: 1.1rem;
   }
   .close-lightbox {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
+  }
+  .lightbox-slider {
+    height: 250px;
+  }
+  .lightbox-controls {
+      margin-top: var(--spacing-xs);
   }
   .lightbox-prev, .lightbox-next {
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
       font-size: 1rem;
+  }
+  .lightbox-thumbnails {
+      padding: var(--spacing-sm);
+      gap: 8px;
   }
   .thumbnail {
-      width: 60px;
-      height: 45px;
+    width: 60px;
+    height: 45px;
+  }
+
+
+  .gallery-grid {
+    grid-template-columns: 1fr; /* Stack gallery items */
+    gap: var(--spacing-lg); /* Increase gap when stacked */
+  }
+  .gallery-image {
+      height: 250px; /* Increase height slightly for single column */
+  }
+
+  .section-title {
+      font-size: 1.8rem; /* Reduce general section title size */
+  }
+  .testimonials .section-title {
+      font-size: 1.8rem; /* Reduce testimonials title size */
   }
   .highlights-text h3 {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
   }
-  .section-title {
-      font-size: 1.8rem;
-  }
-   .cta-content h2 {
+
+
+  .cta-content h2 {
     font-size: 1.8rem;
   }
-  .cta-content p {
-      font-size: 1rem;
-  }
+
+
+  /* Testimonials Responsive Small */
+   .testimonial-content p {
+        font-size: 1rem;
+   }
+    .testimonial-author {
+       flex-direction: column; /* Stack image and text on small screens */
+       gap: 10px;
+    }
+   .author-info {
+        text-align: center;
+   }
+   .testimonial-controls {
+        gap: 15px;
+   }
+   .testimonial-dots .dot {
+       width: 9px;
+       height: 9px;
+   }
+   .testimonial-dots .dot.active {
+       transform: scale(1.2);
+   }
 }

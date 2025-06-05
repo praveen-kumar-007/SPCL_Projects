@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChronoMatrix Puzzle Engine - An advanced dynamic image puzzle game with scalable difficulty from 3x3 to 30x30, developed as a B.Tech final year project by [Your Name/Group].">
+    <meta name="keywords" content="Image Puzzle, JavaScript Game, HTML5, CSS3, B.Tech Project, Final Year Project, Web Development, Interactive Game, Matrix Puzzle, High Difficulty Puzzle">
+    <meta name="author" content="[Your Name/Group] - Quantum Dynamics Inc.">
+
+    <title>ChronoMatrix Puzzle Engine - Omega Challenge</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- Optional: Add a favicon here (e.g., <link rel="icon" href="assets/favicon.png" type="image/png">) -->
+
+    <!-- Preconnect for Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Noscript fallback for users with JavaScript disabled -->
+    <noscript>
+        <style>
+            /* Basic styling for noscript message to be visible */
+            body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #0a0f1f; color: #e8f0ff; font-family: Arial, sans-serif; margin: 0; padding: 20px;}
+            .game-container { display: none; /* Hide the entire game content */ }
+            .noscript-warning {
+                display: block; /* Ensure visibility */
+                text-align: center;
+                padding: 40px;
+                font-size: 1.6em;
+                background-color: #330000;
+                border: 2px solid #ff5555;
+                border-radius: 8px;
+                max-width: 700px;
+                margin: 20px auto; /* Center it */
+                box-shadow: 0 0 20px rgba(255, 85, 85, 0.5);
+            }
+            .noscript-warning strong {
+                display: block;
+                font-size: 1.2em;
+                margin-bottom: 10px;
+                color: #ff8888;
+            }
+        </style>
+        <div class="noscript-warning" role="alert">
+            <strong>JavaScript Execution Required!</strong><br>
+            The ChronoMatrix Puzzle Engine relies heavily on JavaScript for its core functionality.
+            Please enable JavaScript in your browser's settings to experience this application.
+        </div>
+    </noscript>
+</head>
+<body id="page-top">
+
+    <!-- Background animated effects (purely decorative) -->
+    <div class="background-effects" aria-hidden="true">
+        <div class="bg-particle p-type1 p-size-lg p-anim1"></div>
+        <div class="bg-particle p-type2 p-size-md p-anim2 p-delay1"></div>
+        <div class="bg-particle p-type3 p-size-sm p-anim3 p-delay2"></div>
+        <div class="bg-particle p-type1 p-size-md p-anim4 p-delay3"></div>
+        <div class="bg-particle p-type2 p-size-xl p-anim5 p-delay4"></div>
+    </div>
+
+    <!-- Main game application container -->
+    <main class="game-container" id="gameContainer" role="application" aria-roledescription="interactive image puzzle game">
+        <!-- Game header section -->
+        <header class="game-header animated-section" data-animation-order="1" role="banner">
+            <h1 class="game-title" id="main-title">
+                Chrono<span class="highlight game-title-highlight">Matrix</span> Engine
+            </h1>
+            <p class="tagline" id="game-tagline">
+                Reconstruct the Tessellated Image Continuum!
+            </p>
+        </header>
+
+        <!-- Game controls section -->
+        <section class="controls animated-section" data-animation-order="2" aria-labelledby="controls-heading">
+            <h2 id="controls-heading" class="visually-hidden">Game Configuration and Statistics</h2>
+            
+            <!-- Difficulty selector group -->
+            <div class="control-group difficulty-selector" role="group" aria-labelledby="difficulty-label-text">
+                <label for="difficulty" id="difficulty-label-text" class="control-label">Matrix Density:</label>
+                <select id="difficulty" class="difficulty-dropdown" name="difficulty_level" aria-describedby="difficulty-help-text">
+                    <option value="3">3x3 (Initiate)</option>
+                    <option value="4">4x4 (Vector)</option>
+                    <option value="5" selected>5x5 (Scalar)</option>
+                    <option value="6">6x6 (Tensor)</option>
+                    <option value="8">8x8 (Quantum Field)</option>
+                    <option value="10">10x10 (Singularity)</option>
+                    <option value="12">12x12 (Nova Core)</option>
+                    <option value="15">15x15 (Nebula Grid)</option>
+                    <option value="18">18x18 (Galaxy Plexus)</option>
+                    <option value="20">20x20 (Cosmic Array)</option>
+                    <option value="25">25x25 (HyperWeb)</option>
+                    <option value="30">30x30 (Omega Matrix)</option>
+                </select>
+                <small id="difficulty-help-text" class="visually-hidden">Select grid size. Larger grids are significantly more challenging.</small>
+            </div>
+
+            <!-- Start/Restart game button -->
+            <button id="startButton" class="cta-button" type="button" aria-live="polite" aria-controls="puzzle-container">
+                <span class="btn-text" id="startButtonText">Activate Matrix</span>
+                <span class="btn-icon" aria-hidden="true">▶</span>
+            </button>
+
+            <!-- Game statistics display group -->
+            <div class="control-group stats" role="status" aria-live="polite">
+                <p class="stat-item moves-stat">
+                    <span class="stat-label" id="moves-stat-label">Shifts:</span>
+                    <span id="movesCounter" class="stat-value" aria-labelledby="moves-stat-label">0</span>
+                </p>
+                <p class="stat-item time-stat">
+                    <span class="stat-label" id="time-stat-label">Time:</span>
+                    <span id="timer" class="stat-value" aria-labelledby="time-stat-label">00:00</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Main puzzle interaction area -->
+        <section id="puzzle-area" class="puzzle-interaction-zone animated-section" data-animation-order="3" aria-labelledby="puzzle-zone-heading">
+            <h2 id="puzzle-zone-heading" class="visually-hidden">Puzzle Grid and Reference Image</h2>
+            <div id="puzzle-shroud" class="puzzle-shroud-container">
+                <!-- Puzzle grid container where tiles will be dynamically loaded -->
+                <div id="puzzle-container" class="puzzle-grid-main" role="grid" aria-multiselectable="false" aria-readonly="false" aria-label="Interactive image puzzle grid. Drag and drop tiles, or use keyboard (Enter/Space to select/swap, Esc to deselect) to rearrange them and solve the puzzle.">
+                    <!-- Placeholder content for initial state or loading -->
+                    <div class="puzzle-placeholder-wrapper" aria-live="assertive">
+                        <p class="puzzle-placeholder initial-placeholder-text">Awaiting Matrix Initialization...</p>
+                        <div class="spinner-container" aria-hidden="true"><div class="spinner"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reference image preview panel -->
+            <aside id="image-preview-container" role="complementary" aria-labelledby="preview-panel-title">
+                <h3 id="preview-panel-title" class="preview-title">Reference Image:</h3>
+                <div class="image-preview-wrapper">
+                    <!-- Default image for the puzzle -->
+                    <img id="image-preview" src="./assets/IMAGE.png" alt="Full puzzle image preview" style="height: 400px; width: 400px;">
+                </div>
+                <p class="preview-caption visually-hidden">This panel displays the complete target image for the puzzle.</p>
+            </aside>
+        </section>
+
+        <!-- Custom image upload section -->
+        <section class="image-upload-section user-customization-area animated-section" data-animation-order="4" aria-labelledby="upload-zone-heading">
+            <h2 id="upload-zone-heading" class="visually-hidden">Upload Custom Puzzle Image</h2>
+            <label for="imageUpload" class="upload-button custom-button" role="button" tabindex="0" aria-describedby="upload-file-types">
+                <span class="upload-icon" aria-hidden="true">⇪</span>
+                Load Custom Image Matrix
+            </label>
+            <input type="file" id="imageUpload" class="file-input-hidden" name="custom_puzzle_image" accept="image/*" aria-hidden="true">
+            <small id="upload-file-types" class="visually-hidden">Supported image types: PNG, JPG, GIF, WEBP, etc.</small>
+        </section>
+
+        <!-- Success message modal (hidden by default) -->
+        <div id="successMessage" class="success-message-modal hidden" role="alertdialog" aria-labelledby="success-modal-title" aria-describedby="success-modal-details" aria-modal="true" tabindex="-1">
+            <div class="success-content">
+                <div class="success-icon" aria-hidden="true">✦</div>
+                <h2 id="success-modal-title" class="success-title modal-title">Matrix Realigned!</h2>
+                <p id="success-modal-details" class="success-details modal-details">
+                    Continuum restored in <strong id="finalMoves">0</strong> shifts and <strong id="finalTime">00:00</strong>.
+                    <br>System Stability: Optimal.
+                </p>
+                <button id="playAgainButton" class="cta-button play-again-button">Reactivate Protocol</button>
+            </div>
+        </div>
+
+
+        <!-- Footer section -->
+        <div style="justify-content: center; align-items: center; display: flex; flex-direction: column; width: 100%; height: 100%;">
+        <footer class="game-footer animated-section" data-animation-order="5" role="contentinfo">
+            <p class="copyright-text">
+                © <time datetime="2023">2025</time> Quantum Dynamics Inc. – Praveen Kumar. All Rights Reserved.
+            </p>
+            <p class="project-credit">
+                B.Tech 3rd Year (SPCL Infotech) – ChronoMatrix Puzzle Engine.
+            </p>
+            <p class="tech-stack-info">
+                Forged with Custom HTML5, Advanced CSS3 & Vanilla JavaScript (ES6+).
+            </p>
+        </footer>
+        </div>
+    </main>
+
+    <!-- JavaScript file, deferred for optimal page load performance -->
+    <script src="script.js" defer></script>
+</body>
+</html>

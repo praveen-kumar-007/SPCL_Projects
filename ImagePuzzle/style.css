@@ -1,0 +1,692 @@
+/*
+    ChronoMatrix Puzzle Engine - style.css
+    --------------------------------------
+    B.Tech Final Project - Advanced Styling Document v3.0 (Final Version)
+    Author: [Your Name/Group] - Quantum Dynamics Inc.
+    Date: [Current Date]
+
+    Purpose:
+    This stylesheet provides the complete visual presentation for the ChronoMatrix Puzzle Engine.
+    It defines the layout, typography, color schemes, intricate animations, responsive behaviors,
+    and overall aesthetic of the game. The styling is custom-crafted to create a unique,
+    futuristic, and engaging user experience, demonstrating advanced CSS techniques without
+    reliance on external frameworks. This document is intentionally verbose and detailed
+    to showcase comprehensive CSS understanding and application for an engineering project.
+
+    Table of Contents:
+    ------------------
+    1.  CSS Custom Properties (Global Variables)
+    2.  Global Resets and Base HTML Element Styling
+    3.  Layout Structure (Main Container & Sections)
+    4.  Animated Background Effects
+    5.  UI Element Styling (Buttons, Select, Stats)
+    6.  Puzzle Specific Styling (Shroud, Container, Tiles, Placeholder)
+    7.  Image Preview Panel
+    8.  Success Message Modal
+    9.  Footer Styling
+    10. Utility Classes (Accessibility, Display, Spacing, Text)
+    11. General Animations (Keyframes)
+    12. Responsive Design (Media Queries for various breakpoints)
+    13. Print Styles
+    14. Accessibility Focused Styles
+*/
+
+/* === 1. CSS Custom Properties (Global Variables) === */
+:root {
+    /* --- 1.1. Color Palette - Futuristic & Vibrant --- */
+    --color-primary-glow: #00eaff;       /* Electric Blue/Cyan - Main interactive glow */
+    --color-primary-base: #00c5e0;       /* Solid version of primary */
+    --color-secondary-glow: #f800e0;     /* Neon Pink/Magenta - Secondary accents */
+    --color-secondary-base: #d900c3;     /* Solid version of secondary */
+    --color-accent: #ffee00;           /* Bright Yellow - Highlights, CTAs */
+    --color-accent-darker: #d4c800;    /* Darker accent for depth */
+    --color-success: #15ff78;          /* Bright Green for success states */
+    --color-error: #ff3366;           /* Bright Red for error states */
+    --color-warning: #ffcc00;         /* Orange/Yellow for warnings */
+
+    --color-background-deep-space-rgb: 6,9,20; /* Explicit RGB values for rgba() function */
+    --color-background-dark-nebula: #0a0f1f; /* Main page background */
+    --color-background-interface: #121a3a; /* UI elements, cards */
+    --color-background-interface-light: #1c254a; /* Lighter UI elements */
+
+    --color-text-primary-light: #e8f0ff;    /* Main body text on dark backgrounds */
+    --color-text-secondary-muted: #a0b0e0;  /* Labels, captions, less important text */
+    --color-text-on-primary-glow: var(--color-background-deep-space); /* Text on bright primary buttons */
+    --color-text-on-accent: #332e00;      /* Text on yellow accent areas */
+    --color-text-link: var(--color-accent);
+    --color-text-link-hover: var(--color-primary-glow);
+
+    --color-border-interactive: var(--color-primary-glow);
+    --color-border-container: var(--color-primary-base);
+    --color-border-tile: rgba(0, 234, 255, 0.25); /* Subtle default */
+    --color-border-tile-hover: var(--color-accent);
+    --color-border-divider: rgba(0, 234, 255, 0.15);
+
+    --color-shadow-primary-glow: rgba(0, 234, 255, 0.5);
+    --color-shadow-secondary-glow: rgba(248, 0, 224, 0.5);
+    --color-shadow-accent-glow: rgba(255, 238, 0, 0.5);
+    --color-shadow-dark-soft: rgba(0, 0, 0, 0.3);
+    --color-shadow-dark-strong: rgba(0, 0, 0, 0.5);
+
+    /* --- 1.2. Typography System --- */
+    --font-family-title: 'Orbitron', 'Verdana', sans-serif;
+    --font-family-body: 'Rajdhani', 'Arial', sans-serif;
+    --font-family-code: 'Consolas', 'Monaco', monospace;
+
+    --font-size-base: 16px;
+    --font-size-small: 0.875rem;
+    --font-size-medium: 1rem;
+    --font-size-large: 1.125rem;
+    --font-size-xlarge: 1.25rem;
+    --font-size-h1: clamp(2.2rem, 6vw, 3.8rem);
+    --font-size-h2: clamp(1.8rem, 5vw, 3rem);
+    --font-size-h3: clamp(1.4rem, 4vw, 2.2rem);
+
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+
+    --line-height-base: 1.65;
+    --line-height-heading: 1.3;
+    --letter-spacing-title: 0.05em;
+    --letter-spacing-body: 0.01em;
+
+    /* --- 1.3. Spacing and Sizing Units --- */
+    --spacing-unit: 8px;
+    --spacing-xs: calc(var(--spacing-unit) * 0.5); /* 4px */
+    --spacing-sm: var(--spacing-unit);             /* 8px */
+    --spacing-md: calc(var(--spacing-unit) * 2);   /* 16px */
+    --spacing-lg: calc(var(--spacing-unit) * 3);   /* 24px */
+    --spacing-xl: calc(var(--spacing-unit) * 4);   /* 32px */
+    --spacing-xxl: calc(var(--spacing-unit) * 6);  /* 48px */
+
+    --container-max-width: 1050px;
+    --puzzle-base-dimension: 400px; /* Reference size for puzzle area in JS */
+    --preview-panel-max-width: 210px; /* Max width of the preview panel, which will dictate image display size */
+
+    /* --- 1.4. Borders and Radii --- */
+    --border-radius-sharp: 2px;
+    --border-radius-soft: 6px;
+    --border-radius-medium: 12px;
+    --border-radius-large: 18px;
+    --border-radius-round: 50%;
+
+    --border-width-thin: 1px;
+    --border-width-standard: 2px;
+    --border-width-thick: 3px;
+
+    /* --- 1.5. Transitions and Animations Timing --- */
+    --transition-duration-xtra-fast: 0.1s;
+    --transition-duration-fast: 0.22s;
+    --transition-duration-medium: 0.4s;
+    --transition-duration-slow: 0.65s;
+    --transition-duration-xslow: 1s;
+
+    --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --easing-energetic: cubic-bezier(0.25, 0.8, 0.25, 1);
+    --easing-springy-out: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --easing-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+    /* --- 1.6. Z-Index Management --- */
+    --z-index-deep-background: -100;
+    --z-index-background-effects: -10;
+    --z-index-default: 1;
+    --z-index-content-overlay: 5;
+    --z-index-puzzle-tile: 10;
+    --z-index-puzzle-tile-hover: 20;
+    --z-index-puzzle-tile-dragging: 150;
+    --z-index-ui-controls: 200;
+    --z-index-dropdown-menu: 300;
+    --z-index-modal-backdrop: 900;
+    --z-index-modal-content: 1000;
+}
+
+/* === 2. Global Resets and Base HTML Element Styling === */
+/* --- 2.1. Comprehensive Reset --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-width: 0; border-style: solid; border-color: transparent; vertical-align: baseline; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+ul, ol { list-style: none; }
+img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; background-color: transparent; }
+button { cursor: pointer; border: none; background: none; padding: 0; text-align: inherit; }
+button, a { -webkit-tap-highlight-color: rgba(0,0,0,0); touch-action: manipulation; }
+
+/* --- 2.2. HTML and Body Base --- */
+html { font-size: var(--font-size-base); scroll-behavior: smooth; overflow-y: scroll; height: 100%; }
+body {
+    font-family: var(--font-family-body);
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-medium);
+    background-color: var(--color-background-dark-nebula);
+    color: var(--color-text-primary-light);
+    line-height: var(--line-height-base);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    overflow-x: hidden;
+    perspective: var(--perspective-root, 1200px);
+    text-rendering: optimizeLegibility;
+}
+
+
+
+
+
+/* --- 2.3. Headings (h1-h6) --- */
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    font-family: var(--font-family-title);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary-light);
+    line-height: var(--line-height-heading);
+    margin-bottom: var(--spacing-md);
+    letter-spacing: var(--letter-spacing-title);
+    text-shadow: 0 0 4px var(--color-primary-glow);
+}
+h1, .h1 { font-size: var(--font-size-h1); font-weight: var(--font-weight-black); }
+h2, .h2 { font-size: var(--font-size-h2); font-weight: var(--font-weight-black); }
+h3, .h3 { font-size: var(--font-size-h3); font-weight: var(--font-weight-bold); }
+
+/* --- 2.4. Paragraphs and Text Elements --- */
+p { margin-bottom: var(--spacing-md); max-width: 70ch; }
+p:last-child { margin-bottom: 0; }
+a { color: var(--color-text-link); text-decoration: none; font-weight: var(--font-weight-medium); transition: color var(--transition-duration-fast) ease, text-shadow var(--transition-duration-fast) ease; }
+a:hover, a:focus { color: var(--color-text-link-hover); text-decoration: underline; text-decoration-color: var(--color-text-link-hover); text-shadow: 0 0 5px var(--color-text-link-hover); outline: none; }
+a:focus-visible, button:focus-visible, select:focus-visible, input[type="file"]:focus-visible + label { outline: var(--border-width-standard) dashed var(--color-accent); outline-offset: var(--spacing-xs); border-radius: var(--border-radius-sharp); }
+label { display: block; margin-bottom: var(--spacing-sm); font-weight: var(--font-weight-medium); color: var(--color-text-secondary-muted); }
+select {
+    display: block;
+    width: auto;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-background-interface);
+    border: var(--border-width-thin) solid var(--color-border-interactive);
+    border-radius: var(--border-radius-soft);
+    color: var(--color-text-primary-light);
+    font-size: var(--font-size-medium);
+    transition: border-color var(--transition-duration-fast) ease, box-shadow var(--transition-duration-fast) ease;
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300eaff' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-md) center;
+    background-size: 1em;
+    padding-right: calc(var(--spacing-md) + 1.5em);
+}
+select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--color-accent); outline: none; }
+
+/* === 3. Layout Structure === */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    background: linear-gradient(150deg, rgba(var(--color-background-deep-space-rgb), 0.9), rgba(18, 24, 47, 0.95));
+    padding: clamp(var(--spacing-md), 4vw, var(--spacing-xl));
+    border-radius: var(--border-radius-large);
+    border: var(--border-width-standard) solid var(--color-border-container);
+    box-shadow: 0 0 12px var(--color-shadow-primary-glow), 0 0 25px var(--color-shadow-secondary-glow), inset 0 0 8px rgba(0, 234, 255, 0.15);
+    width: 95%;
+    max-width: var(--container-max-width);
+    text-align: center;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: fadeInGameContainer 0.8s var(--easing-standard) forwards;
+    margin-bottom: var(--spacing-xl);
+}
+@keyframes fadeInGameContainer {
+    from { opacity: 0; transform: translateY(25px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animated-section {
+    opacity: 0;
+    animation: slideUpSection 0.5s var(--easing-standard) forwards;
+    animation-delay: calc(var(--animation-order, 1) * var(--section-animation-stagger, 0.15s) + 0.1s); /* Use data-animation-order */
+    will-change: opacity, transform;
+}
+@keyframes slideUpSection {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === 4. Animated Background Effects === */
+.background-effects { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: var(--z-index-background-effects); pointer-events: none; }
+.bg-particle { position: absolute; border-radius: 50%; opacity: 0; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
+/* Particle types */
+.bg-particle.p-type1 { background-color: var(--color-primary-glow); }
+.bg-particle.p-type2 { background-color: var(--color-secondary-glow); }
+.bg-particle.p-type3 { background-color: var(--color-accent); }
+/* Particle sizes and initial opacity/blur */
+.bg-particle.p-size-sm { width: 40px; height: 40px; opacity: 0.03; filter: blur(1px); }
+.bg-particle.p-size-md { width: 80px; height: 80px; opacity: 0.05; filter: blur(2px); }
+.bg-particle.p-size-lg { width: 120px; height: 120px; opacity: 0.07; filter: blur(3px); }
+.bg-particle.p-size-xl { width: 160px; height: 160px; opacity: 0.04; filter: blur(4px); }
+/* Particle animation names and durations */
+.bg-particle.p-anim1 { animation-name: floatParticleAnim1; animation-duration: 28s; }
+.bg-particle.p-anim2 { animation-name: floatParticleAnim2; animation-duration: 35s; }
+.bg-particle.p-anim3 { animation-name: floatParticleAnim1; animation-duration: 22s; transform: scale(0.7); }
+.bg-particle.p-anim4 { animation-name: floatParticleAnim2; animation-duration: 40s; transform: scale(1.2); }
+.bg-particle.p-anim5 { animation-name: floatParticleAnim1; animation-duration: 30s; transform: scale(0.9); }
+/* Animation delays */
+.bg-particle.p-delay1 { animation-delay: 4s; }
+.bg-particle.p-delay2 { animation-delay: 8s; }
+.bg-particle.p-delay3 { animation-delay: 12s; }
+.bg-particle.p-delay4 { animation-delay: 16s; }
+/* Fixed positions for particles (adjust based on your HTML bg-particle count) */
+.background-effects .bg-particle:nth-child(1) { left: 10%; top: 15%; }
+.background-effects .bg-particle:nth-child(2) { left: 75%; top: 65%; }
+.background-effects .bg-particle:nth-child(3) { left: 40%; top: 80%; }
+.background-effects .bg-particle:nth-child(4) { left: 80%; top: 20%; }
+.background-effects .bg-particle:nth-child(5) { left: 20%; top: 45%; }
+
+@keyframes floatParticleAnim1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.05; }
+    25% { transform: translate(30px, -50px) rotate(60deg) scale(1.1); opacity: 0.12; }
+    50% { transform: translate(-20px, 40px) rotate(120deg) scale(0.9); opacity: 0.08; }
+    75% { transform: translate(40px, 20px) rotate(180deg) scale(1.05); opacity: 0.1; }
+}
+@keyframes floatParticleAnim2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.06; }
+    50% { transform: translate(-40px, 32px) rotate(180deg) scale(1.2); opacity: 0.15; } /* Using calc here: calc(var(--spacing-unit) * -5) calc(var(--spacing-unit) * 4) */
+}
+
+
+/* === 5. UI Element Styling === */
+.game-header { margin-bottom: var(--spacing-lg); }
+.game-title { text-shadow: 0 0 5px var(--color-primary-glow), 0 0 12px var(--color-primary-glow); letter-spacing: 0.04em; }
+.game-title .highlight { color: var(--color-accent); text-shadow: 0 0 5px var(--color-accent), 0 0 12px var(--color-accent); }
+.tagline { font-size: var(--font-size-large); color: var(--color-text-secondary-muted); font-weight: var(--font-weight-medium); letter-spacing: 0.02em; }
+
+/* --- 5.1. Buttons --- */
+.cta-button {
+    background: linear-gradient(140deg, var(--color-primary-glow), var(--color-secondary-glow));
+    color: var(--color-text-on-primary-glow);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-family: var(--font-family-title);
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.05em;
+    border-radius: var(--border-radius-soft);
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-sm);
+    transition: transform var(--transition-duration-fast) var(--easing-standard), box-shadow var(--transition-duration-fast) var(--easing-standard);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0, 234, 255, 0.2), 0 2px 5px rgba(248, 0, 224, 0.15);
+    min-width: 200px;
+}
+.cta-button:hover, .cta-button:focus-visible { transform: translateY(-3px) scale(1.03); box-shadow: 0 7px 18px var(--color-shadow-primary-glow), 0 0 25px var(--color-shadow-secondary-glow); }
+.cta-button:active { transform: translateY(0) scale(0.98); box-shadow: 0 2px 6px rgba(0, 234, 255, 0.2); }
+.cta-button:disabled {
+    background: var(--color-text-secondary-muted); color: var(--color-background-interface); opacity: 0.6; cursor: not-allowed;
+    transform: none; box-shadow: none; text-shadow: none;
+}
+.cta-button .btn-icon { font-size: 1.2em; line-height: 1; transition: transform var(--transition-duration-medium) var(--easing-springy-out); }
+.cta-button:hover .btn-icon, .cta-button:focus-visible .btn-icon { transform: rotate(360deg) scale(1.1); }
+
+/* .upload-button (label acting as button) */
+.upload-button {
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-md);
+    background-color: transparent; color: var(--color-primary-base);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-soft); border: var(--border-width-standard) solid var(--color-primary-base);
+    font-weight: var(--font-weight-bold); font-size: var(--font-size-medium); text-align: center;
+    transition: all var(--transition-duration-medium) var(--easing-standard);
+}
+.upload-button:hover, .upload-button:focus-visible { background-color: var(--color-primary-base); color: var(--color-text-on-primary-glow); box-shadow: 0 0 15px var(--color-primary-glow); transform: translateY(-2px); border-color: var(--color-primary-glow); }
+.upload-button .upload-icon { font-size: 1.4em; transition: transform 0.3s ease-in-out; }
+.upload-button:hover .upload-icon, .upload-button:focus-visible .upload-icon { transform: translateY(-3px) scale(1.15) rotate(360deg); }
+
+
+/* --- 5.2. Select Dropdown (#difficulty) --- */
+#difficulty.difficulty-dropdown { min-width: 220px; font-weight: var(--font-weight-semibold); }
+
+
+/* --- 5.3. Statistics Display --- */
+.controls {
+    display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;
+    gap: var(--spacing-lg); padding: var(--spacing-lg); margin-bottom: var(--spacing-xl);
+    background-color: rgba(0, 0, 0, 0.25); border-radius: var(--border-radius-soft);
+    border: var(--border-width-thin) solid rgba(0, 234, 255, 0.2);
+}
+.control-group { display: flex; align-items: center; gap: var(--spacing-sm); }
+.stat-item { display: flex; gap: var(--spacing-sm); align-items: baseline; font-size: var(--font-size-medium); }
+.stat-label { color: var(--color-text-secondary-muted); font-weight: var(--font-weight-medium); font-size: 0.9em; }
+.stat-value { color: var(--color-accent); font-weight: var(--font-weight-bold); font-size: 1.1em; min-width: 50px; text-align: left; text-shadow: 0 0 4px var(--color-accent); }
+
+
+/* === 6. Puzzle Specific Styling === */
+.puzzle-interaction-zone {
+    display: flex; justify-content: center; align-items: flex-start;
+    gap: var(--spacing-xl); margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap; /* Allows stacking on smaller screens */
+}
+/* --- 6.1. Puzzle Shroud (#puzzle-shroud) --- */
+#puzzle-shroud.puzzle-shroud-container {
+    position: relative;
+    width: var(--puzzle-base-dimension);
+    height: var(--puzzle-base-dimension);
+    perspective: 900px; /* For potential 3D tile effects */
+    margin-left: auto; margin-right: auto; /* Center if `puzzle-area` causes it to shrink */
+}
+
+/* --- 6.2. Puzzle Container (#puzzle-container) --- */
+#puzzle-container.puzzle-grid-main {
+    display: grid; /* JS sets grid-template-columns/rows */
+    width: 100%; height: 100%; /* Fills the shroud */
+    border: var(--border-width-thick) solid var(--color-primary-glow);
+    border-radius: var(--border-radius-medium);
+    box-shadow: 0 0 25px var(--color-shadow-primary-glow), inset 0 0 12px rgba(0, 234, 255, 0.2);
+    background-color: rgba(var(--color-background-deep-space-rgb), 0.4); /* Uses explicit RGB variable */
+    overflow: hidden; /* Critical for tile animations and precise slicing */
+    position: relative; /* For absolute positioning of placeholder */
+}
+
+/* --- 6.3. Puzzle Placeholder Text --- */
+.puzzle-placeholder-wrapper {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: var(--spacing-lg); text-align: center;
+    pointer-events: none; /* Allow clicks through to tiles once loaded */
+}
+.puzzle-placeholder.initial-placeholder-text, .puzzle-placeholder.dynamic-placeholder-text {
+    color: var(--color-text-secondary-muted); font-size: var(--font-size-large);
+    font-weight: var(--font-weight-medium); line-height: 1.4;
+    animation: pulsePlaceholderText 2.5s infinite ease-in-out;
+    margin-bottom: var(--spacing-md);
+}
+.puzzle-placeholder.error-text { color: var(--color-error) !important; animation: none; font-weight: var(--font-weight-semibold); }
+@keyframes pulsePlaceholderText { 0%, 100% { opacity: 0.6; transform: scale(0.98); } 50% { opacity: 1; transform: scale(1); } }
+/* Spinner (Basic CSS spinner) */
+.spinner-container { display: flex; justify-content: center; align-items: center; margin-top: var(--spacing-md); }
+.spinner {
+    width: 40px; height: 40px;
+    border: 4px solid rgba(0,234,255, 0.3); /* Manual RGB */
+    border-top-color: var(--color-primary-glow); border-radius: 50%; animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- 6.4. Individual Puzzle Tiles (.puzzle-tile) --- */
+.puzzle-tile {
+    box-sizing: border-box; background-size: cover; background-repeat: no-repeat;
+    cursor: grab; position: relative;
+    border: var(--border-width-thin) solid var(--color-border-tile);
+    border-radius: 2px;
+    transition: transform var(--transition-duration-fast) var(--easing-standard),
+                box-shadow var(--transition-duration-fast) var(--easing-standard),
+                opacity var(--transition-duration-fast) var(--easing-standard),
+                border-color var(--transition-duration-fast) var(--easing-standard);
+    will-change: transform, opacity, box-shadow;
+    /* Initial state for tile entry animation (controlled by JS via --tile-animation-delay) */
+    opacity: 0;
+    transform: scale(0.65) rotateY(90deg) translateZ(-40px);
+    animation-name: tileEntryAnimation;
+    animation-duration: var(--transition-duration-slow);
+    animation-timing-function: var(--easing-springy-out);
+    animation-fill-mode: forwards;
+    animation-delay: var(--tile-animation-delay, 0s); /* JS sets this */
+}
+@keyframes tileEntryAnimation {
+    0% { opacity: 0; transform: scale(0.65) rotateY(90deg) translateZ(-40px); box-shadow: 0 0 3px rgba(0,0,0,0.4); }
+    70% { opacity: 0.95; transform: scale(1.06) rotateY(-12deg) translateZ(18px); box-shadow: 0 6px 18px var(--color-shadow-primary-glow); }
+    100% { opacity: 1; transform: scale(1) rotateY(0deg) translateZ(0); }
+}
+/* Border variations for very small tiles (JS adds these classes) */
+.puzzle-tile.tile-no-border { border: none !important; }
+.puzzle-tile.tile-thin-border { border-width: 0.5px !important; border-color: rgba(0,234,255, 0.5) !important; } /* Manual RGB */
+.puzzle-tile:hover {
+    border-color: var(--color-border-tile-hover); transform: scale(1.1) translateZ(20px);
+    box-shadow: 0 0 20px var(--color-primary-glow), 0 0 10px var(--color-accent); z-index: var(--z-index-puzzle-tile-hover); outline: none;
+}
+.puzzle-tile.tile-keyboard-focus {
+    outline: var(--border-width-standard) solid var(--color-accent); outline-offset: -1px;
+    box-shadow: 0 0 12px var(--color-accent); z-index: calc(var(--z-index-puzzle-tile-hover) + 5);
+}
+/* Tile Dragging State */
+.puzzle-tile.dragging {
+    opacity: 0.35 !important; cursor: grabbing;
+    transform: scale(1.18) rotateZ(6deg) translateZ(40px) !important;
+    box-shadow: 0 0 30px var(--color-shadow-secondary-glow), 0 0 15px var(--color-shadow-primary-glow);
+    z-index: var(--z-index-puzzle-tile-dragging); border-color: var(--color-secondary-base) !important;
+}
+/* Tile Shuffle Visual Cue Animation (Optional, for smaller grids) */
+.puzzle-tile.shuffling-visual-effect { animation-name: tileShuffleCueAnimation; animation-duration: 0.55s; animation-timing-function: ease-in-out; }
+@keyframes tileShuffleCueAnimation {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    25% { transform: scale(0.4) rotate(60deg); opacity: 0.4; }
+    75% { transform: scale(1.1) rotate(-30deg); opacity: 0.8; }
+}
+/* Tile Solved Flash Animation */
+.puzzle-tile.correct-placement-flash { animation-name: tileSolvedFlashAnimation; animation-duration: 0.8s; animation-timing-function: var(--easing-standard); }
+@keyframes tileSolvedFlashAnimation {
+    0%, 100% { box-shadow: none; border-color: var(--color-border-tile); transform: scale(1); }
+    50% { box-shadow: 0 0 25px var(--color-success), 0 0 12px var(--color-accent); border-color: var(--color-success); transform: scale(1.05) translateZ(5px); }
+}
+
+/* === 7. Image Preview Panel === */
+#image-preview-container.image-preview-panel {
+    text-align: center;
+    /* max-width remains, as it sets the overall panel's allowed size, which the inner image will respect */
+    max-width: var(--preview-panel-max-width);
+    flex-shrink: 0; /* Ensures it holds its size in flex containers */
+    padding: var(--spacing-md); /* Added padding around the content within the panel */
+    background: rgba(var(--color-background-deep-space-rgb), 0.5); /* Slightly more pronounced background */
+    border-radius: var(--border-radius-medium);
+    border: var(--border-width-standard) solid rgba(var(--color-primary-glow), 0.3); /* Softer initial border */
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.2), inset 0 0 8px rgba(0, 234, 255, 0.1); /* Initial glow */
+    transition: all var(--transition-duration-medium) var(--easing-standard);
+}
+#image-preview-container.image-preview-panel:hover {
+    box-shadow: 0 0 25px var(--color-shadow-primary-glow), 0 0 15px var(--color-shadow-secondary-glow), inset 0 0 10px rgba(0, 234, 255, 0.2); /* Enhanced glow on hover */
+}
+
+.preview-title {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary-glow); /* Changed to glow for more vibrancy */
+    font-family: var(--font-family-title);
+    font-weight: var(--font-weight-bold); /* Slightly bolder */
+    font-size: var(--font-size-large);
+    text-shadow: 0 0 6px var(--color-primary-glow), 0 0 12px rgba(0, 234, 255, 0.2); /* Enhanced glow */
+    letter-spacing: 0.03em;
+    text-transform: uppercase; /* Added uppercase for a techy feel */
+}
+
+.image-preview-wrapper.preview-frame {
+    /* This wrapper now defines the fixed square area for the image */
+    width: 100%; /* Will take up the max-width of its parent container */
+    aspect-ratio: 1 / 1; /* Forces the container to be a perfect square */
+    display: flex; /* Use flexbox to center image if it doesn't fill */
+    align-items: center;
+    justify-content: center;
+
+    border: var(--border-width-standard) solid var(--color-secondary-base);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-soft);
+    background-color: rgba(var(--color-background-deep-space-rgb), 0.3);
+    box-shadow: 0 0 12px var(--color-shadow-secondary-glow), inset 0 0 6px rgba(248, 0, 224, 0.1); /* Added inset shadow */
+    transition: transform var(--transition-duration-medium) ease, box-shadow var(--transition-duration-medium) ease, border-color var(--transition-duration-medium) ease;
+    overflow: hidden; /* Important to clip any image content if object-fit is not used or misbehaves */
+}
+.image-preview-wrapper.preview-frame:hover {
+    transform: scale(1.04) rotate(-1deg);
+    box-shadow: 0 0 18px var(--color-shadow-secondary-glow), 0 0 8px var(--color-shadow-accent-glow), inset 0 0 10px rgba(248, 0, 224, 0.2);
+    border-color: var(--color-accent); /* Change border color on hover for added interactivity */
+}
+
+#image-preview.preview-image-element {
+    /* The image itself will fill the square wrapper, maintaining its aspect ratio */
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 3px;
+    object-fit: contain; /* Scales the image to fit the content box, maintaining aspect ratio. Letterboxing if aspect ratios differ. */
+    object-position: center; /* Centers the image within its content box */
+    background-color: rgba(var(--color-background-deep-space-rgb), 0.8); /* Fills the "letterbox" areas */
+    box-shadow: 0 0 8px rgba(0, 234, 255, 0.1), inset 0 0 4px rgba(0, 234, 255, 0.05); /* Subtle inner glow for the image */
+    transition: box-shadow var(--transition-duration-fast) ease;
+}
+#image-preview.preview-image-element:hover {
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.3), inset 0 0 8px rgba(0, 234, 255, 0.1); /* Enhanced glow on image hover */
+}
+
+/* === 8. Success Message Modal === */
+#successMessage.success-message-modal {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5);
+    background: linear-gradient(150deg, var(--color-success), rgba(21, 255, 120, 0.85));
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    color: var(--color-text-on-primary-glow);
+    padding: var(--spacing-xl) var(--spacing-xxl);
+    border-radius: var(--border-radius-medium); border: var(--border-width-thick) solid var(--color-accent);
+    box-shadow: 0 0 35px var(--color-shadow-accent-glow), 0 0 60px var(--color-shadow-primary-glow),
+                inset 0 0 15px rgba(255,255,255,0.2);
+    z-index: var(--z-index-modal-content); text-align: center;
+    width: 90%; max-width: 600px; opacity: 0; visibility: hidden;
+    transition: opacity var(--transition-duration-medium) var(--easing-standard),
+                transform var(--transition-duration-medium) var(--easing-springy-out),
+                visibility 0s var(--transition-duration-medium);
+}
+#successMessage.success-message-modal:not(.hidden) { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); transition-delay: 0s, 0s, 0s; }
+.success-content.modal-content-inner { opacity: 0; transform: translateY(20px); animation: popInContent 0.5s var(--easing-standard) 0.25s forwards; }
+@keyframes popInContent { to { opacity: 1; transform: translateY(0); } }
+.success-icon.modal-icon {
+    font-size: clamp(3.5em, 9vw, 5em); color: var(--color-accent); margin-bottom: var(--spacing-md);
+    animation: pulseSuccessIcon 2.2s infinite ease-in-out; text-shadow: 0 0 12px var(--color-accent);
+}
+@keyframes pulseSuccessIcon {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; text-shadow: 0 0 20px var(--color-accent), 0 0 30px var(--color-accent); }
+}
+h2#success-modal-title.success-title.modal-title {
+    font-family: var(--font-family-title); font-size: clamp(2.2em, 6vw, 3em); margin-top: 0; margin-bottom: var(--spacing-md);
+    color: var(--color-text-on-primary-glow); letter-spacing: 0.03em; text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+}
+p#success-modal-details.success-details.modal-details { font-size: clamp(1.15rem, 3vw, 1.4rem); margin-bottom: var(--spacing-xl); line-height: 1.5; }
+#success-modal-details strong.stat-highlight {
+    color: var(--color-accent-darker); font-weight: var(--font-weight-black); padding: 0 var(--spacing-xs);
+}
+#successMessage .cta-button.play-again-button.modal-button {
+    font-size: var(--font-size-xlarge); padding: var(--spacing-md) var(--spacing-xl);
+    background: linear-gradient(145deg, var(--color-accent), #ffe550); /* Slightly lighter yellow */
+    color: var(--color-text-on-accent);
+    box-shadow: 0 4px 12px rgba(255,238,0, 0.3); /* Manual RGB based on color-accent */
+}
+#successMessage .cta-button.play-again-button.modal-button:hover, #successMessage .cta-button.play-again-button.modal-button:focus-visible {
+    box-shadow: 0 7px 20px var(--color-shadow-accent-glow), 0 0 25px #ffe550;
+}
+
+/* === 9. Footer Styling === */
+.game-footer.site-footer {
+    margin-top: var(--spacing-xxl); padding-top: var(--spacing-lg);
+    border-top: var(--border-width-thin) solid var(--color-border-divider);
+    font-size: var(--font-size-small); color: var(--color-text-secondary-muted);
+    font-weight: var(--font-weight-normal); width: 100%;
+    max-width: var(--container-max-width); text-align: center;
+}
+.game-footer p { margin-bottom: var(--spacing-sm); line-height: 1.5; }
+.game-footer .copyright-text time { font-weight: var(--font-weight-medium); }
+.game-footer .project-credit { font-style: italic; }
+.game-footer .tech-stack-info { opacity: 0.8; font-size: 0.9em; }
+
+/* === 10. Utility Classes === */
+/* Visually Hidden */
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; border: 0; margin: -1px; padding: 0; }
+.file-input-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.hidden { display: none !important; } /* Used by JS for forceful hiding */
+
+/* === 11. General Animations (Keyframes) === */
+/* These are keyframes used across various components. Already defined in respective sections. */
+
+/* === 12. Responsive Design (Media Queries) === */
+@media (min-width: 1441px) { /* Large Desktops */
+    :root { --container-max-width: 1200px; --puzzle-base-dimension: 450px; --preview-panel-max-width: 230px; }
+    .game-title { font-size: clamp(3rem, 5vw, 4.2rem); }
+}
+@media (max-width: 1023px) { /* Tablets (Landscape & Portrait) */
+    :root { --puzzle-base-dimension: 360px; --preview-panel-max-width: 180px; }
+    .game-container { gap: var(--spacing-lg); padding: clamp(15px, 3vw, 30px); }
+    .controls { flex-direction: column; align-items: stretch; gap: var(--spacing-md); }
+    .controls .control-group { justify-content: space-between; }
+    .controls .cta-button { width: 100%; justify-content: center; font-size: 1.05em; }
+    .puzzle-interaction-zone { flex-direction: column; align-items: center; gap: var(--spacing-lg); }
+    #image-preview-container.image-preview-panel {
+        margin-top: var(--spacing-lg); /* Ensure enough space when stacked */
+        max-width: var(--preview-panel-max-width); /* Adjusted to ensure it shrinks */
+        padding: var(--spacing-md); /* Keep consistent padding for tablet */
+    }
+    .preview-title { font-size: var(--font-size-medium); } /* Adjust title size */
+    .game-title { font-size: clamp(2rem, 7vw, 3.2rem); }
+    .tagline { font-size: clamp(0.95rem, 3vw, 1.2rem); }
+}
+@media (max-width: 767px) { /* Mobile (Landscape & Portrait) */
+    :root {
+        --puzzle-base-dimension: min(320px, calc(100vw - var(--spacing-xl) * 2));
+        /* Dynamic max-width for the panel, considering global padding.
+           Roughly: 100vw - (body_padding*2 + game_container_min_padding*2 + image_preview_panel_padding*2)
+           = 100vw - (24px*2 + 15px*2 + 8px*2) = 100vw - (48 + 30 + 16) = 100vw - 94px */
+        --preview-panel-max-width: min(160px, calc(100vw - var(--spacing-lg) * 2 - var(--spacing-md) * 2 - var(--spacing-sm) * 2));
+    }
+    body { padding: var(--spacing-md); }
+    .game-container { padding: clamp(15px, 3.5vw, 30px); gap: var(--spacing-md); }
+    .game-header { margin-bottom: var(--spacing-md); }
+    .game-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+    .tagline { font-size: clamp(0.9em, 3.5vw, 1.15em); }
+    .controls { padding: var(--spacing-md); gap: var(--spacing-md); }
+    .control-label, .stat-label { font-size: 0.85em; }
+    .stat-value, #difficulty { font-size: 0.9em; padding: var(--spacing-sm) var(--spacing-md); }
+    .cta-button { font-size: 1em; padding: var(--spacing-sm) var(--spacing-lg); }
+    .upload-button { font-size: 0.9em; padding: var(--spacing-sm) var(--spacing-md); }
+    #image-preview-container.image-preview-panel {
+        margin-top: var(--spacing-lg); /* Keep consistent spacing when stacked */
+        max-width: var(--preview-panel-max-width); /* Ensured it shrinks appropriately */
+        padding: var(--spacing-sm); /* Reduce padding on mobile for the panel */
+    }
+    .preview-title { font-size: clamp(0.95em, 3.5vw, 1.15em); margin-bottom: var(--spacing-sm); }
+    .success-message-modal { padding: clamp(20px, 4vw, 30px); max-width: calc(100vw - var(--spacing-xl)); }
+    .success-title-text { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+    #success-details { font-size: clamp(0.95rem, 3vw, 1.1rem); }
+    .game-footer { margin-top: var(--spacing-lg); padding-top: var(--spacing-md); }
+    .game-footer p { font-size: 0.9em; }
+}
+@media (max-width: 399px) { /* Very Small Mobile Screens */
+    :root {
+        /* Further reduce and adjust padding for calculations specific to very small screens */
+        --preview-panel-max-width: min(120px, calc(100vw - (var(--spacing-md) * 2 + var(--spacing-xs) * 2)));
+    }
+    .game-title { font-size: clamp(1.6rem, 9vw, 2.2rem); letter-spacing: 0.02em; }
+    .tagline { font-size: clamp(0.8rem, 3.8vw, 1rem); }
+    .controls .control-group { flex-direction: column; align-items: flex-start; gap: var(--spacing-xs); }
+    #difficulty { width: 100%; }
+    .stat-label, .stat-value { white-space: nowrap; }
+    #image-preview-container.image-preview-panel {
+        padding: var(--spacing-xs); /* Minimal padding for the panel */
+    }
+    .preview-title { font-size: 0.85em; margin-bottom: var(--spacing-xs); }
+}
+
+/* === 13. Print Styles === */
+@media print {
+    body { background-color: #ffffff; color: #000000; font-size: 12pt; font-family: 'Times New Roman', Times, serif; padding: 1in; }
+    .game-container { box-shadow: none; border: 1px solid #cccccc; backdrop-filter: none; }
+    .background-effects, .cta-button, .upload-button, .success-message-modal, .animated-section, #image-preview-container { display: none !important; }
+    #puzzle-container { border: 1px solid #666666; }
+    a { color: #0000ff; text-decoration: underline; }
+    * { color: #000000 !important; text-shadow: none !important; background-image: none !important; }
+}
+
+/* === 14. Accessibility Focused Styles === */
+@media (prefers-contrast: high) {
+    :root { /* Override colors for high contrast */
+        --color-primary-glow: #00ffff; --color-accent: #ffff00; --color-background-dark-nebula: #000000; --color-text-primary-light: #ffffff;
+        --color-secondary-glow: #ff00ff; --color-background-interface: #222222; --color-background-deep-space-rgb: 0,0,0;
+        --color-border-tile: rgba(255,255,255,0.6); --color-border-tile-hover: var(--color-accent);
+    }
+    .puzzle-tile, #puzzle-container, .cta-button { border-width: 2px !important; border-style: solid !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important; animation-name: none !important; transition-property: none !important;
+    }
+    .success-message-modal, .puzzle-tile.dragging { transition-duration: 0.01ms !important; }
+}
+
+

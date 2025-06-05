@@ -107,7 +107,29 @@
     --container-max-width: 1050px; /* Max for wider screens, adjusted in media queries */
 
     /* Mobile-first base dimensions for puzzle & preview */
+    /*
+        Current Issue Note: The 'calc(100vw - ...)' here refers to the viewport width.
+        However, the .game-container itself has `width: 95%` and internal padding,
+        meaning the available space for --puzzle-base-dimension within the container
+        is smaller than (100vw - body padding).
+        If elements exceed the container, consider increasing the subtracted amount
+        to account for the .game-container's 5% width reduction + its own padding.
+        
+        Suggested adjustment for better fit on very small screens:
+        --puzzle-base-dimension: min(320px, calc(100vw - (var(--spacing-xl) * 2 + var(--spacing-md))));
+        This adds an additional --spacing-md (16px) to the subtracted space for safety.
+    */
     --puzzle-base-dimension: min(320px, calc(100vw - var(--spacing-xl) * 2));
+
+    /*
+        Similar to --puzzle-base-dimension, if the preview panel overflows,
+        this 'calc()' might need to subtract slightly more to fit within
+        the actual inner space of the .game-container on mobile.
+        
+        Suggested adjustment for better fit:
+        --preview-panel-max-width: min(120px, calc(100vw - (var(--spacing-md) * 2 + var(--spacing-xs) * 2 + var(--spacing-sm))));
+        This adds an additional --spacing-sm (8px) to the subtracted space.
+    */
     --preview-panel-max-width: min(120px, calc(100vw - (var(--spacing-md) * 2 + var(--spacing-xs) * 2)));
 
     /* --- 1.4. Borders and Radii --- */
@@ -170,7 +192,7 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100%;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Ensures no horizontal scroll from layout */
     perspective: var(--perspective-root, 1200px);
     text-rendering: optimizeLegibility;
 }
@@ -225,7 +247,7 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
     border-radius: var(--border-radius-large);
     border: var(--border-width-standard) solid var(--color-border-container);
     box-shadow: 0 0 12px var(--color-shadow-primary-glow), 0 0 25px var(--color-shadow-secondary-glow), inset 0 0 8px rgba(0, 234, 255, 0.15);
-    width: 95%;
+    width: 95%; /* Reduces width to fit within body padding */
     max-width: var(--container-max-width); /* Will be overridden for wider screens */
     text-align: center;
     backdrop-filter: blur(12px);
@@ -254,6 +276,8 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
     gap: var(--spacing-lg); /* Smaller gap for mobile */
     margin-bottom: var(--spacing-xl);
     flex-wrap: wrap; /* Allows stacking on smaller screens */
+    /* On mobile, this will expand to fit its content if not explicitly constrained.
+       The puzzle and preview elements inside it define their own widths using vw. */
 }
 
 /* === 3. Animated Background Effects === */
@@ -373,7 +397,7 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 /* === 5. Puzzle Specific Styling (Mobile-First Defaults) === */
 #puzzle-shroud.puzzle-shroud-container {
     position: relative;
-    width: var(--puzzle-base-dimension);
+    width: var(--puzzle-base-dimension); /* Uses the calculated variable */
     height: var(--puzzle-base-dimension);
     perspective: 900px;
     margin-left: auto; margin-right: auto;
@@ -382,7 +406,7 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 /* --- 5.1. Puzzle Container (#puzzle-container) --- */
 #puzzle-container.puzzle-grid-main {
     display: grid;
-    width: 100%; height: 100%;
+    width: 100%; height: 100%; /* Takes full space of #puzzle-shroud */
     border: var(--border-width-thick) solid var(--color-primary-glow);
     border-radius: var(--border-radius-medium);
     box-shadow: 0 0 25px var(--color-shadow-primary-glow), inset 0 0 12px rgba(0, 234, 255, 0.2);
@@ -475,7 +499,7 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 /* === 6. Image Preview Panel (Mobile-First Defaults) === */
 #image-preview-container.image-preview-panel {
     text-align: center;
-    max-width: var(--preview-panel-max-width);
+    max-width: var(--preview-panel-max-width); /* Uses the calculated variable */
     flex-shrink: 0;
     padding: var(--spacing-xs); /* Smaller padding for mobile */
     background: rgba(var(--color-background-deep-space-rgb), 0.5);
@@ -612,8 +636,9 @@ p#success-modal-details.success-details.modal-details { font-size: clamp(0.95rem
 /* --- Medium Mobile & Small Tablets (min-width: 400px) --- */
 @media (min-width: 400px) {
     :root {
-        --puzzle-base-dimension: min(320px, calc(100vw - var(--spacing-xl) * 2)); /* Maintain on slightly larger mobile */
-        --preview-panel-max-width: min(160px, calc(100vw - var(--spacing-lg) * 2 - var(--spacing-md) * 2 - var(--spacing-sm) * 2));
+        /* Adjusting for slightly larger mobile screens */
+        --puzzle-base-dimension: min(320px, calc(100vw - var(--spacing-xl) * 2)); /* Maintain or apply new calc as above */
+        --preview-panel-max-width: min(160px, calc(100vw - var(--spacing-lg) * 2 - var(--spacing-md) * 2 - var(--spacing-sm) * 2)); /* Maintain or apply new calc as above */
         --font-size-h1: clamp(2rem, 7vw, 3.2rem);
         --font-size-h2: clamp(1.6rem, 6vw, 2.5rem);
         --font-size-h3: clamp(1.3rem, 5vw, 2rem);

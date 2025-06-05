@@ -3,7 +3,7 @@
     --------------------------------------
     B.Tech Final Project - Advanced Styling Document v3.0 (Final Version)
     Author: [Your Name/Group] - Quantum Dynamics Inc.
-    Date: [Current Date]
+    Date: [Current Date] (Rewritten for Mobile-First)
 
     Purpose:
     This stylesheet provides the complete visual presentation for the ChronoMatrix Puzzle Engine.
@@ -13,22 +13,21 @@
     reliance on external frameworks. This document is intentionally verbose and detailed
     to showcase comprehensive CSS understanding and application for an engineering project.
 
-    Table of Contents:
-    ------------------
+    Table of Contents (Mobile-First Structure):
+    -------------------------------------------
     1.  CSS Custom Properties (Global Variables)
-    2.  Global Resets and Base HTML Element Styling
-    3.  Layout Structure (Main Container & Sections)
-    4.  Animated Background Effects
-    5.  UI Element Styling (Buttons, Select, Stats)
-    6.  Puzzle Specific Styling (Shroud, Container, Tiles, Placeholder)
-    7.  Image Preview Panel
-    8.  Success Message Modal
-    9.  Footer Styling
-    10. Utility Classes (Accessibility, Display, Spacing, Text)
-    11. General Animations (Keyframes)
-    12. Responsive Design (Media Queries for various breakpoints)
-    13. Print Styles
-    14. Accessibility Focused Styles
+    2.  Global Resets and Base HTML Element Styling (Mobile-First Defaults)
+    3.  Animated Background Effects
+    4.  UI Element Styling (Buttons, Select, Stats) - Mobile-First Defaults
+    5.  Puzzle Specific Styling (Shroud, Container, Tiles, Placeholder) - Mobile-First Defaults
+    6.  Image Preview Panel - Mobile-First Defaults
+    7.  Success Message Modal - Mobile-First Defaults
+    8.  Footer Styling - Mobile-First Defaults
+    9.  Utility Classes (Accessibility, Display, Spacing, Text)
+    10. General Animations (Keyframes)
+    11. Responsive Design (Min-Width Media Queries for various breakpoints)
+    12. Print Styles
+    13. Accessibility Focused Styles
 */
 
 /* === 1. CSS Custom Properties (Global Variables) === */
@@ -73,14 +72,16 @@
     --font-family-body: 'Rajdhani', 'Arial', sans-serif;
     --font-family-code: 'Consolas', 'Monaco', monospace;
 
-    --font-size-base: 16px;
+    --font-size-base: 16px; /* Base for rem calculations */
     --font-size-small: 0.875rem;
     --font-size-medium: 1rem;
     --font-size-large: 1.125rem;
     --font-size-xlarge: 1.25rem;
-    --font-size-h1: clamp(2.2rem, 6vw, 3.8rem);
-    --font-size-h2: clamp(1.8rem, 5vw, 3rem);
-    --font-size-h3: clamp(1.4rem, 4vw, 2.2rem);
+
+    /* Mobile-first heading sizes (smallest screens) */
+    --font-size-h1: clamp(1.8rem, 8vw, 2.8rem); /* Start smaller */
+    --font-size-h2: clamp(1.4rem, 7vw, 2.2rem);
+    --font-size-h3: clamp(1.2rem, 6vw, 1.8rem);
 
     --font-weight-light: 300;
     --font-weight-normal: 400;
@@ -91,7 +92,7 @@
 
     --line-height-base: 1.65;
     --line-height-heading: 1.3;
-    --letter-spacing-title: 0.05em;
+    --letter-spacing-title: 0.02em; /* Start smaller */
     --letter-spacing-body: 0.01em;
 
     /* --- 1.3. Spacing and Sizing Units --- */
@@ -103,9 +104,11 @@
     --spacing-xl: calc(var(--spacing-unit) * 4);   /* 32px */
     --spacing-xxl: calc(var(--spacing-unit) * 6);  /* 48px */
 
-    --container-max-width: 1050px;
-    --puzzle-base-dimension: 400px; /* Reference size for puzzle area in JS */
-    --preview-panel-max-width: 210px; /* Max width of the preview panel, which will dictate image display size */
+    --container-max-width: 1050px; /* Max for wider screens, adjusted in media queries */
+
+    /* Mobile-first base dimensions for puzzle & preview */
+    --puzzle-base-dimension: min(320px, calc(100vw - var(--spacing-xl) * 2));
+    --preview-panel-max-width: min(120px, calc(100vw - (var(--spacing-md) * 2 + var(--spacing-xs) * 2)));
 
     /* --- 1.4. Borders and Radii --- */
     --border-radius-sharp: 2px;
@@ -144,7 +147,7 @@
     --z-index-modal-content: 1000;
 }
 
-/* === 2. Global Resets and Base HTML Element Styling === */
+/* === 2. Global Resets and Base HTML Element Styling (Mobile-First Defaults) === */
 /* --- 2.1. Comprehensive Reset --- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-width: 0; border-style: solid; border-color: transparent; vertical-align: baseline; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 ul, ol { list-style: none; }
@@ -153,7 +156,7 @@ input, button, textarea, select { font: inherit; color: inherit; background-colo
 button { cursor: pointer; border: none; background: none; padding: 0; text-align: inherit; }
 button, a { -webkit-tap-highlight-color: rgba(0,0,0,0); touch-action: manipulation; }
 
-/* --- 2.2. HTML and Body Base --- */
+/* --- 2.2. HTML and Body Base (Mobile Defaults) --- */
 html { font-size: var(--font-size-base); scroll-behavior: smooth; overflow-y: scroll; height: 100%; }
 body {
     font-family: var(--font-family-body);
@@ -162,7 +165,7 @@ body {
     background-color: var(--color-background-dark-nebula);
     color: var(--color-text-primary-light);
     line-height: var(--line-height-base);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md); /* Smaller padding for mobile */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -172,11 +175,7 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-
-
-
-
-/* --- 2.3. Headings (h1-h6) --- */
+/* --- 2.3. Headings (h1-h6) (Mobile Defaults) --- */
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     font-family: var(--font-family-title);
     font-weight: var(--font-weight-bold);
@@ -190,7 +189,7 @@ h1, .h1 { font-size: var(--font-size-h1); font-weight: var(--font-weight-black);
 h2, .h2 { font-size: var(--font-size-h2); font-weight: var(--font-weight-black); }
 h3, .h3 { font-size: var(--font-size-h3); font-weight: var(--font-weight-bold); }
 
-/* --- 2.4. Paragraphs and Text Elements --- */
+/* --- 2.4. Paragraphs and Text Elements (Mobile Defaults) --- */
 p { margin-bottom: var(--spacing-md); max-width: 70ch; }
 p:last-child { margin-bottom: 0; }
 a { color: var(--color-text-link); text-decoration: none; font-weight: var(--font-weight-medium); transition: color var(--transition-duration-fast) ease, text-shadow var(--transition-duration-fast) ease; }
@@ -199,13 +198,13 @@ a:focus-visible, button:focus-visible, select:focus-visible, input[type="file"]:
 label { display: block; margin-bottom: var(--spacing-sm); font-weight: var(--font-weight-medium); color: var(--color-text-secondary-muted); }
 select {
     display: block;
-    width: auto;
+    width: 100%; /* Full width for mobile */
     padding: var(--spacing-sm) var(--spacing-md);
     background-color: var(--color-background-interface);
     border: var(--border-width-thin) solid var(--color-border-interactive);
     border-radius: var(--border-radius-soft);
     color: var(--color-text-primary-light);
-    font-size: var(--font-size-medium);
+    font-size: 0.9em; /* Slightly smaller for mobile */
     transition: border-color var(--transition-duration-fast) ease, box-shadow var(--transition-duration-fast) ease;
     appearance: none; -webkit-appearance: none; -moz-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300eaff' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
@@ -216,18 +215,18 @@ select {
 }
 select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--color-accent); outline: none; }
 
-/* === 3. Layout Structure === */
+/* --- 2.5. Layout Structure (Mobile-First Defaults) --- */
 .game-container {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-md); /* Smaller gap for mobile */
     background: linear-gradient(150deg, rgba(var(--color-background-deep-space-rgb), 0.9), rgba(18, 24, 47, 0.95));
-    padding: clamp(var(--spacing-md), 4vw, var(--spacing-xl));
+    padding: clamp(15px, 3.5vw, 30px); /* Responsive padding */
     border-radius: var(--border-radius-large);
     border: var(--border-width-standard) solid var(--color-border-container);
     box-shadow: 0 0 12px var(--color-shadow-primary-glow), 0 0 25px var(--color-shadow-secondary-glow), inset 0 0 8px rgba(0, 234, 255, 0.15);
     width: 95%;
-    max-width: var(--container-max-width);
+    max-width: var(--container-max-width); /* Will be overridden for wider screens */
     text-align: center;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -241,15 +240,23 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 .animated-section {
     opacity: 0;
     animation: slideUpSection 0.5s var(--easing-standard) forwards;
-    animation-delay: calc(var(--animation-order, 1) * var(--section-animation-stagger, 0.15s) + 0.1s); /* Use data-animation-order */
+    animation-delay: calc(var(--animation-order, 1) * var(--section-animation-stagger, 0.15s) + 0.1s);
     will-change: opacity, transform;
 }
 @keyframes slideUpSection {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
+.puzzle-interaction-zone {
+    display: flex;
+    flex-direction: column; /* Stack vertically for mobile */
+    align-items: center;
+    gap: var(--spacing-lg); /* Smaller gap for mobile */
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap; /* Allows stacking on smaller screens */
+}
 
-/* === 4. Animated Background Effects === */
+/* === 3. Animated Background Effects === */
 .background-effects { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: var(--z-index-background-effects); pointer-events: none; }
 .bg-particle { position: absolute; border-radius: 50%; opacity: 0; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
 /* Particle types */
@@ -287,23 +294,23 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 }
 @keyframes floatParticleAnim2 {
     0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.06; }
-    50% { transform: translate(-40px, 32px) rotate(180deg) scale(1.2); opacity: 0.15; } /* Using calc here: calc(var(--spacing-unit) * -5) calc(var(--spacing-unit) * 4) */
+    50% { transform: translate(-40px, 32px) rotate(180deg) scale(1.2); opacity: 0.15; }
 }
 
 
-/* === 5. UI Element Styling === */
-.game-header { margin-bottom: var(--spacing-lg); }
-.game-title { text-shadow: 0 0 5px var(--color-primary-glow), 0 0 12px var(--color-primary-glow); letter-spacing: 0.04em; }
+/* === 4. UI Element Styling (Mobile-First Defaults) === */
+.game-header { margin-bottom: var(--spacing-md); }
+.game-title { text-shadow: 0 0 5px var(--color-primary-glow), 0 0 12px var(--color-primary-glow); }
 .game-title .highlight { color: var(--color-accent); text-shadow: 0 0 5px var(--color-accent), 0 0 12px var(--color-accent); }
-.tagline { font-size: var(--font-size-large); color: var(--color-text-secondary-muted); font-weight: var(--font-weight-medium); letter-spacing: 0.02em; }
+.tagline { font-size: clamp(0.9em, 3.5vw, 1.15em); color: var(--color-text-secondary-muted); font-weight: var(--font-weight-medium); letter-spacing: 0.02em; }
 
-/* --- 5.1. Buttons --- */
+/* --- 4.1. Buttons --- */
 .cta-button {
     background: linear-gradient(140deg, var(--color-primary-glow), var(--color-secondary-glow));
     color: var(--color-text-on-primary-glow);
-    padding: var(--spacing-md) var(--spacing-xl);
+    padding: var(--spacing-sm) var(--spacing-lg); /* Smaller padding for mobile */
     font-family: var(--font-family-title);
-    font-size: var(--font-size-large);
+    font-size: 1em; /* Smaller font for mobile */
     font-weight: var(--font-weight-bold);
     letter-spacing: 0.05em;
     border-radius: var(--border-radius-soft);
@@ -311,7 +318,7 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
     transition: transform var(--transition-duration-fast) var(--easing-standard), box-shadow var(--transition-duration-fast) var(--easing-standard);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     box-shadow: 0 4px 10px rgba(0, 234, 255, 0.2), 0 2px 5px rgba(248, 0, 224, 0.15);
-    min-width: 200px;
+    min-width: 150px; /* Adjust min-width for mobile */
 }
 .cta-button:hover, .cta-button:focus-visible { transform: translateY(-3px) scale(1.03); box-shadow: 0 7px 18px var(--color-shadow-primary-glow), 0 0 25px var(--color-shadow-secondary-glow); }
 .cta-button:active { transform: translateY(0) scale(0.98); box-shadow: 0 2px 6px rgba(0, 234, 255, 0.2); }
@@ -322,13 +329,14 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 .cta-button .btn-icon { font-size: 1.2em; line-height: 1; transition: transform var(--transition-duration-medium) var(--easing-springy-out); }
 .cta-button:hover .btn-icon, .cta-button:focus-visible .btn-icon { transform: rotate(360deg) scale(1.1); }
 
-/* .upload-button (label acting as button) */
+/* .upload-button (label acting as button) (Mobile Defaults) */
 .upload-button {
-    display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-md);
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-sm); /* Smaller gap for mobile */
     background-color: transparent; color: var(--color-primary-base);
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md); /* Smaller padding for mobile */
     border-radius: var(--border-radius-soft); border: var(--border-width-standard) solid var(--color-primary-base);
-    font-weight: var(--font-weight-bold); font-size: var(--font-size-medium); text-align: center;
+    font-weight: var(--font-weight-bold); font-size: 0.9em; /* Smaller font for mobile */
+    text-align: center;
     transition: all var(--transition-duration-medium) var(--easing-standard);
 }
 .upload-button:hover, .upload-button:focus-visible { background-color: var(--color-primary-base); color: var(--color-text-on-primary-glow); box-shadow: 0 0 15px var(--color-primary-glow); transform: translateY(-2px); border-color: var(--color-primary-glow); }
@@ -336,59 +344,63 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 .upload-button:hover .upload-icon, .upload-button:focus-visible .upload-icon { transform: translateY(-3px) scale(1.15) rotate(360deg); }
 
 
-/* --- 5.2. Select Dropdown (#difficulty) --- */
-#difficulty.difficulty-dropdown { min-width: 220px; font-weight: var(--font-weight-semibold); }
+/* --- 4.2. Select Dropdown (#difficulty) (Mobile Defaults) --- */
+#difficulty.difficulty-dropdown { min-width: 180px; font-weight: var(--font-weight-semibold); }
 
 
-/* --- 5.3. Statistics Display --- */
+/* --- 4.3. Statistics Display (Mobile Defaults) --- */
 .controls {
-    display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;
-    gap: var(--spacing-lg); padding: var(--spacing-lg); margin-bottom: var(--spacing-xl);
+    display: flex;
+    flex-direction: column; /* Stack vertically for mobile */
+    align-items: stretch; /* Stretch items to fill width */
+    gap: var(--spacing-md); /* Smaller gap for mobile */
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
     background-color: rgba(0, 0, 0, 0.25); border-radius: var(--border-radius-soft);
     border: var(--border-width-thin) solid rgba(0, 234, 255, 0.2);
 }
-.control-group { display: flex; align-items: center; gap: var(--spacing-sm); }
-.stat-item { display: flex; gap: var(--spacing-sm); align-items: baseline; font-size: var(--font-size-medium); }
-.stat-label { color: var(--color-text-secondary-muted); font-weight: var(--font-weight-medium); font-size: 0.9em; }
-.stat-value { color: var(--color-accent); font-weight: var(--font-weight-bold); font-size: 1.1em; min-width: 50px; text-align: left; text-shadow: 0 0 4px var(--color-accent); }
-
-
-/* === 6. Puzzle Specific Styling === */
-.puzzle-interaction-zone {
-    display: flex; justify-content: center; align-items: flex-start;
-    gap: var(--spacing-xl); margin-bottom: var(--spacing-xl);
-    flex-wrap: wrap; /* Allows stacking on smaller screens */
+.control-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribute items within group */
+    gap: var(--spacing-sm);
 }
-/* --- 6.1. Puzzle Shroud (#puzzle-shroud) --- */
+.stat-item { display: flex; gap: var(--spacing-xs); align-items: baseline; font-size: var(--font-size-medium); }
+.stat-label { color: var(--color-text-secondary-muted); font-weight: var(--font-weight-medium); font-size: 0.85em; }
+.stat-value { color: var(--color-accent); font-weight: var(--font-weight-bold); font-size: 0.9em; min-width: 40px; text-align: left; text-shadow: 0 0 4px var(--color-accent); }
+
+
+/* === 5. Puzzle Specific Styling (Mobile-First Defaults) === */
 #puzzle-shroud.puzzle-shroud-container {
     position: relative;
     width: var(--puzzle-base-dimension);
     height: var(--puzzle-base-dimension);
-    perspective: 900px; /* For potential 3D tile effects */
-    margin-left: auto; margin-right: auto; /* Center if `puzzle-area` causes it to shrink */
+    perspective: 900px;
+    margin-left: auto; margin-right: auto;
 }
 
-/* --- 6.2. Puzzle Container (#puzzle-container) --- */
+/* --- 5.1. Puzzle Container (#puzzle-container) --- */
 #puzzle-container.puzzle-grid-main {
-    display: grid; /* JS sets grid-template-columns/rows */
-    width: 100%; height: 100%; /* Fills the shroud */
+    display: grid;
+    width: 100%; height: 100%;
     border: var(--border-width-thick) solid var(--color-primary-glow);
     border-radius: var(--border-radius-medium);
     box-shadow: 0 0 25px var(--color-shadow-primary-glow), inset 0 0 12px rgba(0, 234, 255, 0.2);
-    background-color: rgba(var(--color-background-deep-space-rgb), 0.4); /* Uses explicit RGB variable */
-    overflow: hidden; /* Critical for tile animations and precise slicing */
-    position: relative; /* For absolute positioning of placeholder */
+    background-color: rgba(var(--color-background-deep-space-rgb), 0.4);
+    overflow: hidden;
+    position: relative;
 }
 
-/* --- 6.3. Puzzle Placeholder Text --- */
+/* --- 5.2. Puzzle Placeholder Text --- */
 .puzzle-placeholder-wrapper {
     position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: var(--spacing-lg); text-align: center;
-    pointer-events: none; /* Allow clicks through to tiles once loaded */
+    padding: var(--spacing-md); /* Smaller padding for mobile */
+    text-align: center;
+    pointer-events: none;
 }
 .puzzle-placeholder.initial-placeholder-text, .puzzle-placeholder.dynamic-placeholder-text {
-    color: var(--color-text-secondary-muted); font-size: var(--font-size-large);
+    color: var(--color-text-secondary-muted); font-size: clamp(0.95rem, 3vw, 1.1rem); /* Responsive font size */
     font-weight: var(--font-weight-medium); line-height: 1.4;
     animation: pulsePlaceholderText 2.5s infinite ease-in-out;
     margin-bottom: var(--spacing-md);
@@ -399,12 +411,12 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 .spinner-container { display: flex; justify-content: center; align-items: center; margin-top: var(--spacing-md); }
 .spinner {
     width: 40px; height: 40px;
-    border: 4px solid rgba(0,234,255, 0.3); /* Manual RGB */
+    border: 4px solid rgba(0,234,255, 0.3);
     border-top-color: var(--color-primary-glow); border-radius: 50%; animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* --- 6.4. Individual Puzzle Tiles (.puzzle-tile) --- */
+/* --- 5.3. Individual Puzzle Tiles (.puzzle-tile) --- */
 .puzzle-tile {
     box-sizing: border-box; background-size: cover; background-repeat: no-repeat;
     cursor: grab; position: relative;
@@ -415,14 +427,13 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
                 opacity var(--transition-duration-fast) var(--easing-standard),
                 border-color var(--transition-duration-fast) var(--easing-standard);
     will-change: transform, opacity, box-shadow;
-    /* Initial state for tile entry animation (controlled by JS via --tile-animation-delay) */
     opacity: 0;
     transform: scale(0.65) rotateY(90deg) translateZ(-40px);
     animation-name: tileEntryAnimation;
     animation-duration: var(--transition-duration-slow);
     animation-timing-function: var(--easing-springy-out);
     animation-fill-mode: forwards;
-    animation-delay: var(--tile-animation-delay, 0s); /* JS sets this */
+    animation-delay: var(--tile-animation-delay, 0s);
 }
 @keyframes tileEntryAnimation {
     0% { opacity: 0; transform: scale(0.65) rotateY(90deg) translateZ(-40px); box-shadow: 0 0 3px rgba(0,0,0,0.4); }
@@ -431,7 +442,7 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
 }
 /* Border variations for very small tiles (JS adds these classes) */
 .puzzle-tile.tile-no-border { border: none !important; }
-.puzzle-tile.tile-thin-border { border-width: 0.5px !important; border-color: rgba(0,234,255, 0.5) !important; } /* Manual RGB */
+.puzzle-tile.tile-thin-border { border-width: 0.5px !important; border-color: rgba(0,234,255, 0.5) !important; }
 .puzzle-tile:hover {
     border-color: var(--color-border-tile-hover); transform: scale(1.1) translateZ(20px);
     box-shadow: 0 0 20px var(--color-primary-glow), 0 0 10px var(--color-accent); z-index: var(--z-index-puzzle-tile-hover); outline: none;
@@ -461,85 +472,83 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
     50% { box-shadow: 0 0 25px var(--color-success), 0 0 12px var(--color-accent); border-color: var(--color-success); transform: scale(1.05) translateZ(5px); }
 }
 
-/* === 7. Image Preview Panel === */
+/* === 6. Image Preview Panel (Mobile-First Defaults) === */
 #image-preview-container.image-preview-panel {
     text-align: center;
-    /* max-width remains, as it sets the overall panel's allowed size, which the inner image will respect */
     max-width: var(--preview-panel-max-width);
-    flex-shrink: 0; /* Ensures it holds its size in flex containers */
-    padding: var(--spacing-md); /* Added padding around the content within the panel */
-    background: rgba(var(--color-background-deep-space-rgb), 0.5); /* Slightly more pronounced background */
+    flex-shrink: 0;
+    padding: var(--spacing-xs); /* Smaller padding for mobile */
+    background: rgba(var(--color-background-deep-space-rgb), 0.5);
     border-radius: var(--border-radius-medium);
-    border: var(--border-width-standard) solid rgba(var(--color-primary-glow), 0.3); /* Softer initial border */
-    box-shadow: 0 0 15px rgba(0, 234, 255, 0.2), inset 0 0 8px rgba(0, 234, 255, 0.1); /* Initial glow */
+    border: var(--border-width-standard) solid rgba(var(--color-primary-glow), 0.3);
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.2), inset 0 0 8px rgba(0, 234, 255, 0.1);
     transition: all var(--transition-duration-medium) var(--easing-standard);
+    margin-top: var(--spacing-lg); /* Space when stacked */
 }
 #image-preview-container.image-preview-panel:hover {
-    box-shadow: 0 0 25px var(--color-shadow-primary-glow), 0 0 15px var(--color-shadow-secondary-glow), inset 0 0 10px rgba(0, 234, 255, 0.2); /* Enhanced glow on hover */
+    box-shadow: 0 0 25px var(--color-shadow-primary-glow), 0 0 15px var(--color-shadow-secondary-glow), inset 0 0 10px rgba(0, 234, 255, 0.2);
 }
 
 .preview-title {
     margin-top: 0;
-    margin-bottom: var(--spacing-md);
-    color: var(--color-primary-glow); /* Changed to glow for more vibrancy */
+    margin-bottom: var(--spacing-xs); /* Smaller margin for mobile */
+    color: var(--color-primary-glow);
     font-family: var(--font-family-title);
-    font-weight: var(--font-weight-bold); /* Slightly bolder */
-    font-size: var(--font-size-large);
-    text-shadow: 0 0 6px var(--color-primary-glow), 0 0 12px rgba(0, 234, 255, 0.2); /* Enhanced glow */
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(0.95em, 3.5vw, 1.15em); /* Responsive font size */
+    text-shadow: 0 0 6px var(--color-primary-glow), 0 0 12px rgba(0, 234, 255, 0.2);
     letter-spacing: 0.03em;
-    text-transform: uppercase; /* Added uppercase for a techy feel */
+    text-transform: uppercase;
 }
 
 .image-preview-wrapper.preview-frame {
-    /* This wrapper now defines the fixed square area for the image */
-    width: 100%; /* Will take up the max-width of its parent container */
-    aspect-ratio: 1 / 1; /* Forces the container to be a perfect square */
-    display: flex; /* Use flexbox to center image if it doesn't fill */
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
     align-items: center;
     justify-content: center;
-
     border: var(--border-width-standard) solid var(--color-secondary-base);
     padding: var(--spacing-sm);
     border-radius: var(--border-radius-soft);
     background-color: rgba(var(--color-background-deep-space-rgb), 0.3);
-    box-shadow: 0 0 12px var(--color-shadow-secondary-glow), inset 0 0 6px rgba(248, 0, 224, 0.1); /* Added inset shadow */
+    box-shadow: 0 0 12px var(--color-shadow-secondary-glow), inset 0 0 6px rgba(248, 0, 224, 0.1);
     transition: transform var(--transition-duration-medium) ease, box-shadow var(--transition-duration-medium) ease, border-color var(--transition-duration-medium) ease;
-    overflow: hidden; /* Important to clip any image content if object-fit is not used or misbehaves */
+    overflow: hidden;
 }
 .image-preview-wrapper.preview-frame:hover {
     transform: scale(1.04) rotate(-1deg);
     box-shadow: 0 0 18px var(--color-shadow-secondary-glow), 0 0 8px var(--color-shadow-accent-glow), inset 0 0 10px rgba(248, 0, 224, 0.2);
-    border-color: var(--color-accent); /* Change border color on hover for added interactivity */
+    border-color: var(--color-accent);
 }
 
 #image-preview.preview-image-element {
-    /* The image itself will fill the square wrapper, maintaining its aspect ratio */
     width: 100%;
     height: 100%;
     display: block;
     border-radius: 3px;
-    object-fit: contain; /* Scales the image to fit the content box, maintaining aspect ratio. Letterboxing if aspect ratios differ. */
-    object-position: center; /* Centers the image within its content box */
-    background-color: rgba(var(--color-background-deep-space-rgb), 0.8); /* Fills the "letterbox" areas */
-    box-shadow: 0 0 8px rgba(0, 234, 255, 0.1), inset 0 0 4px rgba(0, 234, 255, 0.05); /* Subtle inner glow for the image */
+    object-fit: contain;
+    object-position: center;
+    background-color: rgba(var(--color-background-deep-space-rgb), 0.8);
+    box-shadow: 0 0 8px rgba(0, 234, 255, 0.1), inset 0 0 4px rgba(0, 234, 255, 0.05);
     transition: box-shadow var(--transition-duration-fast) ease;
 }
 #image-preview.preview-image-element:hover {
-    box-shadow: 0 0 15px rgba(0, 234, 255, 0.3), inset 0 0 8px rgba(0, 234, 255, 0.1); /* Enhanced glow on image hover */
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.3), inset 0 0 8px rgba(0, 234, 255, 0.1);
 }
 
-/* === 8. Success Message Modal === */
+/* === 7. Success Message Modal (Mobile-First Defaults) === */
 #successMessage.success-message-modal {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5);
     background: linear-gradient(150deg, var(--color-success), rgba(21, 255, 120, 0.85));
     backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     color: var(--color-text-on-primary-glow);
-    padding: var(--spacing-xl) var(--spacing-xxl);
+    padding: clamp(20px, 4vw, 30px); /* Responsive padding */
     border-radius: var(--border-radius-medium); border: var(--border-width-thick) solid var(--color-accent);
     box-shadow: 0 0 35px var(--color-shadow-accent-glow), 0 0 60px var(--color-shadow-primary-glow),
                 inset 0 0 15px rgba(255,255,255,0.2);
     z-index: var(--z-index-modal-content); text-align: center;
-    width: 90%; max-width: 600px; opacity: 0; visibility: hidden;
+    width: 90%; max-width: calc(100vw - var(--spacing-xl)); /* Constrain width for mobile */
+    opacity: 0; visibility: hidden;
     transition: opacity var(--transition-duration-medium) var(--easing-standard),
                 transform var(--transition-duration-medium) var(--easing-springy-out),
                 visibility 0s var(--transition-duration-medium);
@@ -556,113 +565,133 @@ select:focus { border-color: var(--color-accent); box-shadow: 0 0 8px var(--colo
     50% { transform: scale(1.2); opacity: 1; text-shadow: 0 0 20px var(--color-accent), 0 0 30px var(--color-accent); }
 }
 h2#success-modal-title.success-title.modal-title {
-    font-family: var(--font-family-title); font-size: clamp(2.2em, 6vw, 3em); margin-top: 0; margin-bottom: var(--spacing-md);
+    font-family: var(--font-family-title); font-size: clamp(1.6rem, 6vw, 2.2rem); margin-top: 0; margin-bottom: var(--spacing-md);
     color: var(--color-text-on-primary-glow); letter-spacing: 0.03em; text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
 }
-p#success-modal-details.success-details.modal-details { font-size: clamp(1.15rem, 3vw, 1.4rem); margin-bottom: var(--spacing-xl); line-height: 1.5; }
+p#success-modal-details.success-details.modal-details { font-size: clamp(0.95rem, 3vw, 1.1rem); margin-bottom: var(--spacing-xl); line-height: 1.5; }
 #success-modal-details strong.stat-highlight {
     color: var(--color-accent-darker); font-weight: var(--font-weight-black); padding: 0 var(--spacing-xs);
 }
 #successMessage .cta-button.play-again-button.modal-button {
     font-size: var(--font-size-xlarge); padding: var(--spacing-md) var(--spacing-xl);
-    background: linear-gradient(145deg, var(--color-accent), #ffe550); /* Slightly lighter yellow */
+    background: linear-gradient(145deg, var(--color-accent), #ffe550);
     color: var(--color-text-on-accent);
-    box-shadow: 0 4px 12px rgba(255,238,0, 0.3); /* Manual RGB based on color-accent */
+    box-shadow: 0 4px 12px rgba(255,238,0, 0.3);
 }
 #successMessage .cta-button.play-again-button.modal-button:hover, #successMessage .cta-button.play-again-button.modal-button:focus-visible {
     box-shadow: 0 7px 20px var(--color-shadow-accent-glow), 0 0 25px #ffe550;
 }
 
-/* === 9. Footer Styling === */
+/* === 8. Footer Styling (Mobile-First Defaults) === */
 .game-footer.site-footer {
-    margin-top: var(--spacing-xxl); padding-top: var(--spacing-lg);
+    margin-top: var(--spacing-lg); /* Smaller margin for mobile */
+    padding-top: var(--spacing-md);
     border-top: var(--border-width-thin) solid var(--color-border-divider);
-    font-size: var(--font-size-small); color: var(--color-text-secondary-muted);
+    font-size: 0.9em; /* Smaller font for mobile */
+    color: var(--color-text-secondary-muted);
     font-weight: var(--font-weight-normal); width: 100%;
-    max-width: var(--container-max-width); text-align: center;
+    max-width: var(--container-max-width); /* Will be overridden for wider screens */
+    text-align: center;
 }
 .game-footer p { margin-bottom: var(--spacing-sm); line-height: 1.5; }
 .game-footer .copyright-text time { font-weight: var(--font-weight-medium); }
 .game-footer .project-credit { font-style: italic; }
 .game-footer .tech-stack-info { opacity: 0.8; font-size: 0.9em; }
 
-/* === 10. Utility Classes === */
+/* === 9. Utility Classes === */
 /* Visually Hidden */
 .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; border: 0; margin: -1px; padding: 0; }
 .file-input-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-.hidden { display: none !important; } /* Used by JS for forceful hiding */
+.hidden { display: none !important; }
 
-/* === 11. General Animations (Keyframes) === */
+/* === 10. General Animations (Keyframes) === */
 /* These are keyframes used across various components. Already defined in respective sections. */
 
-/* === 12. Responsive Design (Media Queries) === */
-@media (min-width: 1441px) { /* Large Desktops */
-    :root { --container-max-width: 1200px; --puzzle-base-dimension: 450px; --preview-panel-max-width: 230px; }
-    .game-title { font-size: clamp(3rem, 5vw, 4.2rem); }
-}
-@media (max-width: 1023px) { /* Tablets (Landscape & Portrait) */
-    :root { --puzzle-base-dimension: 360px; --preview-panel-max-width: 180px; }
-    .game-container { gap: var(--spacing-lg); padding: clamp(15px, 3vw, 30px); }
-    .controls { flex-direction: column; align-items: stretch; gap: var(--spacing-md); }
-    .controls .control-group { justify-content: space-between; }
-    .controls .cta-button { width: 100%; justify-content: center; font-size: 1.05em; }
-    .puzzle-interaction-zone { flex-direction: column; align-items: center; gap: var(--spacing-lg); }
-    #image-preview-container.image-preview-panel {
-        margin-top: var(--spacing-lg); /* Ensure enough space when stacked */
-        max-width: var(--preview-panel-max-width); /* Adjusted to ensure it shrinks */
-        padding: var(--spacing-md); /* Keep consistent padding for tablet */
-    }
-    .preview-title { font-size: var(--font-size-medium); } /* Adjust title size */
-    .game-title { font-size: clamp(2rem, 7vw, 3.2rem); }
-    .tagline { font-size: clamp(0.95rem, 3vw, 1.2rem); }
-}
-@media (max-width: 767px) { /* Mobile (Landscape & Portrait) */
+/* === 11. Responsive Design (Min-Width Media Queries for various breakpoints) === */
+
+/* --- Medium Mobile & Small Tablets (min-width: 400px) --- */
+@media (min-width: 400px) {
     :root {
-        --puzzle-base-dimension: min(320px, calc(100vw - var(--spacing-xl) * 2));
-        /* Dynamic max-width for the panel, considering global padding.
-           Roughly: 100vw - (body_padding*2 + game_container_min_padding*2 + image_preview_panel_padding*2)
-           = 100vw - (24px*2 + 15px*2 + 8px*2) = 100vw - (48 + 30 + 16) = 100vw - 94px */
+        --puzzle-base-dimension: min(320px, calc(100vw - var(--spacing-xl) * 2)); /* Maintain on slightly larger mobile */
         --preview-panel-max-width: min(160px, calc(100vw - var(--spacing-lg) * 2 - var(--spacing-md) * 2 - var(--spacing-sm) * 2));
+        --font-size-h1: clamp(2rem, 7vw, 3.2rem);
+        --font-size-h2: clamp(1.6rem, 6vw, 2.5rem);
+        --font-size-h3: clamp(1.3rem, 5vw, 2rem);
     }
-    body { padding: var(--spacing-md); }
-    .game-container { padding: clamp(15px, 3.5vw, 30px); gap: var(--spacing-md); }
-    .game-header { margin-bottom: var(--spacing-md); }
-    .game-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
-    .tagline { font-size: clamp(0.9em, 3.5vw, 1.15em); }
-    .controls { padding: var(--spacing-md); gap: var(--spacing-md); }
-    .control-label, .stat-label { font-size: 0.85em; }
-    .stat-value, #difficulty { font-size: 0.9em; padding: var(--spacing-sm) var(--spacing-md); }
-    .cta-button { font-size: 1em; padding: var(--spacing-sm) var(--spacing-lg); }
-    .upload-button { font-size: 0.9em; padding: var(--spacing-sm) var(--spacing-md); }
-    #image-preview-container.image-preview-panel {
-        margin-top: var(--spacing-lg); /* Keep consistent spacing when stacked */
-        max-width: var(--preview-panel-max-width); /* Ensured it shrinks appropriately */
-        padding: var(--spacing-sm); /* Reduce padding on mobile for the panel */
-    }
-    .preview-title { font-size: clamp(0.95em, 3.5vw, 1.15em); margin-bottom: var(--spacing-sm); }
-    .success-message-modal { padding: clamp(20px, 4vw, 30px); max-width: calc(100vw - var(--spacing-xl)); }
-    .success-title-text { font-size: clamp(1.6rem, 6vw, 2.2rem); }
-    #success-details { font-size: clamp(0.95rem, 3vw, 1.1rem); }
-    .game-footer { margin-top: var(--spacing-lg); padding-top: var(--spacing-md); }
-    .game-footer p { font-size: 0.9em; }
-}
-@media (max-width: 399px) { /* Very Small Mobile Screens */
-    :root {
-        /* Further reduce and adjust padding for calculations specific to very small screens */
-        --preview-panel-max-width: min(120px, calc(100vw - (var(--spacing-md) * 2 + var(--spacing-xs) * 2)));
-    }
-    .game-title { font-size: clamp(1.6rem, 9vw, 2.2rem); letter-spacing: 0.02em; }
-    .tagline { font-size: clamp(0.8rem, 3.8vw, 1rem); }
-    .controls .control-group { flex-direction: column; align-items: flex-start; gap: var(--spacing-xs); }
-    #difficulty { width: 100%; }
-    .stat-label, .stat-value { white-space: nowrap; }
-    #image-preview-container.image-preview-panel {
-        padding: var(--spacing-xs); /* Minimal padding for the panel */
-    }
-    .preview-title { font-size: 0.85em; margin-bottom: var(--spacing-xs); }
+    body { padding: var(--spacing-lg); } /* Increase body padding */
+    .game-container { gap: var(--spacing-lg); padding: clamp(15px, 3vw, 30px); }
+    .game-header { margin-bottom: var(--spacing-lg); }
+    .tagline { font-size: clamp(0.95rem, 3vw, 1.2rem); }
+    .controls { gap: var(--spacing-md); padding: var(--spacing-md); }
+    .cta-button { font-size: 1.05em; padding: var(--spacing-md) var(--spacing-lg); min-width: 180px; }
+    .upload-button { font-size: var(--font-size-medium); padding: var(--spacing-md) var(--spacing-lg); }
+    #difficulty.difficulty-dropdown { font-size: var(--font-size-medium); padding: var(--spacing-sm) var(--spacing-md); min-width: 200px; }
+    .stat-label { font-size: 0.9em; }
+    .stat-value { font-size: 1.1em; }
+    #image-preview-container.image-preview-panel { padding: var(--spacing-md); }
+    .preview-title { font-size: var(--font-size-medium); margin-bottom: var(--spacing-md); }
+    .puzzle-placeholder.initial-placeholder-text, .puzzle-placeholder.dynamic-placeholder-text { font-size: var(--font-size-large); }
+    .game-footer.site-footer { margin-top: var(--spacing-xl); padding-top: var(--spacing-lg); font-size: var(--font-size-small); }
 }
 
-/* === 13. Print Styles === */
+/* --- Tablets and Small Laptops (min-width: 768px) --- */
+@media (min-width: 768px) {
+    :root {
+        --puzzle-base-dimension: 360px; /* Specific size for tablet */
+        --preview-panel-max-width: 180px; /* Specific size for tablet */
+        --font-size-h1: clamp(2.2rem, 6vw, 3.8rem);
+        --font-size-h2: clamp(1.8rem, 5vw, 3rem);
+        --font-size-h3: clamp(1.4rem, 4vw, 2.2rem);
+        --letter-spacing-title: 0.05em; /* Restore original letter spacing */
+    }
+    body { padding: var(--spacing-lg); }
+    .game-container { gap: var(--spacing-xl); padding: var(--spacing-xl); }
+    .game-header { margin-bottom: var(--spacing-lg); }
+    .controls {
+        flex-direction: row; /* Layout controls horizontally */
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-lg);
+    }
+    .control-group { justify-content: flex-start; } /* Reset justify for individual groups */
+    .controls .cta-button { width: auto; min-width: 200px; } /* Allow button to shrink */
+    .puzzle-interaction-zone {
+        flex-direction: row; /* Layout puzzle and preview horizontally */
+        align-items: flex-start;
+        gap: var(--spacing-xl);
+    }
+    #image-preview-container.image-preview-panel {
+        margin-top: 0; /* No margin when side-by-side */
+    }
+    #difficulty.difficulty-dropdown { min-width: 220px; }
+    .stat-label { font-size: inherit; } /* Reset to default */
+    .stat-value { font-size: inherit; min-width: 50px; } /* Reset to default */
+    .game-footer.site-footer { margin-top: var(--spacing-xxl); padding-top: var(--spacing-lg); font-size: var(--font-size-small); }
+}
+
+/* --- Larger Desktops (min-width: 1024px) --- */
+@media (min-width: 1024px) {
+    /* No specific changes here from 768px, as the 768px styles already match the original desktop behavior,
+       but this breakpoint is kept for logical hierarchy. */
+    :root {
+        --puzzle-base-dimension: 400px;
+        --preview-panel-max-width: 210px;
+    }
+}
+
+/* --- Extra Large Desktops (min-width: 1441px) --- */
+@media (min-width: 1441px) {
+    :root {
+        --container-max-width: 1200px;
+        --puzzle-base-dimension: 450px;
+        --preview-panel-max-width: 230px;
+        --font-size-h1: clamp(3rem, 5vw, 4.2rem);
+    }
+}
+
+/* === 12. Print Styles === */
 @media print {
     body { background-color: #ffffff; color: #000000; font-size: 12pt; font-family: 'Times New Roman', Times, serif; padding: 1in; }
     .game-container { box-shadow: none; border: 1px solid #cccccc; backdrop-filter: none; }
@@ -672,7 +701,7 @@ p#success-modal-details.success-details.modal-details { font-size: clamp(1.15rem
     * { color: #000000 !important; text-shadow: none !important; background-image: none !important; }
 }
 
-/* === 14. Accessibility Focused Styles === */
+/* === 13. Accessibility Focused Styles === */
 @media (prefers-contrast: high) {
     :root { /* Override colors for high contrast */
         --color-primary-glow: #00ffff; --color-accent: #ffff00; --color-background-dark-nebula: #000000; --color-text-primary-light: #ffffff;
@@ -688,5 +717,3 @@ p#success-modal-details.success-details.modal-details { font-size: clamp(1.15rem
     }
     .success-message-modal, .puzzle-tile.dragging { transition-duration: 0.01ms !important; }
 }
-
-

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications | Project Cerebra</title>
+    <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="./assets/js/main.js" defer></script>
+</head>
+<body data-page="publications" class="no-transition">
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+    <div id="page-transition-overlay"></div>
+
+    <header id="header-placeholder"></header>
+
+    <main id="main-content">
+        <section class="page-header">
+            <div class="container">
+                <h1 class="anim-reveal">Research Publications</h1>
+                <p class="anim-reveal" data-anim-delay="200">A selection of our peer-reviewed papers and articles.</p>
+            </div>
+        </section>
+        
+        <section class="publications-section">
+            <div class="container">
+                <div class="publication-controls anim-reveal">
+                    <input type="text" id="search-publications" placeholder="Search by title or author...">
+                    <select id="sort-publications">
+                        <option value="date_desc">Sort by Newest</option>
+                        <option value="date_asc">Sort by Oldest</option>
+                        <option value="title_asc">Sort by Title (A-Z)</option>
+                    </select>
+                </div>
+                <div class="publications-list" id="publications-list">
+                    <!-- JS will populate this list -->
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="footer-placeholder"></footer>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Project Cerebra</title>
+    <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="./assets/js/main.js" defer></script>
+</head>
+<body data-page="contact" class="no-transition">
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+    <div id="page-transition-overlay"></div>
+
+    <header id="header-placeholder"></header>
+
+    <main id="main-content">
+         <section class="page-header">
+            <div class="container">
+                <h1 class="anim-reveal">Get In Touch</h1>
+                <p class="anim-reveal" data-anim-delay="200">We'd love to hear from you. For inquiries, partnerships, or career opportunities.</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-form-wrapper anim-reveal">
+                        <form id="contact-form" novalidate>
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder=" " required>
+                                <label for="name">Full Name</label>
+                                <div class="error-message"></div>
+                            </div>
+                             <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder=" " required>
+                                <label for="email">Email Address</label>
+                                 <div class="error-message"></div>
+                            </div>
+                             <div class="form-group">
+                                <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
+                                <label for="message">Your Message</label>
+                                 <div class="error-message"></div>
+                            </div>
+                            <button type="submit" class="cta-button">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="contact-info anim-reveal" data-anim-delay="200">
+                        <h3>Contact Information</h3>
+                        <p><strong>Email:</strong> contact@cerebra.dev</p>
+                        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+                        <p><strong>Address:</strong> 123 AI Avenue, Innovation City, 10101</p>
+                        <div id="map"></div> <!-- Placeholder for a map -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="footer-placeholder"></footer>
+
+</body>
+</html>
